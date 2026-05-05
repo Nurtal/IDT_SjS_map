@@ -1,0 +1,509 @@
+# Created with CaSQ + deduplication
+
+targets, factors
+IFNAR_complex, IFNAR_complex
+CX3CL1/CX3CR1_complex, CX3CL1
+CCL19/CCRL2_complex, CCL19_Extracellular_ligands
+IL2/IL2R_complex, IL2/IL2R_complex
+CD40LG/CD40_complex, CD40LG&CD40
+RANKL/RANK_complex, TNFSF11
+IL6/IL6R_complex, IL6/IL6R_complex
+MTORC1_complex, AKT
+IFNG/IFNGR_complex, IFNG/IFNGR_complex
+LTA/TNFR2_complex, LTA&TNFRSF1B
+CXCL13/CXCR5_complex, CXCL13
+CD27/CD70_complex, CD27
+TNFSF15/TNFRSF25_complex, TNFSF15
+BAFF-APRIL/TACI_complex, (TNFSF13&TNFRSF13B|TNFSF13B_Extracellular_ligands&TNFRSF13B)
+BAFF-APRIL/BCMA_complex, (TNFSF13&TNFRSF17|TNFSF13B_Extracellular_ligands&TNFRSF17)
+TRAF2/TRAF3_complex, (CD40LG/CD40_complex|BAFF/BAFFR_complex|RANKL/RANK_complex|TNF/TNFR2_complex|LTB-TNFSF14/LTBR_complex|BAFF-APRIL/BCMA_complex|BAFF-APRIL/TACI_complex|CD27/CD70_complex)&!BIRC2_Cell
+LTB-TNFSF14/LTBR_complex, (LTB&LTBR|LTBR&TNFSF14)
+VCAM/ITGA4/ITGB1_complex, VCAM/ITGA4/ITGB1_complex
+TCR_complex, TCR_complex
+MHC1/B2M_complex, MHC1/B2M_complex
+MHC1/B2M/TCR_complex, MHC1/B2M_complex&TCR_complex
+sialic_acid/CD22_complex, sialic_acid_simple_molecule
+Ag/IgG_complex, Ag/IgG_complex
+Ag/IgG/FCGR3A_complex, Ag/IgG_complex
+Ag/IgG/FCGR1A_complex, Ag/IgG_complex&FCGR1A
+Ag/IgG/FCGR2A_complex, Ag/IgG_complex
+Allergen/IgE/FCERI_complex, Allergen/IgE/FCERI_complex
+CCL2/CCR2_complex, CCL2_Extracellular_ligands
+IL21/IL21R_complex, IL21/IL21R_complex
+CCL5/CCR5_complex, CCL5_Extracellular_ligands
+ICOSLG/ICOS_complex, ICOSLG
+CCL11/CCR3_complex, CCL11
+TLR10L/TLR10_complex, TLR10_ligand_simple_molecule
+RIPK1/TRAF2/TRAF5_complex, TRADD
+LCK/ZAP70_complex, MHC1/B2M/TCR_complex&!PTPRC&!PTPN6
+CCL25/CCR9_complex, CCL25
+SA/SIGLEC1_complex, sialic_acid_simple_molecule
+MHC1/B2M/LILR_complex, MHC1/B2M_complex
+FASL/FASR_complex, FASLG&FAS
+PDL1/PD1_complex, CD279
+TNF/TNFR1_complex, TNF_Extracellular_ligands
+TGF/TGFBR1_complex, TGFB1
+SMAD2/SMAD3_complex, TGF/TGFBR1_complex
+SMAD2/SMAD3/SMAD4_complex, SMAD2/SMAD3_complex&SMAD4
+IL15R_complex, IL15R_complex
+IL1R_complex, IL1&IL1R1
+CARD11/BCL10/MALT1_complex, PRKC
+AP1_complex, JUN_phosphorylated&FOS_phosphorylated
+IFNA/IFNAR_complex, IFNA_Extracellular_ligands&IFNAR_complex
+BAFF/BAFFR_complex, TNFSF13B_Extracellular_ligands
+TRAIL/TRAILR_complex, TNFSF10&TNFRSF10A,B
+VEGFA/VEGFR2_complex, VEGFA
+CD80-86/CTLA4_complex, (CD80&CTLA4|CD86&CTLA4)
+FLT3LG/FLT3_complex, FLT3LG
+CXCL1/CXCR2_complex, CXCL1_Extracellular_ligands&CXCR2
+CHUK/IKBKB/IKBKG_complex, (MAP3K7_phosphorylated|EDARADD|LTA/TNFR2_complex|AKT|RIPK1/TRAF2/TRAF5_complex|CARD11/BCL10/MALT1_complex|GBP1|GBP5|VEGFA/VEGFR2_complex|BAFF/BAFFR_complex|TRAF6|RSAD2)&!NLRC5&!NLRX1&!USP18&!IKBIP
+IRAK4/IRAK1, 2/IRAKM_complex, (MYD88|TLR1/TLR2/CD14_complex|TLR2/TLR6/CD36_complex)
+TAB1/TAB2/TAB3_complex, (TRAF6|RIPK1/TRAF2/TRAF5_complex)
+NFKB1/RELA_complex, (CHUK/IKBKB/IKBKG_complex|NFKB1_rna|PRMT5)&!TNFAIP3&!NFKBIA
+RELA/NFKB1_complex, NFKB1/RELA_complex
+CHUK/CHUK_complex, MAP3K14
+STAT1/STAT2_complex, STAT1_phosphorylated&STAT2_phosphorylated
+NFKB2/RELB_complex, (CHUK/CHUK_complex|PRMT5|NFKB2_rna)
+EDA/EDAR_complex, EDA
+TLR7/ssRNA_complex, ssRNA_simple_molecule&LAMP3
+STAT1/STAT2/IRF9_complex_Cell, IRF9&STAT1/STAT2_complex
+TLR8/ssRNA_complex, ssRNA_simple_molecule
+CpG_DNA/TLR9_complex, CpG_DNA_simple_molecule
+TLR3/dsRNA/PolyIC_complex, dsRNA/polyIC_simple_molecule
+IKBKE/TBK1_complex, TRAF3
+IFNB/IFNAR_complex, IFNB1_Extracellular_ligands&IFNAR_complex
+IL7/IL7R_complex, IL7/IL7R_complex
+STAT1/STAT2/IRF9_complex_nucleus, STAT1/STAT2/IRF9_complex_Cell&KPNB1
+IL12/IL12R_complex, IL12/IL12R_complex
+BCR_complex, BCR_complex
+Calmodulin/Ca2+_complex, CALM1&ca2_ion&!CAMKMT
+TNF/TNFR2_complex, TNF_Extracellular_ligands&TNFRSF1B
+PIP3/IP3R_complex, PI(3,4,5)P3_simple_molecule
+LPS/CD14/TL4/LY96_complex, LPS_simple_molecule&TLR4/LY96_complex
+TLR4/LY96_complex, TLR4_rna
+TLR5/flagellin_complex, flagellin_simple_molecule
+TLR2/TLR6/CD36_complex, PG_simple_molecule
+TLR1/TLR2/CD14_complex, PG_simple_molecule
+XCL1-XCL2/XCR1_complex, (XCL1&XCR1|XCL2&XCR1)
+CXCL6/CXCR1_complex, CXCL6
+CXCL5/CXCR2_complex, CXCL5&CXCR2
+CXCL6/CXCR2_complex, (CXCL6&CXCR2|CXCL1_Extracellular_ligands&CXCR2)
+LXA4-CCL23/FPR2_complex, (LXA4&FPR2|FPR2&CCL23)
+CXCL9-10-11/CXCR3_complex, (CXCL9_Extracellular_ligands&CXCR3|CXCL10_Extracellular_ligands&CXCR3|CXCL11_Extracellular_ligands&CXCR3)
+CXCL16/CXCR6_complex, CXCL16
+CCL20/CCR6_complex, CCL20
+CCL16/CCR1_complex, CCL16
+C5a/C5AR1_complex, C5a
+C3a/CA3R1_complex, C3a
+CCL19-21/CCR7_complex, (CCL21_Extracellular_ligands&CCR7|CCL19_Extracellular_ligands&CCR7)
+CXCL12/CXCR4_complex, CXCL12_Extracellular_ligands
+IFNA_Extracellular_ligands, IFNA_Extracellular_ligands
+TNFAIP3_rna, RELA/NFKB1_complex
+TNFAIP3, TNFAIP3_rna
+EDA, EDA
+FCGR1A, FCGR1A_rna
+Inflammation_phenotype, (OAS1|OAS2|OAS3|OASL|ISG20|IL15|IL23A|TRIM21|TNF_Secreted_molecules|IFITM1|IFITM2|IFITM3|IFI6|IFIT1|IFIT2|IFIT3|IFIT5|IFI35|IFI30|TRIM5|TRIM6|TRIM14|TRIM22|TRIM34|IFNA_Secreted_molecules|IFNB1_Secreted_molecules|IFNG|FCGR1BP|CXCL12_Secreted_molecules|IL1B|PTGS2|IL4|ISG15_rna|IL2|CSF2|IL6|IL17A|CXCL2|IL10|IL12|CXCL3|CXCL8|CCL3|CCL4)
+Phagocytosis_phenotype, (Ag/IgG/FCGR1A_complex|Ag/IgG/FCGR2A_complex|Ag/IgG/FCGR3A_complex)
+NLRX1, NLRX1
+USP18, USP18
+NLRC5, NLRC5
+IKBIP, IKBIP_rna
+IKBIP_rna, TP53_phosphorylated
+CDKN1A_rna, TP53_phosphorylated
+CCL2_Extracellular_ligands, CCL2_Extracellular_ligands
+CCL5_Extracellular_ligands, CCL5_Extracellular_ligands
+ICOSLG, ICOSLG
+IL21, STAT3 homodimer_phosphorylated_nucleus
+IL6, (LPS/CD14/TL4/LY96_complex|ICOSLG/ICOS_complex|RELA/NFKB1_complex)
+PTPN6, (PDL1/PD1_complex|CD72|CD80-86/CTLA4_complex)
+CCL11, CCL11
+TNF_Extracellular_ligands, TNF_Extracellular_ligands
+PG_simple_molecule, PG_simple_molecule
+ICAM1_rna, (LPS/CD14/TL4/LY96_complex|NFKB2/RELB_complex|STAT1 homodimer_phosphorylated|RELA/NFKB1_complex)
+LPS_simple_molecule, LPS_simple_molecule
+CD40_rna, (TLR1/TLR2/CD14_complex|TLR2/TLR6/CD36_complex|LPS/CD14/TL4/LY96_complex|IRF3)
+Chemotaxis/Infiltration_phenotype, (IL17A|CCL5_Secreted_molecules|CCL2_Secreted_molecules|NFATC1,2,3|IL21|CXCL9_Secreted_molecules|CXCL10_Secreted_molecules|CXCL11_Secreted_molecules|C5a/C5AR1_complex|C3a/CA3R1_complex|MUC1|CCL13|CCL19_Secreted_molecules|CCL21_Secreted_molecules|CXCL1_Secreted_molecules|CXCL3|CXCL8|IL5|VCAM1|CCL3|CCL4|CXCL12_Secreted_molecules)
+IL17A, (STAT3 homodimer_phosphorylated_nucleus|RELA/NFKB1_complex)
+IL23A, (TLR1/TLR2/CD14_complex|RELA/NFKB1_complex|IRF3)
+IL12, (LPS/CD14/TL4/LY96_complex|RELA/NFKB1_complex)
+CCL2_Secreted_molecules, (LPS/CD14/TL4/LY96_complex|TLR7/ssRNA_complex|CpG_DNA/TLR9_complex)
+CCL5_Secreted_molecules, (LPS/CD14/TL4/LY96_complex|IRF5_nucleus)
+TNFSF13B_Secreted_molecules, (TLR3/dsRNA/PolyIC_complex|LPS/CD14/TL4/LY96_complex|CpG_DNA/TLR9_complex|NFKB2/RELB_complex)
+PRMT5, PRMT5
+TP53_phosphorylated, EIF2AK2 homodimer&!MDM2_Cell_active
+HNRNPA2B1_rna, STAT4 homodimer_phosphorylated
+RPLP0_rna, STAT4 homodimer_phosphorylated
+MYD88, (TIRAP|TLR7/ssRNA_complex|TLR8/ssRNA_complex|CpG_DNA/TLR9_complex|TLR5/flagellin_complex|TLR10L/TLR10_complex|IL1R_complex)
+ARF1_rna, STAT4 homodimer_phosphorylated
+PSME2_rna, STAT4 homodimer_phosphorylated
+LMNB1_rna, STAT4 homodimer_phosphorylated
+HNRNPA2B1, HNRNPA2B1_rna
+RPLP0, RPLP0_rna
+ARF1, ARF1_rna
+PSME2, PSME2_rna
+LMNB1, LMNB1_rna
+NFATC1, 2,3, RCAN&!MAPK8,9,10_phosphorylated
+PLCG, (BTK_phosphorylated|LAT_phosphorylated)
+PRKC, DAG_simple_molecule
+JUN_phosphorylated, (MAPK8,9,10_phosphorylated|MAPK11,12,13,14_phosphorylated|MAPK3_phosphorylated)
+FOS_phosphorylated, (MAPK8,9,10_phosphorylated|MAPK3_phosphorylated|MAPK11,12,13,14_phosphorylated)
+CAMKMT, CAMKMT
+TLR10_ligand_simple_molecule, TLR10_ligand_simple_molecule
+TNFRSF17, TNFRSF17
+SOCS3_rna, STAT1/STAT2/IRF9_complex_nucleus
+SOCS3, SOCS3_rna
+SOCS2, SOCS1_rna
+IFNG, (STAT4 homodimer_phosphorylated|CX3CL1/CX3CR1_complex|AP1_complex)
+TNF_Secreted_molecules, (ICOSLG/ICOS_complex|AP1_complex|RELA/NFKB1_complex)&!MIR181D_antisense_rna
+SRC_phosphorylated, GNAI
+MAP2K1_phosphorylated, RAF
+MAPK3_phosphorylated, (MAP2K1_phosphorylated|MHC1/B2M/LILR_complex)&!DUSP5&!DUSP6
+Cell_Proliferation/Survival_phenotype, (NFATC1,2,3|MTORC1_complex|CSF2|RELA/NFKB1_complex|IL2)
+LAT_phosphorylated, (LCK/ZAP70_complex|Allergen/IgE/FCERI_complex)
+CCL25, CCL25
+SHC1, (SRC_phosphorylated|IL21/IL21R_complex)
+GRB2, (SHC1|BLNK_phosphorylated|LAT_phosphorylated|FLT3LG/FLT3_complex)
+SOS2, GRB2
+RRAS, SOS2
+RAF, RRAS
+TRAF6, (IRAK4/IRAK1,2/IRAKM_complex|TLR3/dsRNA/PolyIC_complex|TICAM1|CD40LG/CD40_complex)&!TNFAIP3
+MAPK8, 9,10_phosphorylated, (MHC1/B2M/LILR_complex|MAP2K7_phosphorylated|MAP2K4_phosphorylated|CpG_DNA/TLR9_complex)
+BLNK_phosphorylated, SYK_phosphorylated
+PTK2, VCAM/ITGA4/ITGB1_complex
+FAS, FAS_rna
+FASLG, FASLG
+CD279, CD279
+DAXX, (FASL/FASR_complex|TGF/TGFBR1_complex)
+MAP3K5_phosphorylated, DAXX
+TRADD, (TNF/TNFR1_complex|TNFSF15/TNFRSF25_complex)
+TGFB1, TGFB1
+SMAD4, SMAD4
+SNAI1_rna, SMAD2/SMAD3/SMAD4_complex
+VIM, SNAI1
+Fibrosis_phenotype, VIM
+SNAI1, SNAI1_rna
+CASP7, CASP8&!XIAP_Cell_active&!BIRC2_Cell
+CASP8, FADD_phosphorylated&!CFLAR
+IL1, IL1
+IL1R1, IL1R1_rna
+NFKB1_rna, RELA/NFKB1_complex
+NFKB2_rna, RELA/NFKB1_complex
+LAMP3_rna, STAT1/STAT2/IRF9_complex_nucleus
+LAMP3, LAMP3_rna
+MUC1, !MIR145_antisense_rna
+CD80, 86, CD80,86_rna
+CXCL9_Secreted_molecules, STAT1/STAT2/IRF9_complex_nucleus
+CXCL10_Secreted_molecules, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+CXCL11_Secreted_molecules, STAT1/STAT2/IRF9_complex_nucleus
+CXCL11_Extracellular_ligands, CXCL11_Extracellular_ligands
+CXCL10_Extracellular_ligands, CXCL10_Extracellular_ligands
+CXCL9_Extracellular_ligands, CXCL9_Extracellular_ligands
+IRF5_nucleus, IRF5_Cell&TRAF6
+IRF1_nucleus, IRF1_Cell
+CD72, CD72
+PTPRC, PTPRC
+CTLA4, CTLA4
+PPP2R1A, CD80-86/CTLA4_complex
+IL2, AP1_complex
+IL4, AP1_complex
+IL5, AP1_complex
+CSF2, AP1_complex
+RAC1, Allergen/IgE/FCERI_complex
+MAP2K7_phosphorylated, (MAP3K1_phosphorylated|MAP3K7_phosphorylated)
+MAP2K4_phosphorylated, (Allergen/IgE/FCERI_complex|MAP3K1_phosphorylated|MAP3K7_phosphorylated)
+MAP3K1_phosphorylated, RAC1
+MAPK11, 12,13,14_phosphorylated, (MAP2K6_phosphorylated|MAP2K3_phosphorylated|CpG_DNA/TLR9_complex)
+GNAI, (CX3CL1/CX3CR1_complex|CXCL6/CXCR1_complex|CXCL6/CXCR2_complex|CXCL5/CXCR2_complex|CXCL9-10-11/CXCR3_complex|CXCL12/CXCR4_complex|CXCL13/CXCR5_complex|CXCL16/CXCR6_complex|CCL16/CCR1_complex|CCL2/CCR2_complex|CCL11/CCR3_complex|CCL5/CCR5_complex|CCL25/CCR9_complex|C3a/CA3R1_complex|C5a/C5AR1_complex|LXA4-CCL23/FPR2_complex|CCL19/CCRL2_complex|CCL19-21/CCR7_complex|CCL20/CCR6_complex)
+BIRC2_rna, RELA/NFKB1_complex
+CFLAR_rna, RELA/NFKB1_complex
+XIAP_rna, RELA/NFKB1_complex
+BCL2L1_rna, (RELA/NFKB1_complex|STAT3 homodimer_phosphorylated_nucleus)
+BCL2_rna, (RELA/NFKB1_complex|MTORC1_complex|STAT3 homodimer_phosphorylated_nucleus)&!BAD
+BCL2A1_rna, RELA/NFKB1_complex
+GADD45B_rna, (RELA/NFKB1_complex|TP53_phosphorylated)
+NFKBIA_rna, RELA/NFKB1_complex
+TNFSF10, TNFSF10
+TNFRSF10A, B, TNFRSF10A_rna
+CXCL1_Secreted_molecules, RELA/NFKB1_complex
+CXCL2, RELA/NFKB1_complex
+IRF9, IRF9_rna
+CXCL3, RELA/NFKB1_complex
+VCAM1, (RELA/NFKB1_complex|STAT1 homodimer_phosphorylated)
+PTGS2, RELA/NFKB1_complex
+IL1B, RELA/NFKB1_complex
+CXCL12_Secreted_molecules, NFKB2/RELB_complex
+CCL13, NFKB2/RELB_complex
+CCL19_Secreted_molecules, NFKB2/RELB_complex
+CCL21_Secreted_molecules, NFKB2/RELB_complex
+BIRC2_Cell_1, BIRC2_Cell&RIPK1/TRAF2/TRAF5_complex
+CFLAR, CFLAR_rna
+MAX_phosphorylated, MAPK11,12,13,14_phosphorylated
+DUSP5, DUSP5
+DUSP6, DUSP6
+XIAP_Cell, XIAP_rna
+MDM2_Cell, MDM2_rna
+GORAB, GORAB
+MDM2_Cell_active, MDM2_Cell&AKT&!GORAB
+TNFRSF10A_rna, TP53_phosphorylated
+SESN1_rna, TP53_phosphorylated
+RRM2_rna, TP53_phosphorylated
+CD82_rna, TP53_phosphorylated
+SHISA5_rna, TP53_phosphorylated
+BST2, BST2_rna
+XAF1, XAF1_rna
+GBP2, GBP2_rna
+MX2, MX2_rna
+MX1, MX1_rna
+GBP1, GBP1_rna
+GBP3, GBP3_rna
+GBP4, GBP4_rna
+GBP6, GBP6_rna
+GBP5, GBP5_rna
+CISH, CISH_rna
+RIPK1_rna, STAT1/STAT2/IRF9_complex_nucleus
+RIPK1_Cell_active, (TRAIL/TRAILR_complex|EIF2AK2 homodimer|TICAM1)&RIPK1_Cell
+RIPK3, !TNFAIP3&!RIPK1_Cell_active
+FAS_rna, TP53_phosphorylated
+MARCHF8, BST2
+XIAP_Cell_active, XIAP_Cell&!XAF1
+ETS1_rna, SP100
+ETS1, ETS1_rna
+SP100, SP100_rna
+MMP9, ETS1
+Matrix_degradation_phenotype, MMP9
+Angiogenesis_phenotype, (CXCL10_Secreted_molecules|CXCL1_Secreted_molecules|CCL2_Secreted_molecules|CCL5_Secreted_molecules|CXCL2)&!CD82_rna
+VEGFA, VEGFA
+MIR181D_antisense_rna, MIR181D_antisense_rna
+GLUT1_rna, GLUT1_rna
+GLUT1, GLUT1_rna
+FLT3LG, FLT3LG
+CXCL1_Extracellular_ligands, CXCL1_Extracellular_ligands
+HLA-C, HLA-C_rna
+HLA-B, HLA-B_rna
+HLA-A, HLA-A_rna
+HLA-G, HLA-G_rna
+HLA-H, HLA-H_rna
+HLA-DRA, HLA-DRA_rna
+HLA-DRB4, HLA-DRB4_rna
+HLA-DQA1, HLA-DQA1_rna
+HLA-DQA2, HLA-DQA2_rna
+IFI27_rna, STAT1/STAT2/IRF9_complex_nucleus
+IFI27, IFI27_rna
+LXA4, LXA4
+CCL23, CCL23
+CCL21_Extracellular_ligands, CCL21_Extracellular_ligands
+XCL1, XCL1
+XCL2, XCL2
+CD86, CD86
+NFKBIA, NFKBIA_rna
+SHISA5, SHISA5_rna
+CCL3, IRF5_nucleus
+CCL4, (IRF5_nucleus|RELA/NFKB1_complex)
+MDM2_rna, TP53_phosphorylated
+STAT3_phosphorylated, JAK2_phosphorylated
+STAT3 homodimer_phosphorylated_Cell, STAT3_phosphorylated
+STAT3 homodimer_phosphorylated_nucleus, STAT3 homodimer_phosphorylated_Cell
+Lymphoid_organ_development_phenotype, (NFKB2/RELB_complex|CX3CL1/CX3CR1_complex)
+EDARADD, EDA/EDAR_complex
+STAT1_phosphorylated, (JAK1_phosphorylated|TYK2_phosphorylated)&STAT1
+IL15, (RELA/NFKB1_complex|CpG_DNA/TLR9_complex|TLR7/ssRNA_complex)
+ssRNA_simple_molecule, ssRNA_simple_molecule
+STAT2_phosphorylated, TYK2_phosphorylated
+dsRNA/polyIC_simple_molecule, dsRNA/polyIC_simple_molecule
+CpG_DNA_simple_molecule, CpG_DNA_simple_molecule
+IRF7_Cell, IRF7_rna
+IRF3, IKBKE/TBK1_complex
+IRF7_nucleus, IRF7_Cell&IKBKE/TBK1_complex
+TRAF3, (TICAM1|MAVS)
+TICAM1, (TLR3/dsRNA/PolyIC_complex|TICAM2)
+MAP3K7_phosphorylated, TAB1/TAB2/TAB3_complex
+IFNB1_Extracellular_ligands, IFNB1_Extracellular_ligands
+HDAC3, HDAC3
+STAT1, HDAC3
+IFNA_Secreted_molecules, (TLR7/ssRNA_complex|CpG_DNA/TLR9_complex|IRF3|IRF5_nucleus|IRF7_nucleus)
+IFNB1_Secreted_molecules, (IRF7_nucleus|IRF1_nucleus|IRF5_nucleus)
+PI3K, (IFNA/IFNAR_complex|TLR3/dsRNA/PolyIC_complex|CX3CL1/CX3CR1_complex|PTK2|IFNB/IFNAR_complex)&!PTPN6
+JAK3_phosphorylated, (IL7/IL7R_complex|IL2/IL2R_complex|IL21/IL21R_complex|IL15R_complex)&!PTK2B&!SOCS2&!SOCS1&!SOCS3
+STAT5A/B_phosphorylated, JAK3_phosphorylated
+T_Cell_Activation/Differentiation_phenotype, (TOX|CD40_rna|CD80,86|ICAM1_rna|IL2|IL4|IL5|IL1B|IL12|IL15|IL21)
+TOX, STAT1 homodimer_phosphorylated
+STAT4_phosphorylated, JAK2_phosphorylated
+SYK_phosphorylated, (LYN_phosphorylated|Ag/IgG/FCGR1A_complex|Ag/IgG/FCGR2A_complex|Ag/IgG/FCGR3A_complex)&!PTPN6&!MHC1/B2M/LILR_complex
+LYN_phosphorylated, (BCR_complex|Allergen/IgE/FCERI_complex)&!sialic_acid/CD22_complex
+PI(4, 5)P2_simple_molecule, PI(4,5)P2_simple_molecule
+PI(3, 4,5)P3_simple_molecule, (PLCG|PLCB|PI3K)&PI(4,5)P2_simple_molecule&!PTEN
+BTK_phosphorylated, BLNK_phosphorylated&!PTPN6
+DAG_simple_molecule, (PLCG|PLCB|PI3K)&PI(4,5)P2_simple_molecule&!PTEN
+ca2_ion, PIP3/IP3R_complex
+CALM1, CALM1
+RCAN, Calmodulin/Ca2+_complex
+B_Cell_Activation/Survival_phenotype, (TNFSF13B_Secreted_molecules|NFATC1,2,3|GLUT1|IL1B|IL2|IL4|IL5|IL10|IL21)
+SOCS1, SOCS2_rna
+KPNB1, KPNB1
+STAT1 homodimer_phosphorylated, STAT1_phosphorylated
+IP6K2_rna, STAT1/STAT2/IRF9_complex_nucleus
+ISG20_rna, STAT1/STAT2/IRF9_complex_nucleus
+ADAR_rna, STAT1/STAT2/IRF9_complex_nucleus
+ISG15_rna, STAT1/STAT2/IRF9_complex_nucleus
+OAS1_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+OAS2_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+OAS3_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+OASL_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+RSAD2_rna, (STAT1/STAT2/IRF9_complex_nucleus|CD40LG/CD40_complex|TLR3/dsRNA/PolyIC_complex|TLR7/ssRNA_complex|PRMT5)
+IFI35_rna, STAT1/STAT2/IRF9_complex_nucleus
+IFIT2_rna, STAT1/STAT2/IRF9_complex_nucleus
+IFIT3_rna, STAT1/STAT2/IRF9_complex_nucleus
+IFIT5_rna, STAT1/STAT2/IRF9_complex_nucleus
+MX1_rna, STAT1/STAT2/IRF9_complex_nucleus
+MX2_rna, STAT1/STAT2/IRF9_complex_nucleus
+IFITM1_rna, STAT1/STAT2/IRF9_complex_nucleus
+IFITM2_rna, STAT1/STAT2/IRF9_complex_nucleus
+IFITM3_rna, STAT1/STAT2/IRF9_complex_nucleus
+GBP2_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+XAF1_rna, STAT1/STAT2/IRF9_complex_nucleus
+IFI6_rna, STAT1/STAT2/IRF9_complex_nucleus
+BST2_rna, STAT1/STAT2/IRF9_complex_nucleus
+IFIT1_rna, STAT1/STAT2/IRF9_complex_nucleus
+EIF2AK2_rna, STAT1/STAT2/IRF9_complex_nucleus
+HLA-A_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+HLA-B_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+HLA-C_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+HLA-G_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+HLA-H_rna, (STAT1/STAT2/IRF9_complex_nucleus|STAT1 homodimer_phosphorylated)
+IP6K2, IP6K2_rna
+ISG20, ISG20_rna
+ADAR, ADAR_rna
+ISG15_Cell, ISG15_rna
+OAS1, OAS1_rna
+OAS2, OAS2_rna
+OAS3, OAS3_rna
+OASL, OASL_rna
+RSAD2, RSAD2_rna
+IFI35, IFI35_rna
+IFIT2, IFIT2_rna
+IFIT3, IFIT3_rna
+IFIT5, IFIT5_rna
+IFITM1, IFITM1_rna
+IFITM2, IFITM2_rna
+IFITM3, IFITM3_rna
+IFI6, IFI6_rna
+IFIT1, IFIT1_rna
+EIF2AK2, EIF2AK2_rna
+STAT5 homodimer_phosphorylated, STAT5A/B_phosphorylated
+CISH_rna, STAT5 homodimer_phosphorylated
+SOCS1_rna, STAT5 homodimer_phosphorylated
+SOCS2_rna, STAT5 homodimer_phosphorylated
+IRF1_rna, (STAT1 homodimer_phosphorylated|STAT1/STAT2/IRF9_complex_nucleus)
+IRF5_rna, (STAT1 homodimer_phosphorylated|STAT1/STAT2/IRF9_complex_nucleus)
+IRF7_rna, (STAT1 homodimer_phosphorylated|STAT1/STAT2/IRF9_complex_nucleus)
+IRF9_rna, (STAT1 homodimer_phosphorylated|STAT1/STAT2/IRF9_complex_nucleus)
+IRF1_Cell, IRF1_rna
+IRF5_Cell, IRF5_rna
+MHC_Class_1_Activation_phenotype, (HLA-A|HLA-B|HLA-C|HLA-G|HLA-H|TLR1/TLR2/CD14_complex|TLR2/TLR6/CD36_complex|LPS/CD14/TL4/LY96_complex|IFNA_Secreted_molecules|IFNB1_Secreted_molecules)
+IFI30_rna, STAT1 homodimer_phosphorylated
+IFI30, IFI30_rna
+STAT1 homodimer_empty, STAT1 homodimer_phosphorylated&PTPN2_nucleus
+PTPN2_nucleus, PTPN2_Cell
+HLA-DRB4_rna, STAT1 homodimer_phosphorylated
+HLA-DRA_rna, STAT1 homodimer_phosphorylated
+HLA-DQA1_rna, STAT1 homodimer_phosphorylated
+HLA-DQA2_rna, STAT1 homodimer_phosphorylated
+MHC_Class_2_Activation_phenotype, (HLA-DRB4|HLA-DRA|HLA-DQA1|HLA-DQA2|IFNA_Secreted_molecules|IFNG|IFNB1_Secreted_molecules)
+NCAM1_rna, STAT1 homodimer_phosphorylated
+JAK2_phosphorylated, (IFNG/IFNGR_complex|IL12/IL12R_complex|IL6/IL6R_complex)&!SOCS1&!SOCS2&!SOCS3
+PML_rna, STAT1 homodimer_phosphorylated
+SP100_rna, STAT1 homodimer_phosphorylated
+FCGR1A_rna, STAT1 homodimer_phosphorylated
+FCGR1BP_rna, STAT1 homodimer_phosphorylated
+MT2A_rna, STAT1 homodimer_phosphorylated
+GBP4_rna, STAT1 homodimer_phosphorylated
+GBP5_rna, STAT1 homodimer_phosphorylated
+GBP6_rna, STAT1 homodimer_phosphorylated
+GBP3_rna, STAT1 homodimer_phosphorylated
+GBP1_rna, STAT1 homodimer_phosphorylated
+TRIM5_rna, STAT1 homodimer_phosphorylated
+TRIM6_rna, STAT1 homodimer_phosphorylated
+TRIM14_rna, STAT1 homodimer_phosphorylated
+TRIM22_rna, STAT1 homodimer_phosphorylated
+TRIM25_rna, STAT1 homodimer_phosphorylated
+TRIM34_rna, STAT1 homodimer_phosphorylated
+NCAM1, NCAM1_rna
+PML, PML_rna
+FCGR1BP, FCGR1BP_rna
+MT2A, MT2A_rna
+TRIM5, TRIM5_rna
+TRIM6, TRIM6_rna
+TRIM14, TRIM14_rna
+TRIM21, (STAT1 homodimer_phosphorylated|TLR3/dsRNA/PolyIC_complex)
+TRIM22, TRIM22_rna
+TRIM25, TRIM25_rna
+TRIM34, TRIM34_rna
+TIRAP, (LPS/CD14/TL4/LY96_complex|TLR1/TLR2/CD14_complex|TLR2/TLR6/CD36_complex)
+EIF2AK2 homodimer, ((TARBP2_phosphorylated|ADAR1 homodimer|ISG15_Cell_active|LPS/CD14/TL4/LY96_complex)&EIF2AK2|EIF2AK2 homodimer)
+TARBP2_phosphorylated, TARBP2_phosphorylated
+PTPN2_Cell, PTPN2_Cell
+PTPN2_phosphorylated, PTPN2_Cell&EIF2AK2 homodimer
+ADAR1 homodimer, ADAR
+MAP2K6_phosphorylated, (EIF2AK2 homodimer|MAP3K5_phosphorylated|MAP3K7_phosphorylated)
+STAT4 homodimer_phosphorylated, STAT4_phosphorylated
+UBA7, UBA7
+UBE2L6, UBE2L6
+ISG15_Cell_active, (UBE2L6|HERC5)&ISG15_Cell&!UBA7
+HERC5, HERC5
+flagellin_simple_molecule, flagellin_simple_molecule
+TICAM2, LPS/CD14/TL4/LY96_complex
+TNFSF13B_Extracellular_ligands, TNFSF13B_Extracellular_ligands
+TNFSF13, TNFSF13
+MAP2K3_phosphorylated, (MAP3K5_phosphorylated|MAP3K7_phosphorylated)
+Regulated_Necrosis_phenotype, RIPK3
+RIPK1_Cell, RIPK1_rna
+FADD_phosphorylated, (TRADD|FASL/FASR_complex|TRAIL/TRAILR_complex|MAVS|RIPK1_Cell_active)&!RIPK3
+Apoptosis_phenotype, (CASP3|CASP7|LMNB1)&!GADD45B_rna&!BCL2A1_rna&!BCL2_rna&!BCL2L1_rna&!RRM2_rna&!CDKN1A_rna&!SESN1_rna
+XCR1, XCR1
+TNFRSF13B, TNFRSF13B
+CXCL6, CXCL6
+CXCR2, CXCR2
+CXCL5, CXCL5
+CXCR3, CXCR3
+CCR7, CCR7
+CXCL16, CXCL16
+C5a, C5a
+C3a, C3a
+CCL20, CCL20
+CCL16, CCL16
+CX3CL1, CX3CL1
+CCL19_Extracellular_ligands, CCL19_Extracellular_ligands
+CXCL12_Extracellular_ligands, CXCL12_Extracellular_ligands
+FPR2, FPR2
+PTK2B, PTK2B
+CD40, CD40_rna
+CD40LG, CD40LG
+PLCB, (XCL1-XCL2/XCR1_complex|GNAI)
+PTEN, PTEN
+AKT, PI(3,4,5)P3_simple_molecule&!PPP2R1A
+TNFSF11, TNFSF11
+TNFRSF1B, TNFRSF1B
+LTA, LTA
+JAK1_phosphorylated, (IFNA/IFNAR_complex|IFNG/IFNGR_complex|IL7/IL7R_complex|IL2/IL2R_complex|IFNB/IFNAR_complex|IL21/IL21R_complex|IL15R_complex|IL6/IL6R_complex)&!SOCS1&!PTPN6&!SOCS2&!SOCS3&!CISH
+CXCL13, CXCL13
+RIGI, (dsRNA_simple_molecule|TRIM25)&!ISG15_Cell&!UBE2L6
+IFIH1, (dsRNA_simple_molecule|TRIM25)&!UBE2L6&!NLRC5
+MAVS, (RIGI|IFIH1)&!NLRX1&!MARCHF8
+IL1R1_rna, (TLR7/ssRNA_complex|CpG_DNA/TLR9_complex)
+CXCL8, (TLR7/ssRNA_complex|CpG_DNA/TLR9_complex|RELA/NFKB1_complex|ICOSLG/ICOS_complex)
+IL2RA, (TLR7/ssRNA_complex|CpG_DNA/TLR9_complex)
+IL10, (TLR7/ssRNA_complex|CpG_DNA/TLR9_complex|AP1_complex)
+dsRNA_simple_molecule, dsRNA/polyIC_simple_molecule
+BAD, MAPK8,9,10_phosphorylated&!AKT
+CASP3, (BAD|CASP8|SHISA5)&!XIAP_Cell_active&!BIRC2_Cell
+TLR4_rna, !MIR145_antisense_rna
+MIR145_antisense_rna, MIR145_antisense_rna
+CD27, CD27
+TNFSF15, TNFSF15
+MAP3K14, TRAF2/TRAF3_complex
+BIRC2_Cell, BIRC2_rna
+TYK2_phosphorylated, (IFNA/IFNAR_complex|IFNB/IFNAR_complex|IL12/IL12R_complex)&!SOCS1&!SOCS2&!SOCS3
+TNFSF14, TNFSF14
+LTBR, LTBR
+LTB, LTB
+sialic_acid_simple_molecule, sialic_acid_simple_molecule
