@@ -116,6 +116,31 @@ casq -s data/raw/.../SjD_Map.xml models/sbmlqual/v1/sjd_map_reduced.sbml
 
 **Décision : GO Phase 1.2 (structural_check.py)**
 
+### Phase 1.2 — Validation structurelle automatique ✓
+
+**Script :** `src/validation/structural_check.py`
+
+**Résultats :**
+- 13/13 phénotypes terminaux détectés (correction du matching underscore/espace)
+- 751 arêtes POSITIVE + 68 NEGATIVE (correction de la lecture du signe `sign` attribute)
+- `results/phase1/structural_report.md` généré
+- `results/phase1/structural_diff.csv` : 352 nœuds uniquement dans SBML-qual, 156 uniquement dans la référence, 156 communs
+
+### Phase 1.3 — Audit logique des nœuds critiques ✓
+
+**Résultats :**
+- **Inflammation** (sa105) : 44 régulateurs entrants positifs → nœud terminal ✓
+- **STAT1/STAT2/IRF9** (csa5) : `AND(IRF9, STAT1/STAT2_complex)` — conjonction correcte ✓
+- **RELA/NFKB1** (csa37) : `AND(OR(activateurs), NOT(NFKBIA), NOT(TNFAIP3))` — logique combinatoire avec inhibiteurs ✓
+- **STAT1 homodimer** (sa417 = phosphorylated) : activé par STAT1_phosphorylated → 42 cibles ✓
+- **Chemotaxis/Infiltration** (sa1184) : 22 régulateurs entrants → nœud terminal ✓
+- `docs/audit_logique.md` mis à jour avec tableau complet
+
+### Phase 1.4 — Versionnage ✓
+
+- Commit `84b95c6` : Phase 0 + Phase 1.1-1.3 complètes
+- Tag Git : `model-v1.0` — SBML-qual SjD Map v1.0 (508 nœuds, 819 arêtes)
+
 ---
 
 ## Prochaines étapes — Phase 1 (semaines 3-5)
