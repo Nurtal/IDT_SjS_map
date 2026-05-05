@@ -143,9 +143,63 @@ casq -s data/raw/.../SjD_Map.xml models/sbmlqual/v1/sjd_map_reduced.sbml
 
 ---
 
-## Prochaines étapes — Phase 1 (semaines 3-5)
+## 2026-05-05 — Phase 2 : Identification des attracteurs
 
-- **1.1** : Appliquer CaSQ sur `SjD_Map.xml` → produire le SBML-qual ; comparer au SIF existant
-- **1.2** : Script `src/validation/structural_check.py` (lecture SBML-qual, comptage, diff vs SIF)
-- **1.3** : Checklist d'audit manuel des nœuds critiques (hubs, phénotypes, complexes)
-- **1.4** : Tag Git `model-v1.0`
+### Phase 2.0 — Sanitisation BNET ✓
+
+**Problème identifié :** Le BNET généré par CaSQ contient des noms de nœuds avec des caractères illégaux pour pyboolnet (`/`, `,`, `()`, espaces). La version précédente du script de sanitisation était incomplète (ex. : `PI(3,4,5)P3_simple_molecule` → `PI_3,4,5)P3_simple_molecule`).
+
+**Solution :**
+- Script `src/conversion/sanitize_bnet.py` réécrit : `re.sub(r'[^A-Za-z0-9_]', '_', name)` appliqué à TOUS les tokens.
+- Remplacement des tokens dans les formules par ordre de longueur décroissante (évite le remplacement partiel).
+- Résultat : **508 règles**, 131 nœuds renommés, **0 collision**, **14 phénotypes** confirmés.
+- Fichier : `models/sbmlqual/v1/sjd_map_reduced_clean.bnet`
+- Table : `data/processed/bnet_name_map.csv`
+
+**Problème pyboolnet/BNetToPrime :** Le binaire `BNetToPrime_linux64` timeout sur un réseau de 508 nœuds (calcul des implicants premiers exhaustif, intractable à cette taille).
+
+**Solution retenue :** Basculer sur **mpbn 4.3.2** (Most Permissive Boolean Networks) + **biodivine_aeon 1.3.5** (Rust), installés via pip. mpbn utilise le solveur ASP/clingo, efficace pour les grands réseaux.
+
+### Phase 2.1 — Analyse des attracteurs (mpbn) ✓
+
+**Outil :** mpbn 4.3.2 (Most Permissive update, solveur ASP/clingo)
+
+**Stratégie :**
+1. Les 104 nœuds d'entrée (self-loops) fixés selon la condition biologique.
+2. Propagation des constantes → réseau réduit (64–79 nœuds dynamiques).
+3. Calcul des points fixes + trap spaces minimaux + détection d'attracteurs cycliques.
+
+**Résultats — 3 conditions biologiques :**
+
+| Condition | Nœuds dyn. | Trap spaces min. | Attracteurs cycliques | Points fixes |
+|---|---|---|---|---|
+| Naive (all inputs=0) | 79 | 2 | Non | 2 |
+| IFN-stimulé | 70 | 2 | Non | 2 |
+| BCR-stimulé | 64 | 2 | Non | 2 |
+
+**Points fixes (phénotypes actifs) :**
+
+| Condition | Attracteur | Phénotypes actifs |
+|---|---|---|
+| Naive | FP1 | B_Cell_Activation · Cell_Proliferation · Chemotaxis · Inflammation · MHC-II · Regulated_Necrosis · T_Cell_Activation |
+| Naive | FP2 | Chemotaxis · Regulated_Necrosis |
+| IFN | FP1 | B_Cell_Activation · Cell_Proliferation · Chemotaxis · Inflammation · MHC-II · Regulated_Necrosis · T_Cell_Activation |
+| IFN | FP2 | B_Cell_Activation · Chemotaxis · Inflammation · MHC-II · Regulated_Necrosis · T_Cell_Activation |
+| BCR | FP1 | B_Cell_Activation · Cell_Proliferation · Chemotaxis · Inflammation · MHC-II · Regulated_Necrosis · T_Cell_Activation |
+| BCR | FP2 | B_Cell_Activation · Cell_Proliferation · Chemotaxis · Inflammation · MHC-II · Regulated_Necrosis · T_Cell_Activation |
+
+**Interprétations biologiques clés :**
+1. **Attracteur SjD universel** (7 phénotypes actifs) : présent dans toutes les conditions → état pathologique intrinsèque au réseau.
+2. **Chemotaxis/Infiltration + Regulated_Necrosis** : actifs dans 100% des attracteurs → activité constitutive du modèle SjD.
+3. **BCR comme driver de maladie** : sous stimulation BCR, les deux attracteurs convergent vers le même état inflammatoire maximal.
+4. **Signature IFN spécifique** : FP2 IFN = inflammation sans prolifération cellulaire → état type I IFN (cohérent avec PRECISESADS).
+5. **Réseau sans attracteurs cycliques** : tous les attracteurs sont des points fixes stables.
+
+**Fichiers produits :**
+- `results/phase2/attractor_catalog.csv` — catalogue (6 attracteurs × 14 phénotypes)
+- `results/phase2/attractor_report.md` — rapport narratif complet
+- `figures/phase2/attractor_heatmap.png` — heatmap phénotypes × attracteurs
+
+**Décision : GO Phase 3 (annotation biologique).**
+
+---
