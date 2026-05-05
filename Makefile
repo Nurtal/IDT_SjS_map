@@ -1,7 +1,7 @@
 # SjD-BoolAttractors — convenience shortcuts
 # Usage: make <target>
 
-.PHONY: help env all figures clean test lint phase1 phase2 phase3 phase4 phase5
+.PHONY: help env all figures pdf clean test lint phase1 phase2 phase3 phase4 phase5
 
 PYTHON  := .venv/bin/python3
 CORES   := 4
@@ -18,6 +18,7 @@ help:
 	@echo "  make phase5     Run therapeutic validation only"
 	@echo "  make test       Run pytest suite"
 	@echo "  make lint       Run ruff + mypy"
+	@echo "  make pdf        Compile docs/manuscript.md → docs/manuscript.pdf"
 	@echo "  make clean      Remove generated results (keeps raw data)"
 
 env:
@@ -48,6 +49,9 @@ phase4:
 
 phase5:
 	$(PYTHON) src/validation/therapeutic_validation.py
+
+pdf:
+	$(PYTHON) src/tools/build_pdf.py
 
 test:
 	$(PYTHON) -m pytest tests/ -v

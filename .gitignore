@@ -42,6 +42,9 @@ figures/**/*.svg
 figures/**/*.pdf
 !figures/**/.gitkeep
 
+# Manuscrit compilé (régénérable via make pdf)
+docs/manuscript.pdf
+
 # Logs de conversion (versionnés explicitement)
 # (pas d'exclusion globale *.log pour garder conversion.log)
 
