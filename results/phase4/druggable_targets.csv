@@ -1,0 +1,73 @@
+gene,max_phase,drugs,target_name,bnet_nodes,inhibition_disease_elim,inhibition_delta_min,activation_disease_elim,activation_delta_min,note
+TRAF3IP2,4,IGURATIMOD,TRAF3 interacting protein 2,,False,,False,,No BNET node found
+CHRM1,4,PILOCARPINE,cholinergic receptor muscarinic 1,,False,,False,,No BNET node found
+NR3C1,4,DEXAMETHASONE|PREDNISOLONE|PREDNISONE,nuclear receptor subfamily 3 group C member 1,,False,,False,,No BNET node found
+PPIA,4,CYCLOSPORINE,peptidylprolyl isomerase A,,False,,False,,No BNET node found
+TLR7,4,HYDROXYCHLOROQUINE|HYDROXYCHLOROQUINE SULFATE,toll like receptor 7,TLR7_ssRNA_complex,False,,False,,
+CHRM3,4,PILOCARPINE,cholinergic receptor muscarinic 3,,False,,False,,No BNET node found
+TLR9,4,HYDROXYCHLOROQUINE|HYDROXYCHLOROQUINE SULFATE,toll like receptor 9,CpG_DNA_TLR9_complex,False,,False,,
+PTGS2,4,IGURATIMOD,prostaglandin-endoperoxide synthase 2,PTGS2,False,0,False,-1,
+MIF,4,IGURATIMOD,macrophage migration inhibitory factor,,False,,False,,No BNET node found
+CD86,3,ABATACEPT,CD86 molecule,CD86,False,,False,,
+TNFRSF13C,3,IANALUMAB,TNF receptor superfamily member 13C,,False,,False,,No BNET node found
+CD80,3,ABATACEPT,CD80 molecule,CD80,False,,False,,
+CD80,3,ABATACEPT,CD80 molecule,CD80_86,False,,False,,
+CD80,3,ABATACEPT,CD80 molecule,CD80_86_CTLA4_complex,False,,False,,
+CD80,3,ABATACEPT,CD80 molecule,CD80_86_rna,False,,False,,
+CD40,2,ISCALIMAB,CD40 molecule,CD40,False,,False,,
+CD40,2,ISCALIMAB,CD40 molecule,CD40LG,False,,False,,
+CD40,2,ISCALIMAB,CD40 molecule,CD40LG_CD40_complex,False,,False,,
+CD40,2,ISCALIMAB,CD40 molecule,CD40_rna,False,,False,,
+JAK1,2,BARICITINIB|FILGOTINIB|TOFACITINIB,Janus kinase 1,JAK1_phosphorylated,False,,False,,
+ICOSLG,2,AMG-557,inducible T cell costimulator ligand,ICOSLG,False,,False,,
+ICOSLG,2,AMG-557,inducible T cell costimulator ligand,ICOSLG_ICOS_complex,False,,False,,
+PIK3CD,2,LENIOLISIB|PARSACLISIB|SELETALISIB,"phosphatidylinositol-4,5-bisphosphate 3-kinase catalytic subunit delta",,False,,False,,No BNET node found
+LTB,2,BAMINERCEPT,lymphotoxin beta,LTB,False,,False,,
+LTB,2,BAMINERCEPT,lymphotoxin beta,LTBR,False,,False,,
+LTB,2,BAMINERCEPT,lymphotoxin beta,LTB_TNFSF14_LTBR_complex,False,,False,,
+IMPDH2,2,MYCOPHENOLATE MOFETIL|MYCOPHENOLATE SODIUM|MYCOPHENOLIC ACID,inosine monophosphate dehydrogenase 2,,False,,False,,No BNET node found
+CD40LG,2,RAVAGALIMAB,CD40 ligand,CD40LG,False,,False,,
+CD40LG,2,RAVAGALIMAB,CD40 ligand,CD40LG_CD40_complex,False,,False,,
+JAK2,2,BARICITINIB|TOFACITINIB,Janus kinase 2,JAK2_phosphorylated,False,,False,,
+FCGRT,2,EFGARTIGIMOD ALFA|NIPOCALIMAB,Fc gamma receptor and transporter,,False,,False,,No BNET node found
+IL17A,2,TIBULIZUMAB,interleukin 17A,IL17A,False,0,False,-1,
+TNFSF13B,2,BELIMUMAB|TIBULIZUMAB,TNF superfamily member 13b,TNFSF13B_Extracellular_ligands,False,,False,,
+TNFSF13B,2,BELIMUMAB|TIBULIZUMAB,TNF superfamily member 13b,TNFSF13B_Secreted_molecules,False,0,False,-1,
+IFNAR1,2,ANIFROLUMAB,interferon alpha and beta receptor subunit 1,,False,,False,,No BNET node found
+JAK3,2,TOFACITINIB,Janus kinase 3,JAK3_phosphorylated,False,,False,,
+IMPDH1,2,MYCOPHENOLATE MOFETIL|MYCOPHENOLATE SODIUM|MYCOPHENOLIC ACID,inosine monophosphate dehydrogenase 1,,False,,False,,No BNET node found
+MS4A1,2,RITUXIMAB,membrane spanning 4-domains A1,,False,,False,,No BNET node found
+TNF,2,ETANERCEPT,tumor necrosis factor,LTA_TNFR2_complex,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,LTB_TNFSF14_LTBR_complex,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFAIP3,False,0,False,1,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFAIP3_rna,False,0,False,1,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFRSF10A_B,False,0,False,0,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFRSF10A_rna,False,0,False,0,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFRSF13B,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFRSF17,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFRSF1B,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFSF10,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFSF11,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFSF13,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFSF13B_Extracellular_ligands,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFSF13B_Secreted_molecules,False,0,False,-1,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFSF14,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFSF15,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNFSF15_TNFRSF25_complex,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNF_Extracellular_ligands,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNF_Secreted_molecules,False,0,False,-1,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNF_TNFR1_complex,False,,False,,
+TNF,2,ETANERCEPT,tumor necrosis factor,TNF_TNFR2_complex,False,,False,,
+DHODH,2,LEFLUNOMIDE,dihydroorotate dehydrogenase (quinone),,False,,False,,No BNET node found
+BTK,2,TIRABRUTINIB,Bruton tyrosine kinase,BTK_phosphorylated,False,,False,,
+TYK2,2,TOFACITINIB,tyrosine kinase 2,TYK2_phosphorylated,False,,False,,
+CTSS,2,PETESICATIB,cathepsin S,,False,,False,,No BNET node found
+TNFSF14,2,BAMINERCEPT,TNF superfamily member 14,LTB_TNFSF14_LTBR_complex,False,,False,,
+TNFSF14,2,BAMINERCEPT,TNF superfamily member 14,TNFSF14,False,,False,,
+FKBP1A,2,SIROLIMUS|TACROLIMUS,FKBP prolyl isomerase 1A,,False,,False,,No BNET node found
+LTA,2,BAMINERCEPT,lymphotoxin alpha,LTA,False,,False,,
+LTA,2,BAMINERCEPT,lymphotoxin alpha,LTA_TNFR2_complex,False,,False,,
+SYK,2,LANRAPLENIB,spleen associated tyrosine kinase,SYK_phosphorylated,False,,False,,
+ITGAL,2,EFALIZUMAB,integrin subunit alpha L,,False,,False,,No BNET node found
+IL2RA,1,ALDESLEUKIN,interleukin 2 receptor subunit alpha,IL2RA,False,,False,,
+IL2RB,1,ALDESLEUKIN,interleukin 2 receptor subunit beta,,False,,False,,No BNET node found

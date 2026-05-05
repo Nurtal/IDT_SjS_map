@@ -33,6 +33,7 @@ results/**/*.csv
 !results/**/structural_diff.csv
 !results/**/attractor_catalog.csv
 !results/phase3/*.csv
+!results/phase4/*.csv
 
 # Figures générées
 figures/**/*.png

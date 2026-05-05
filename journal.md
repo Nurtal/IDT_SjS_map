@@ -257,3 +257,47 @@ casq -s data/raw/.../SjD_Map.xml models/sbmlqual/v1/sjd_map_reduced.sbml
 **Décision : GO Phase 4 (analyse de contrôle — stable motifs, MIS).**
 
 ---
+
+## 2026-05-05 — Phase 4 : Analyse de contrôle
+
+### Phase 4.1–4.4 — Crible de perturbations + confrontation cibles thérapeutiques ✓
+
+**Script :** `src/validation/control_analysis.py`
+
+**Méthode :** Crible mono-nœud (force=0/1) sur les 79 nœuds dynamiques de la condition Naive.
+Évaluation par : maladie éliminée (FP1 avec ≥6 phénotypes disparaît), Δ phénotypes min.
+
+**Résultats — 7 perturbations éliminant l'attracteur SjD :**
+
+| Nœud | Perturbation | FPs | Phénotypes restants |
+|---|---|---|---|
+| AP1_complex | force=0 | 2 | Chemotaxis + Reg. Necrosis |
+| EIF2AK2_homodimer | force=0 | 1 | Chemotaxis + Reg. Necrosis |
+| FOS_phosphorylated | force=0 | 2 | Chemotaxis + Reg. Necrosis |
+| JUN_phosphorylated | force=0 | 2 | Chemotaxis + Reg. Necrosis |
+| MAP2K6_phosphorylated | force=0 | 2 | Chemotaxis + Reg. Necrosis |
+| MAPK11_12_13_14_phosphorylated | force=0 | 2 | Chemotaxis + Reg. Necrosis |
+| NFKB1_rna | force=1 | 0 | [attracteur cyclique — artefact] |
+
+**Module AP1/p38 MAPK = nœud de contrôle central :**
+EIF2AK2 → MAP2K6 → MAPK11-14 (p38) → FOS/JUN → AP1_complex → Inflammation
+
+**Test des inhibiteurs cliniques (JAK, BTK, SYK) :**
+- Inhibition de JAK1, TYK2, STAT2 (condition IFN) : **aucun effet** sur l'attracteur SjD
+- Inhibition de BTK, SYK (condition BCR) : **aucun effet** sur l'attracteur SjD
+- Inhibition de AP1/FOS/JUN (condition BCR) : **élimine l'attracteur SjD** ✓
+
+**Interprétations :**
+1. Les JAK inhibiteurs (filgotinib, baricitinib, tofacitinib) et BTK/SYK inhibiteurs ne coupent pas la boucle AP1/p38 MAPK → cohérent avec les résultats cliniques mitigés.
+2. **EIF2AK2 (PKR)** : cible émergente non couverte par les essais SjD — PKR→p38→AP1 est une voie à explorer.
+3. **Prédiction** : combinaison JAK-inhibiteur + p38-inhibiteur serait synergique.
+
+**Fichiers produits :**
+- `results/phase4/perturbation_screen.csv` — 158 perturbations testées
+- `results/phase4/druggable_targets.csv` — 39 gènes cibles × nœuds BNET × scores
+- `results/phase4/control_report.md` — rapport complet avec interprétation mécanistique
+- `figures/phase4/perturbation_screen.png` — visualisation du crible
+
+**Décision : GO Phase 5 (validation thérapeutique).**
+
+---
