@@ -32,6 +32,7 @@ results/**/*.csv
 !results/**/.gitkeep
 !results/**/structural_diff.csv
 !results/**/attractor_catalog.csv
+!results/phase3/*.csv
 
 # Figures générées
 figures/**/*.png

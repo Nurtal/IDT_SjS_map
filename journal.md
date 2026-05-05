@@ -203,3 +203,57 @@ casq -s data/raw/.../SjD_Map.xml models/sbmlqual/v1/sjd_map_reduced.sbml
 **Décision : GO Phase 3 (annotation biologique).**
 
 ---
+
+## 2026-05-05 — Phase 3 : Annotation biologique
+
+### Phase 3.1–3.3 — Profils voies + mapping DEG + distances Hamming ✓
+
+**Script :** `src/validation/annotate_attractors.py`
+
+**Données DEG :**
+- `overlay_PRECISESADS.txt` : 725 DEGs (486 up, 239 down)
+- `overlay_UKPSSR.txt` : 239 DEGs (140 up, 99 down)
+- `overlay_GSE51092.txt` : 1161 DEGs (608 up, 553 down)
+
+**Couverture gene → nœuds BNET (matching substring sur noms biologiques) :**
+
+| Cohorte | DEGs mappés | Up | Down |
+|---|---|---|---|
+| PRECISESADS | 159/725 (22%) | 149 | 10 |
+| UKPSSR | 53/239 (22%) | 44 | 9 |
+| GSE51092 | 163/1161 (14%) | 136 | 27 |
+
+**Activité des voies de signalisation :**
+
+| Condition | FP | JAK-STAT | NF-kB | IFN-I | BCR |
+|---|---|---|---|---|---|
+| Naive | FP1 | 0.00 | 0.00 | 0.00 | 0.00 |
+| IFN | FP1 | 0.50 | 0.00 | 0.18 | 0.14 |
+| BCR | FP1 | 0.00 | 0.00 | 0.00 | 0.71 |
+
+**Distances de Hamming :**
+
+| Attracteur | PRECISESADS | UKPSSR | GSE51092 |
+|---|---|---|---|
+| Naive FP1 | 0.887 | 0.830 | 0.822 |
+| IFN FP1 | 0.849 | **0.755** | **0.791** |
+| BCR FP1 | 0.874 | 0.830 | 0.841 |
+
+→ **IFN-stimulated FP1 = meilleur attracteur pour les 3 cohortes** ✓
+
+**Découverte mécanistique importante :**
+- `STAT1 = HDAC3` dans le BNET (règle CaSQ) : HDAC3 est un nœud d'entrée (=0 par défaut), ce qui bloque la formation de l'ISGF3 et empêche l'induction des ISGs (MX1, OAS1-3, ISG15).
+- `KPNB1` (importine-β, entrée=0) : bloque aussi la translocation nucléaire de STAT1/STAT2/IRF9.
+- Conséquence : les ISGs restent inactifs même sous stimulation IFN dans les conditions standard.
+- **Impact Phase 4** : HDAC3/STAT1 est une cible de contrôle potentielle pour la réponse antivirale.
+
+**Fichiers produits :**
+- `results/phase3/pathway_profiles.csv` — activité des 9 voies × 6 attracteurs
+- `results/phase3/deg_mapping.csv` — 375 mappings gene→nœud BNET (3 cohortes)
+- `results/phase3/attractor_cohort_distance.csv` — distances Hamming
+- `results/phase3/annotation_report.md` — rapport complet avec interprétation mécanistique
+- `figures/phase3/annotation_overview.png` — heatmap voies + barplot Hamming
+
+**Décision : GO Phase 4 (analyse de contrôle — stable motifs, MIS).**
+
+---

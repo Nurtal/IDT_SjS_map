@@ -1,0 +1,7 @@
+condition,attractor,JAK-STAT,NF-kB,IFN-I,IFN-II,BCR,TLR,BAFF,Complement,Apoptosis
+Naive (homeostatic),FP1,0.0,0.0,0.0,0.2,0.0,0.143,0.0,0.0,0.125
+Naive (homeostatic),FP2,0.0,0.0,0.0,0.0,0.0,0.143,0.0,0.0,0.0
+IFN-stimulated,FP1,0.5,0.0,0.179,0.4,0.143,0.143,0.0,0.0,0.625
+IFN-stimulated,FP2,0.5,0.0,0.179,0.4,0.143,0.143,0.0,0.0,0.5
+BCR-stimulated,FP1,0.0,0.0,0.0,0.2,0.714,0.143,0.0,0.0,0.125
+BCR-stimulated,FP2,0.0,0.0,0.0,0.2,0.714,0.143,0.0,0.0,0.0
