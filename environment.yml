@@ -1,0 +1,48 @@
+name: sjd-boolattractors
+channels:
+  - colomoto
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  - python>=3.10,<3.13
+
+  # Outils de la chaîne Colomoto (canal `colomoto` fournit des versions cohérentes)
+  - colomoto::casq
+  - colomoto::biolqm
+  - colomoto::pyboolnet
+  - colomoto::maboss
+  - colomoto::pystablemotifs
+  - colomoto::ginsim-python
+  - colomoto::colomoto-jupyter
+
+  # Java requis pour bioLQM
+  - openjdk>=17
+
+  # SBML
+  - python-libsbml
+
+  # Stack scientifique
+  - numpy>=1.26
+  - pandas>=2.1
+  - scipy>=1.11
+  - matplotlib>=3.8
+  - seaborn>=0.13
+  - networkx>=3.2
+  - scikit-learn>=1.4
+
+  # Notebooks
+  - jupyterlab
+  - ipykernel
+  - ipywidgets
+
+  # Outils dev
+  - pytest>=8
+  - pytest-cov
+  - ruff
+  - pre-commit
+
+  - pip
+  - pip:
+      - lxml

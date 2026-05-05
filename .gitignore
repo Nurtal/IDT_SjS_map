@@ -1,1 +1,53 @@
-.venv/*
+# Environnement virtuel
+.venv/
+venv/
+env/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Données brutes volumineuses (suivies hors Git via Zenodo + checksums)
+data/raw/*
+!data/raw/CHECKSUMS.txt
+!data/raw/.gitkeep
+
+# Données intermédiaires lourdes
+data/processed/*
+!data/processed/.gitkeep
+
+# Sorties de solveurs (résultats régénérables)
+results/**/*.json
+results/**/*.csv
+!results/**/.gitkeep
+
+# Figures générées
+figures/**/*.png
+figures/**/*.svg
+figures/**/*.pdf
+!figures/**/.gitkeep
+
+# Modèles versionnés via tags Git uniquement pour les SBML « release »
+models/sbmlqual/**/conversion.log
+
+# Fichiers volumineux (> 50 Mo) à éviter
+*.bak
+*.tmp
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,23 @@
+# SHA-256 checksums des données sources SjD Map
+# Format : <hash>  <filename>   OU   <source> <ref> <commit/version>
+#
+# Zenodo DOI : 10.5281/zenodo.17585308
+# GitLab     : https://gitlab.com/genhotel/TheSjDMap
+# Téléchargé le : 2026-05-05
+
+4dda73430f4b85e55aa10fc5a36ab666635b9a4ad2dcf8c2ac25263b5d091721  zenodo_17585308/TheSjDMap.zip
+
+# Métadonnées Zenodo
+# Record ID  : 17585308
+# Titre      : The SjD Map - An interactive pathway tour into Sjögren's disease signalling mechanisms
+# Auteur     : E Silva-Saffar, Sacha
+# Licence    : CC-BY 4.0
+# Accès      : open
+# Fichier    : TheSjDMap.zip (62 Mo)
+# MD5 Zenodo : 04eb89cbf7a43b093ffff734196d85a0  (fourni par l'API Zenodo)
+
+# Fichiers clés extraits (chemins relatifs dans TheSjDMap.zip)
+# TheSjDMap/TheSjDMap/Reviews/Network Analysis/SjD_Map.xml
+#   -> CellDesigner SBML L2v4 (carte complète : 840 species, 598 reactions)
+# TheSjDMap/TheSjDMap/Reviews/Network Analysis/SjD_Model_raw.sif
+#   -> SIF généré par CaSQ v1.3.3 (réseau réduit : 412 nœuds, 692 arêtes)

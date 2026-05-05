@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+title: "SjD-BoolAttractors: Boolean attractor analysis of the Sjögren's Disease Map"
+message: "If you use this software, please cite it using the metadata below."
+type: software
+authors:
+  - family-names: "[À compléter]"
+    given-names: "[À compléter]"
+repository-code: "https://github.com/[à compléter]/SjD-BoolAttractors"
+url: "https://github.com/[à compléter]/SjD-BoolAttractors"
+abstract: >-
+  Conversion of the Sjögren's Disease Map (Silva-Saffar et al., 2026) into an
+  executable Boolean network and characterization of its attractors, basins,
+  and minimum intervention sets. Built on top of CaSQ, bioLQM, PyBoolNet,
+  MaBoSS and pystablemotifs.
+keywords:
+  - Sjögren's disease
+  - Boolean network
+  - attractors
+  - systems biology
+  - molecular interaction map
+license: MIT
+version: 0.1.0
+date-released: "2026-05-05"
+references:
+  - type: article
+    authors:
+      - family-names: Silva-Saffar
+        given-names: S.E.
+    title: "The SjD Map: an interactive pathway tour into Sjögren's disease signalling mechanisms"
+    journal: "npj Systems Biology and Applications"
+    year: 2026
