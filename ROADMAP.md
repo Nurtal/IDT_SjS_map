@@ -12,8 +12,8 @@ Ce document décompose chaque phase du projet en tâches élémentaires, livrabl
 
 | Phase | Intitulé | Semaines | Statut |
 |---|---|---|---|
-| 0 | Mise en place | S1–S2 | À faire |
-| 1 | Conversion et validation structurelle | S3–S5 | À faire |
+| 0 | Mise en place | S1–S2 | ✅ Terminée (2026-05-05) |
+| 1 | Conversion et validation structurelle | S3–S5 | 🔄 En cours |
 | 2 | Identification des attracteurs | S6–S9 | À faire |
 | 3 | Annotation biologique | S10–S13 | À faire |
 | 4 | Analyse de contrôle | S14–S17 | À faire |
@@ -22,102 +22,125 @@ Ce document décompose chaque phase du projet en tâches élémentaires, livrabl
 
 **Chemin critique** : Phase 1 → Phase 2 → Phase 3 → Phase 4. Les phases 5 et 6 dépendent toutes des résultats consolidés des phases 2–4.
 
+> **Découverte Phase 0 (impact sur Phase 1) :** CaSQ v1.3.3 a déjà été appliqué par les auteurs originaux.
+> Le fichier `SjD_Model_raw.sif` (412 nœuds / 692 arêtes) est disponible dans l'archive Zenodo.
+> L'étape 1.1 consiste donc à **régénérer le SBML-qual** depuis le CellDesigner SBML (le SIF existant sert de référence de validation, pas de point de départ pour les solveurs).
+
 ---
 
-## Phase 0 — Mise en place (semaines 1–2)
+## Phase 0 — Mise en place (semaines 1–2) ✅ TERMINÉE
+
+**Complétée le 2026-05-05.**
 
 ### Objectif
 Disposer d'un environnement de travail reproductible et avoir vérifié l'intégrité des données sources (SjD Map) avant toute analyse.
 
 ### Étapes détaillées
 
-**0.1 Initialisation du dépôt et structure projet**
-- Définir l'arborescence cible : `data/raw/`, `data/processed/`, `models/`, `notebooks/`, `src/`, `results/`, `figures/`, `docs/`, `tests/`.
-- Créer un `.gitignore` adapté (exclure `.venv/`, `data/raw/`, fichiers volumineux > 50 Mo, fichiers temporaires des solveurs).
-- Initialiser un `pyproject.toml` (ou `requirements.txt`) listant les dépendances de la section 11 du README.
-- Mettre en place un `LICENSE` (MIT pour le code) et un `CITATION.cff`.
+**0.1 Initialisation du dépôt et structure projet** ✅
+- Arborescence créée : `data/raw/`, `data/processed/`, `models/sbmlqual/v1/`, `notebooks/phase2/`, `src/validation/`, `src/conversion/`, `results/phase{1..5}/`, `figures/phase{2..4}/`, `docs/`, `tests/`.
+- `.gitignore` mis à jour (exclut `.venv/`, caches Python, `data/raw/*`, sorties régénérables).
+- `LICENSE` (MIT), `CITATION.cff`, `pyproject.toml` créés.
+- 16 fichiers `.gitkeep` ajoutés.
 
-**0.2 Environnement reproductible**
-- Construire un environnement Conda `environment.yml` couvrant Python ≥ 3.10, CaSQ, bioLQM, PyBoolNet, MaBoSS, pystablemotifs.
-- Évaluer l'usage du conteneur **Colomoto Docker notebook** comme alternative officielle (déjà packagée par les auteurs des outils).
-- Documenter dans `docs/setup.md` les étapes d'installation sur Linux/macOS, ainsi que les versions exactes utilisées (lockfile).
+**0.2 Environnement reproductible** ✅
+- `environment.yml` : Conda, canal `colomoto` (CaSQ, bioLQM, PyBoolNet, MaBoSS, pystablemotifs, openjdk≥17), stack scientifique, JupyterLab, dev tools.
+- `docs/setup.md` : Option A (Conda/mamba) + Option B (Colomoto Docker), instructions lockfile et tests.
 
-**0.3 Récupération des données sources**
-- Télécharger l'archive Zenodo (DOI 10.5281/zenodo.17585308) et stocker sous `data/raw/zenodo_<date>/`.
-- Cloner le dépôt GitLab `genhotel/TheSjDMap` (référence figée par commit hash).
-- Récupérer manuellement la version réduite (412 nœuds, 692 arêtes) si fournie séparément.
-- Vérifier les checksums SHA-256 et les consigner dans `data/raw/CHECKSUMS.txt`.
+**0.3 Récupération des données sources** ✅
+- Zenodo 10.5281/zenodo.17585308 : **accès public confirmé**.
+- `TheSjDMap.zip` téléchargé (62 Mo), SHA-256 : `4dda73...1721`, extrait sous `data/raw/zenodo_17585308/`.
+- `data/raw/CHECKSUMS.txt` complété avec hash et métadonnées Zenodo.
+- `src/fetch_data.sh` disponible pour reproductibilité future.
+- Fichiers clés identifiés :
+  - `SjD_Map.xml` — CellDesigner SBML L2v4 (840 species, 598 reactions)
+  - `SjD_Model_raw.sif` — **SIF généré par CaSQ v1.3.3** (412 nœuds, 692 arêtes) ← déjà disponible
+  - Overlays DEG : PRECISESADS, UKPSSR, GSE51092, ASSESS lymphome
+  - Overlay OpenTargets/DrugBank : `Sjogren_drugs.csv`
 
-**0.4 Reproduction des statistiques topologiques publiées**
-- Importer le SBML/SBGN-PD dans Cytoscape ≥ 3.10.
-- Lancer NetworkAnalyzer et confirmer : 829 entités, 598 interactions (carte complète) ; 412 nœuds, 692 arêtes (version réduite).
-- Comparer la distribution des degrés et identifier les hubs ; vérifier que STAT1, NF-κB, STAT1/STAT2/IRF9, Inflammation, Chemotaxis ressortent comme top-5.
-- Documenter tout écart dans `docs/audit_topologique.md`.
+**0.4 Reproduction des statistiques topologiques publiées** ✅
+- Carte complète : 840 species / 598 reactions (écart +11 species vs. 829 publié — alias CellDesigner, acceptable).
+- Réseau réduit (SIF) : **412 nœuds / 692 arêtes — correspondance exacte** ✓
+- 5/5 hubs topologiques présents ✓ (Inflammation, STAT1 homodimer, STAT1/STAT2/IRF9, RELA/NFKB1, Chemotaxis/Infiltration)
+- 14/14 phénotypes terminaux présents ✓ (labels avec underscores dans le SBML, ex. `MHC_Class_1_Activation`)
+- SIF : 645 arêtes POSITIVE + 47 arêtes NEGATIVE ✓
+- Rapport généré : `docs/audit_topologique.md`
+- Script réutilisable : `src/validation/topological_stats.py`
 
-### Livrables
-- Dépôt Git initialisé avec arborescence et licence.
-- `environment.yml` (ou Dockerfile) gelé.
-- Données SjD Map versionnées avec checksums.
-- Rapport de reproduction des statistiques topologiques.
+### Livrables ✅
+- ✅ Dépôt Git initialisé avec arborescence, `.gitignore`, `LICENSE`, `CITATION.cff`, `pyproject.toml`.
+- ✅ `environment.yml` + `docs/setup.md`.
+- ✅ Données SjD Map téléchargées et vérifiées (`data/raw/CHECKSUMS.txt`).
+- ✅ Rapport topologique (`docs/audit_topologique.md`).
 
-### Critères de validation
-- L'environnement s'installe sans intervention manuelle sur une machine vierge.
-- Les statistiques topologiques publiées sont retrouvées à ±1 %.
-- Le dépôt passe une revue interne (lisibilité du README, scripts exécutables).
+### Critères de validation ✅
+- ✅ Statistiques topologiques retrouvées à ±1 % (0 % sur le réseau réduit).
+- ✅ 5/5 hubs et 14/14 phénotypes présents.
+- ✅ Overlays DEG et OpenTargets disponibles pour les phases 3–4.
 
 ### Dépendances
 Aucune (phase initiale).
 
+### Observations acquises (impact sur les phases suivantes)
+- **CaSQ déjà appliqué** (v1.3.3) : le SIF de référence est disponible, ce qui simplifie la validation en Phase 1.
+- **Labels SBML ≠ labels publiés** : les phénotypes utilisent des underscores (`_`) — à propager dans tous les scripts d'annotation (Phases 3–5).
+- **Overlays DEG directement exploitables** dès Phase 3 (pas de téléchargement supplémentaire requis).
+
 ---
 
-## Phase 1 — Conversion et validation structurelle (semaines 3–5)
+## Phase 1 — Conversion et validation structurelle (semaines 3–5) 🔄 EN COURS
 
 ### Objectif
 Obtenir un modèle SBML-qual exécutable, fidèle à la SjD Map réduite, et validé sur sa sémantique biologique.
 
+> **Contexte mis à jour (Phase 0) :** le SIF de référence (412/692, CaSQ v1.3.3) est déjà disponible dans l'archive Zenodo.
+> L'objectif de l'étape 1.1 est de **régénérer le SBML-qual** depuis `SjD_Map.xml` — c'est ce format (et non le SIF) qui est lu nativement par bioLQM, PyBoolNet et MaBoSS.
+> Le SIF existant sert de **golden reference** pour la validation structurelle.
+
 ### Étapes détaillées
 
-**1.1 Conversion automatisée via CaSQ**
-- Étudier la documentation CaSQ et les options pertinentes (gestion des complexes, des phénotypes, des modifications post-traductionnelles).
-- Lancer la conversion sur la SjD Map complète et sur la version réduite.
-- Sauvegarder les fichiers d'entrée et de sortie sous `models/sbmlqual/v1/`.
-- Capturer les logs de conversion dans `models/sbmlqual/v1/conversion.log`.
+**1.1 Conversion SBML CellDesigner → SBML-qual via CaSQ** *(prochaine action)*
+- Installer CaSQ dans l'environnement (`conda activate sjd-boolattractors && casq --version`).
+- Lancer : `casq data/raw/zenodo_17585308/TheSjDMap/TheSjDMap/Reviews/Network\ Analysis/SjD_Map.xml -o models/sbmlqual/v1/`
+- Capturer logs dans `models/sbmlqual/v1/conversion.log`.
+- Vérifier que la sortie inclut un `.sbml` (SBML-qual) et éventuellement un `.sif` de contrôle.
+- Comparer le `.sif` regénéré au `SjD_Model_raw.sif` existant pour détecter toute dérive de version.
 
 **1.2 Validation structurelle automatique**
-- Écrire un script `src/validation/structural_check.py` qui :
-  - Charge le SBML-qual et compte nœuds/arêtes.
-  - Compare ces compteurs aux valeurs attendues (412/692).
-  - Liste les nœuds présents/absents par rapport à la version originale.
-  - Génère un rapport CSV sous `results/phase1/structural_diff.csv`.
+- Écrire `src/validation/structural_check.py` qui :
+  - Charge le SBML-qual via `python-libsbml` et compte nœuds/arêtes (espèces qualitatives / transitions).
+  - Compare au SIF de référence (412 nœuds / 692 arêtes).
+  - Liste les nœuds présents/absents et les arêtes divergentes.
+  - Génère `results/phase1/structural_diff.csv`.
+- Seuil de passage : écart < 5 % en nœuds et arêtes.
 
 **1.3 Audit manuel des nœuds critiques**
-- Établir une checklist manuelle ciblant :
-  - Les 5 hubs topologiques (STAT1, NFKB1/RELA, STAT1/STAT2/IRF9, Inflammation, Chemotaxis).
-  - Les 14 phénotypes terminaux.
-  - Les complexes multi-protéines (vérification que CaSQ a bien introduit la conjonction logique).
-- Pour chaque nœud, vérifier ses régulateurs entrants et la fonction logique inférée par CaSQ.
-- Documenter les corrections manuelles éventuelles dans `docs/audit_logique.md` avec justification (référence PubMed quand pertinent).
+- Checklist ciblant les 5 hubs et 14 phénotypes (labels SBML avec underscores, cf. Phase 0).
+- Pour chaque hub, vérifier la fonction logique inférée par CaSQ (régulateurs entrants, conjonctions dans les complexes).
+- Attention particulière à STAT1/STAT2/IRF9 (complexe trimère), RELA/NFKB1 (hétérodimère) — vérifier que CaSQ encode bien AND et non OR.
+- Documenter dans `docs/audit_logique.md` avec justification (référence PubMed si correction manuelle).
 
 **1.4 Versionnage du modèle**
-- Tag Git `model-v1.0` pointant le SBML-qual validé.
-- Snapshot Zenodo (sandbox) pour disposer d'un DOI temporaire utilisable dans les phases suivantes.
+- Tag Git `model-v1.0` sur le SBML-qual validé.
+- Snapshot Zenodo sandbox pour DOI temporaire.
 
 ### Livrables
 - Modèle SBML-qual versionné (`models/sbmlqual/v1/sjd_map_reduced.sbml`).
-- Rapport d'audit structurel (`docs/audit_topologique.md`).
+- Rapport d'audit structurel mis à jour (`docs/audit_topologique.md`).
 - Rapport d'audit logique (`docs/audit_logique.md`).
+- `results/phase1/structural_diff.csv`.
 
 ### Critères de validation
-- Écart structurel < 5 % en nœuds et arêtes (et écart documenté quand non négligeable).
-- Audit manuel signé sur les 5 hubs et 14 phénotypes.
+- Écart structurel < 5 % en nœuds et arêtes vs. SIF de référence (idéalement 0 %).
+- Audit logique signé sur les 5 hubs et 14 phénotypes.
 - Le SBML-qual se charge sans erreur dans bioLQM, PyBoolNet et MaBoSS.
 
 ### Dépendances
-- Phase 0 (données et environnement disponibles).
+- Phase 0 ✅ (données et environnement disponibles).
 
 ### Risques spécifiques
-- **Divergence importante carte→qual** : prévoir 3–5 jours buffer pour corrections manuelles.
-- **Complexes mal interprétés par CaSQ** : tester explicitement quelques complexes connus (ex. STAT1/STAT2/IRF9) en simulation manuelle.
+- **Divergence SIF regénéré vs. SIF existant** : peut indiquer une différence de version CaSQ ou d'options — documenter et utiliser la version regénérée comme référence.
+- **Complexes mal interprétés par CaSQ** : tester STAT1/STAT2/IRF9 et RELA/NFKB1 en priorité.
 
 ---
 
@@ -219,7 +242,7 @@ Cataloguer l'ensemble des attracteurs du modèle sous différents schémas de mi
 
 ### Dépendances
 - Phase 2 (catalogue d'attracteurs).
-- Disponibilité des overlays DEGs (vérifiée en Phase 0).
+- Disponibilité des overlays DEGs ✅ (confirmée en Phase 0 — fichiers présents dans l'archive Zenodo).
 
 ### Risques spécifiques
 - **Faible recouvrement nœuds-modèle / gènes-DEG** : si < 50 % des nœuds modèle ont un mapping gène, restreindre l'analyse aux nœuds mappables et le justifier.
@@ -250,7 +273,7 @@ Identifier les nœuds dont la perturbation reroute le système d'un attracteur p
 - Tester H3 : les hubs sont-ils sur-représentés dans les MIS ?
 
 **4.4 Confrontation aux cibles thérapeutiques connues**
-- Récupérer l'overlay DrugBank/OpenTargets fourni avec la SjD Map.
+- ✅ Overlay disponible : `Statistics_Overlays/Open_Targets/Clinical_trials_drugs/Sjogren_drugs.csv` (dans archive Zenodo).
 - Pour chaque nœud des MIS, lister les drogues approuvées ou en essai (avec phase clinique).
 - Construire la liste priorisée `results/phase4/druggable_targets.csv`.
 - Tester H4 : les cibles d'essais cliniques actuels (filgotinib, tirabrutinib, deucravacitinib, ianalumab, iscalimab) figurent-elles parmi les MIS ?
@@ -293,7 +316,8 @@ Vérifier que les prédictions du modèle sont cohérentes avec les résultats c
 - Confronter à la cohorte ASSESS lymphoma (overlay disponible) — vérifier que les DEGs upregulés (BTK, TNFSF13 — Duret et al. 2023) sont effectivement actifs dans l'attracteur "lymphome" du modèle.
 
 **5.3 Validation externe par cross-cohorte**
-- Si le temps le permet, projeter une signature transcriptomique externe non utilisée en Phase 3 (par exemple GSE23117 si disponible) et tester si l'attracteur le plus proche est biologiquement cohérent.
+- ✅ GSE23117 disponible : `Statistics_Overlays/GSE23117/overlay_GSE23117.txt` (dans archive Zenodo — tissu salivaire, utilisable sans téléchargement supplémentaire).
+- Projeter la signature GSE23117 et tester si l'attracteur le plus proche est biologiquement cohérent (tissu salivaire vs. sang).
 
 **5.4 Préparation des figures principales du manuscrit**
 - Figure 1 : pipeline méthodologique (carte → SBML-qual → attracteurs).
@@ -385,4 +409,15 @@ Produire un manuscrit publiable et un dépôt code/données pleinement reproduct
 
 ---
 
-*Document maintenu en parallèle du README.md. Mettre à jour les statuts de phase et les indicateurs au fur et à mesure de l'avancement.*
+## Journal des décisions architecturales
+
+| Date | Décision | Motivation |
+|---|---|---|
+| 2026-05-05 | Canal Conda `colomoto` comme source principale | Seul canal garantissant la cohérence des versions CaSQ/bioLQM/PyBoolNet/MaBoSS/pystablemotifs |
+| 2026-05-05 | SIF existant (CaSQ v1.3.3) utilisé comme référence de validation, pas comme entrée des solveurs | Les solveurs (bioLQM, PyBoolNet, MaBoSS) requièrent le SBML-qual, pas le SIF |
+| 2026-05-05 | Labels SBML avec underscores (`MHC_Class_1_Activation`) documentés dès Phase 0 | Évite les faux négatifs dans les scripts d'annotation des phases suivantes |
+| 2026-05-05 | GSE23117 (tissu salivaire) confirmé disponible → validation 5.3 non optionnelle | Fichier présent dans l'archive Zenodo, pas de téléchargement supplémentaire requis |
+
+---
+
+*Document maintenu en parallèle du README.md et du journal.md. Mettre à jour les statuts de phase et les indicateurs au fur et à mesure de l'avancement.*

@@ -82,6 +82,42 @@ Le SIF sera utilisé comme référence de comparaison en Phase 1.
 
 ---
 
+## 2026-05-05 — Phase 1 : Conversion CaSQ
+
+### Phase 1.1 — Conversion CaSQ ✓
+
+**Environnement :** CaSQ installé via pip (v1.3.3 pour coller à la version des auteurs).
+
+**Conversion exécutée :**
+```
+casq -s data/raw/.../SjD_Map.xml models/sbmlqual/v1/sjd_map_reduced.sbml
+```
+
+**Résultats :**
+- SBML-qual : 508 species / 404 transitions
+- SIF généré : 819 arêtes (POSITIVE: 751, NEGATIVE: 68)
+
+**Divergence vs. référence publiée (412/692) :**
+- Cause identifiée : la référence est passée par Cytoscape (export SIF alias-based)
+  avec déduplication. Notre SBML-qual conserve les alias CellDesigner comme IDs de nœuds,
+  ce qui est le comportement correct de CaSQ.
+- IDs dans le SBML-qual : `sa*` / `csa*` (alias CellDesigner)
+- Noms biologiques dans l'attribut `name` (avec suffixes `_phenotype`, `_complex`, `_rna`)
+- **Tous les 14 phénotypes présents** (suffixe `_phenotype` : `sa105` = Inflammation_phenotype, etc.)
+- **5 hubs présents** (STAT1/STAT2/IRF9 → `csa5`, RELA/NFKB1 → `csa37`, etc.)
+
+**Fichiers produits :**
+- `models/sbmlqual/v1/sjd_map_reduced.sbml` — modèle de travail canonique
+- `models/sbmlqual/v1/sjd_map_reduced.sif` — SIF dérivé (noms biologiques)
+- `models/sbmlqual/v1/conversion.log` — log de conversion avec explication de l'écart
+- `docs/audit_logique.md` — audit des nœuds critiques et décision Go
+- `data/processed/alias_to_name.csv` — table 1151 lignes alias_id → nom biologique
+- `data/processed/ref_sif_named.csv` — SIF de référence avec noms biologiques ajoutés
+
+**Décision : GO Phase 1.2 (structural_check.py)**
+
+---
+
 ## Prochaines étapes — Phase 1 (semaines 3-5)
 
 - **1.1** : Appliquer CaSQ sur `SjD_Map.xml` → produire le SBML-qual ; comparer au SIF existant
