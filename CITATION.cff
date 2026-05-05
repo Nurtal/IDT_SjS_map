@@ -3,15 +3,18 @@ title: "SjD-BoolAttractors: Boolean attractor analysis of the Sjögren's Disease
 message: "If you use this software, please cite it using the metadata below."
 type: software
 authors:
-  - family-names: "[À compléter]"
-    given-names: "[À compléter]"
-repository-code: "https://github.com/[à compléter]/SjD-BoolAttractors"
-url: "https://github.com/[à compléter]/SjD-BoolAttractors"
+  - family-names: Foulquier
+    given-names: Nathan
+    email: nathan.foulquier.pro@gmail.com
+repository-code: "https://github.com/Nurtal/SjD-BoolAttractors"
+url: "https://github.com/Nurtal/SjD-BoolAttractors"
 abstract: >-
   Conversion of the Sjögren's Disease Map (Silva-Saffar et al., 2026) into an
-  executable Boolean network and characterization of its attractors, basins,
-  and minimum intervention sets. Built on top of CaSQ, bioLQM, PyBoolNet,
-  MaBoSS and pystablemotifs.
+  executable Boolean network (508 nodes) and systematic characterisation of its
+  attractor landscape. Identifies the AP1/p38 MAPK module as a central control
+  node and predicts p38, AP1, and PKR inhibitors as novel therapeutic targets
+  for Sjögren's disease. Built on CaSQ, mpbn (Most Permissive Boolean Networks),
+  and a Snakemake reproducibility pipeline.
 keywords:
   - Sjögren's disease
   - Boolean network

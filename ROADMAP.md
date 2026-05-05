@@ -18,7 +18,7 @@ Ce document décompose chaque phase du projet en tâches élémentaires, livrabl
 | 3 | Annotation biologique | S10–S13 | ✅ Terminée (2026-05-05) |
 | 4 | Analyse de contrôle | S14–S17 | ✅ Terminée (2026-05-05) |
 | 5 | Validation et étude de cas thérapeutique | S18–S21 | ✅ Terminée (2026-05-05) |
-| 6 | Rédaction et soumission | S22–S26 | À faire |
+| 6 | Rédaction et soumission | S22–S26 | ✅ Structure livrée (2026-05-05) |
 
 **Chemin critique** : Phase 1 → Phase 2 → Phase 3 → Phase 4. Les phases 5 et 6 dépendent toutes des résultats consolidés des phases 2–4.
 
@@ -321,7 +321,22 @@ Vérifier que les prédictions du modèle sont cohérentes avec les résultats c
 
 ---
 
-## Phase 6 — Rédaction et soumission (semaines 22–26)
+## Phase 6 — Rédaction et soumission (semaines 22–26) ✅ Structure livrée 2026-05-05
+
+**Livrés le 2026-05-05 :**
+- `docs/manuscript.md` — manuscrit IMRAD complet (~5 500 mots, prêt pour révision)
+- `docs/cover_letter.md` — lettre d'accompagnement pour *npj Systems Biology and Applications*
+- `workflow/Snakefile` — pipeline Snakemake Phases 1→5 + figures (dry-run validé)
+- `src/analysis/compute_attractors.py` — script Phase 2 standalone pour pipeline
+- `Makefile` — raccourcis `make all/figures/phase{1..5}/test/lint/clean`
+- `CITATION.cff` — auteur + abstract mis à jour
+
+**Restant :**
+- Compléter les 16 références BibTeX du manuscrit
+- Affiliations et ORCID
+- Révision interne + soumission à *npj Systems Biology and Applications*
+- Archive Zenodo finale (DOI permanent)
+- README final public
 
 ### Objectif
 Produire un manuscrit publiable et un dépôt code/données pleinement reproductible.

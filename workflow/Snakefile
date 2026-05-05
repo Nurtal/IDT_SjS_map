@@ -1,0 +1,167 @@
+"""
+SjD-BoolAttractors — Snakemake workflow
+Phases 1 → 5 from raw SjD Map SBML to therapeutic predictions.
+
+Usage:
+    snakemake --cores 4
+    snakemake --cores 4 all_figures
+    snakemake --cores 1 results/phase5/validation_report.md
+"""
+
+from pathlib import Path
+
+BNET_RAW   = "models/sbmlqual/v1/sjd_map_reduced.bnet"
+BNET_CLEAN = "models/sbmlqual/v1/sjd_map_reduced_clean.bnet"
+NAME_MAP   = "data/processed/bnet_name_map.csv"
+
+PHASES = [2, 3, 4, 5]
+
+
+# ── Top-level targets ────────────────────────────────────────────────────────
+
+rule all:
+    input:
+        "results/phase2/attractor_catalog.csv",
+        "results/phase3/attractor_cohort_distance.csv",
+        "results/phase3/annotation_report.md",
+        "results/phase4/perturbation_screen.csv",
+        "results/phase4/control_report.md",
+        "results/phase5/drug_simulation.csv",
+        "results/phase5/validation_report.md",
+
+rule all_figures:
+    input:
+        "figures/phase2/attractor_heatmap.png",
+        "figures/phase3/annotation_overview.png",
+        "figures/phase4/perturbation_screen.png",
+        "figures/phase5/fig5a_drug_heatmap.png",
+        "figures/phase5/fig5b_concordance.png",
+        "figures/phase5/fig5c_hamming.png",
+        "figures/phase5/fig5d_control_module.png",
+
+
+# ── Phase 1 — BNET sanitization ──────────────────────────────────────────────
+
+rule phase1_sanitize:
+    input:
+        bnet = BNET_RAW,
+    output:
+        bnet  = BNET_CLEAN,
+        names = NAME_MAP,
+    log:
+        "logs/phase1_sanitize.log",
+    shell:
+        "python src/conversion/sanitize_bnet.py {input.bnet} {output.bnet} "
+        "{output.names} > {log} 2>&1"
+
+
+# ── Phase 2 — Attractor computation ─────────────────────────────────────────
+
+rule phase2_attractors:
+    input:
+        BNET_CLEAN,
+    output:
+        "results/phase2/attractor_catalog.csv",
+    log:
+        "logs/phase2_attractors.log",
+    shell:
+        "python src/analysis/compute_attractors.py > {log} 2>&1"
+
+
+# ── Phase 3 — Biological annotation ─────────────────────────────────────────
+
+rule phase3_annotate:
+    input:
+        bnet    = BNET_CLEAN,
+        catalog = "results/phase2/attractor_catalog.csv",
+    output:
+        hamming = "results/phase3/attractor_cohort_distance.csv",
+        report  = "results/phase3/annotation_report.md",
+        pathway = "results/phase3/pathway_profiles.csv",
+        deg_map = "results/phase3/deg_mapping.csv",
+    log:
+        "logs/phase3_annotate.log",
+    shell:
+        "python src/validation/annotate_attractors.py > {log} 2>&1"
+
+
+# ── Phase 4 — Control analysis ───────────────────────────────────────────────
+
+rule phase4_control:
+    input:
+        bnet    = BNET_CLEAN,
+        catalog = "results/phase2/attractor_catalog.csv",
+    output:
+        screen  = "results/phase4/perturbation_screen.csv",
+        drugs   = "results/phase4/druggable_targets.csv",
+        report  = "results/phase4/control_report.md",
+    log:
+        "logs/phase4_control.log",
+    shell:
+        "python src/validation/control_analysis.py > {log} 2>&1"
+
+
+# ── Phase 5 — Therapeutic validation ────────────────────────────────────────
+
+rule phase5_validate:
+    input:
+        bnet   = BNET_CLEAN,
+        screen = "results/phase4/perturbation_screen.csv",
+    output:
+        drugs  = "results/phase5/drug_simulation.csv",
+        assess = "results/phase5/assess_validation.csv",
+        gse    = "results/phase5/gse23117_validation.csv",
+        report = "results/phase5/validation_report.md",
+    log:
+        "logs/phase5_validate.log",
+    shell:
+        "python src/validation/therapeutic_validation.py > {log} 2>&1"
+
+
+# ── Figures ──────────────────────────────────────────────────────────────────
+
+rule figures_phase2:
+    input:
+        "results/phase2/attractor_catalog.csv",
+    output:
+        "figures/phase2/attractor_heatmap.png",
+    log:
+        "logs/figures_phase2.log",
+    shell:
+        "python src/visualization/figures_phase2.py > {log} 2>&1"
+
+rule figures_phase3:
+    input:
+        "results/phase3/attractor_cohort_distance.csv",
+        "results/phase3/pathway_profiles.csv",
+    output:
+        "figures/phase3/annotation_overview.png",
+    log:
+        "logs/figures_phase3.log",
+    shell:
+        "python src/visualization/figures_phase3.py > {log} 2>&1"
+
+rule figures_phase4:
+    input:
+        "results/phase4/perturbation_screen.csv",
+    output:
+        "figures/phase4/perturbation_screen.png",
+    log:
+        "logs/figures_phase4.log",
+    shell:
+        "python src/visualization/figures_phase4.py > {log} 2>&1"
+
+rule figures_phase5:
+    input:
+        "results/phase5/drug_simulation.csv",
+        "results/phase5/assess_validation.csv",
+        "results/phase5/gse23117_validation.csv",
+    output:
+        "figures/phase5/fig5a_drug_heatmap.png",
+        "figures/phase5/fig5b_concordance.png",
+        "figures/phase5/fig5c_hamming.png",
+        "figures/phase5/fig5d_control_module.png",
+    log:
+        "logs/figures_phase5.log",
+    shell:
+        "python src/visualization/figures_phase5.py > {log} 2>&1"

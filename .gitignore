@@ -49,6 +49,12 @@ figures/**/*.pdf
 *.bak
 *.tmp
 
+# Snakemake
+.snakemake/
+
+# Logs (auto-generated)
+logs/*.log
+
 # OS
 .DS_Store
 Thumbs.db

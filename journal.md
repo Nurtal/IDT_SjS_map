@@ -361,3 +361,56 @@ EIF2AK2 → MAP2K6 → MAPK11-14 (p38) → FOS/JUN → AP1_complex → Inflammat
 **Décision : GO Phase 6 (rédaction + pipeline Snakemake).**
 
 ---
+
+## 2026-05-05 — Phase 6 : Rédaction et reproductibilité
+
+### 6.1 Manuscrit IMRAD
+
+**Fichier :** `docs/manuscript.md`
+
+Structure complète rédigée :
+- **Introduction** : contexte SjD Map, gap dynamique → Boolean network, objectifs.
+- **Méthodes** : 2.1–2.11 couvrant conversion CaSQ, sanitization BNET, computation mpbn, overlay DEG Hamming, crible perturbations, simulation médicaments, ASSESS, GSE23117, Snakemake.
+- **Résultats** : 5 sections (3.1 conversion, 3.2 attracteurs, 3.3 concordance DEG, 3.4 module AP1/p38, 3.5 simulation médicaments, 3.6 ASSESS, 3.7 GSE23117).
+- **Discussion** : AP1/p38 comme bottleneck mécanistique, insuffisance JAK inhibiteurs, PKR comme cible émergente, limitations (HDAC3/STAT1, cell-type agnostique, HCQ discordance), implications thérapeutiques.
+- **Conclusions + références** (16 entrées BibTeX à compléter).
+
+### 6.2 Pipeline Snakemake
+
+**Fichier :** `workflow/Snakefile`
+
+7 règles couvrant phases 1→5 + figures :
+- `phase1_sanitize` → `sjd_map_reduced_clean.bnet`
+- `phase2_attractors` → `results/phase2/attractor_catalog.csv`
+- `phase3_annotate` → résultats Phase 3
+- `phase4_control` → résultats Phase 4
+- `phase5_validate` → résultats Phase 5
+- `figures_phase{2..5}` → toutes les figures manuscrit
+
+Dry-run validé : DAG correct, toutes cibles présentes et à jour.
+
+**Fichier :** `src/analysis/compute_attractors.py` — script Phase 2 standalone (nouveau).
+
+**Fichier :** `Makefile` — raccourcis `make all`, `make phase{1..5}`, `make figures`, `make test`, `make lint`, `make clean`.
+
+### 6.3 Dépôt de données et code
+
+- `CITATION.cff` : auteur Nathan Foulquier, abstract mis à jour avec résultats Phase 4-5.
+- `.gitignore` : `.snakemake/` et `logs/*.log` exclus.
+- `logs/.gitkeep` : répertoire de logs Snakemake créé.
+
+### 6.4 Cover letter
+
+**Fichier :** `docs/cover_letter.md` — template pour soumission à *npj Systems Biology and Applications*, incluant justification de continuité avec SjD Map original et 4 reviewers suggérés.
+
+**Fichiers produits :**
+- `docs/manuscript.md` — manuscrit IMRAD complet (~5 500 mots)
+- `docs/cover_letter.md` — lettre d'accompagnement
+- `workflow/Snakefile` — pipeline Snakemake complet
+- `src/analysis/compute_attractors.py` — script Phase 2 standalone
+- `Makefile` — raccourcis opérationnels
+- `CITATION.cff` — métadonnées mises à jour
+
+**Statut Phase 6 :** structure manuscrit + pipeline reproductible livrés. Prochaines étapes : remplir les références BibTeX, compléter affiliations ORCID, révision co-auteurs, soumission.
+
+---
