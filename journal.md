@@ -301,3 +301,63 @@ EIF2AK2 → MAP2K6 → MAPK11-14 (p38) → FOS/JUN → AP1_complex → Inflammat
 **Décision : GO Phase 5 (validation thérapeutique).**
 
 ---
+
+## 2026-05-05 — Phase 5 : Validation thérapeutique
+
+**Script :** `src/validation/therapeutic_validation.py`
+
+### 5.1 Simulation in silico de 12 médicaments (3 conditions × 4 médicaments prédits + 8 cliniques)
+
+**Médicaments cliniques (Phase 2-4) — aucun n'élimine l'attracteur SjD :**
+- JAK-inhibiteurs (filgotinib, baricitinib, tofacitinib) : aucun effet en Naive ou BCR ; baricitinib/tofacitinib réduisent les phénotypes en IFN-stimulé (Δ4) sans éliminer l'attracteur.
+- Tirabrutinib (BTK), Iscalimab (CD40), Belimumab/Ianalumab (BAFF) : aucun effet.
+- Hydroxychloroquine (TLR7/9), Anifrolumab (IFNAR) : aucun effet.
+- **Concordance modèle / clinique : 8/10 médicaments concordants** (JAK, BTK inhibiteurs = efficacité limitée cliniquement = pas d'effet attracteur).
+
+**Médicaments prédits — 3 sur 3 éliminent l'attracteur :**
+- `p38-inhibitor` (MAPK11-14=0) : élimine en Naive.
+- `AP1-inhibitor` (AP1_complex=0) : élimine en Naive + BCR-stimulé.
+- `PKR-inhibitor` (EIF2AK2=0) : élimine en Naive (unique FP résiduel : Chemotaxis + Reg. Necrosis).
+
+### 5.2 Étude de cas ASSESS (lymphome SjD-associé)
+
+- 1735 DEGs ASSESS → 61 nœuds BNET mappés (30 up, 31 down).
+- BTK_phosphorylated = 1 uniquement en condition BCR-stimulée → cohérent avec activation BCR chronique dans le lymphome.
+- TNFSF13B (APRIL) = 0 dans tous les attracteurs — non capturé par le modèle Naive/IFN.
+- Meilleur Hamming ASSESS : 0.459 (IFN-stimulated FP2).
+
+### 5.3 Cross-validation GSE23117 (glande salivaire labiale)
+
+- 840 DEGs → 55 nœuds BNET mappés (53 up, 2 down).
+- Hamming GSE23117 : 0.891–0.964 (plus élevé que PRECISESADS 0.849–0.912).
+- Interprétation : le modèle booléen reflète mieux la biologie lymphocytaire sanguine (PRECISESADS) que le tissu salivaire — cohérent avec la logique de construction du réseau (biologie B/T cellulaire).
+
+### 5.4 Synthèse des hypothèses
+
+| Hypothèse | Statut |
+|---|---|
+| H1 : Attracteur SjD universel | ✅ Confirmée |
+| H2 : Attracteur reproduit signature IFN-high | ⚠ Partielle (blocage HDAC3/STAT1) |
+| H3 : Hubs topologiques = nœuds de contrôle | ✅ Confirmée |
+| H4 : Cibles cliniques = nœuds de contrôle | ❌ Non confirmée |
+| H5 : AP1/p38/PKR = nœuds de contrôle clés | ✅ Prédite |
+
+**Prédictions thérapeutiques prioritaires :**
+1. Inhibiteurs p38 MAPK (losmapimod, doramapimod) — forte prédiction, aucun essai SjD en cours.
+2. Inhibiteurs PKR (EIF2AK2) — cible émergente inexplorée en SjD.
+3. Combinaison JAK + p38 — potentiellement synergique.
+4. AP1-inhibition en contexte BCR-stimulé — pertinent pour la prévention du lymphome SjD.
+
+**Fichiers produits :**
+- `results/phase5/drug_simulation.csv` — 36 simulations (12 médicaments × 3 conditions)
+- `results/phase5/assess_validation.csv` — Hamming + états BTK/TNFSF13B par attracteur
+- `results/phase5/gse23117_validation.csv` — Hamming GSE23117 par attracteur
+- `results/phase5/validation_report.md` — rapport complet
+- `figures/phase5/fig5a_drug_heatmap.png` — heatmap phénotypes post-traitement
+- `figures/phase5/fig5b_concordance.png` — concordance modèle/clinique
+- `figures/phase5/fig5c_hamming.png` — distances Hamming inter-cohortes
+- `figures/phase5/fig5d_control_module.png` — module AP1/p38 MAPK + cibles médicamenteuses
+
+**Décision : GO Phase 6 (rédaction + pipeline Snakemake).**
+
+---

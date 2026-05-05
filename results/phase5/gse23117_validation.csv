@@ -1,0 +1,7 @@
+condition,attractor,gse23117_hamming,n_mapped,n_active_phenos
+Naive,FP1,0.9455,55,7
+Naive,FP2,0.9636,55,2
+IFN-stimulated,FP1,0.8909,55,7
+IFN-stimulated,FP2,0.9091,55,6
+BCR-stimulated,FP1,0.9455,55,7
+BCR-stimulated,FP2,0.9636,55,7

@@ -34,6 +34,7 @@ results/**/*.csv
 !results/**/attractor_catalog.csv
 !results/phase3/*.csv
 !results/phase4/*.csv
+!results/phase5/*.csv
 
 # Figures générées
 figures/**/*.png

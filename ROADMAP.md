@@ -17,7 +17,7 @@ Ce document décompose chaque phase du projet en tâches élémentaires, livrabl
 | 2 | Identification des attracteurs | S6–S9 | ✅ Terminée (2026-05-05) |
 | 3 | Annotation biologique | S10–S13 | ✅ Terminée (2026-05-05) |
 | 4 | Analyse de contrôle | S14–S17 | ✅ Terminée (2026-05-05) |
-| 5 | Validation et étude de cas thérapeutique | S18–S21 | À faire |
+| 5 | Validation et étude de cas thérapeutique | S18–S21 | ✅ Terminée (2026-05-05) |
 | 6 | Rédaction et soumission | S22–S26 | À faire |
 
 **Chemin critique** : Phase 1 → Phase 2 → Phase 3 → Phase 4. Les phases 5 et 6 dépendent toutes des résultats consolidés des phases 2–4.
@@ -264,7 +264,17 @@ Cible émergente : **EIF2AK2/PKR** (non couverte par les essais SjD actuels).
 
 ---
 
-## Phase 5 — Validation et étude de cas thérapeutique (semaines 18–21)
+## Phase 5 — Validation et étude de cas thérapeutique (semaines 18–21) ✅ TERMINÉE
+
+**Complétée le 2026-05-05.**
+
+### Résultats clés
+
+- 12 médicaments simulés × 3 conditions = 36 runs. Concordance modèle/clinique : 8/10 médicaments.
+- JAK/BTK/SYK inhibiteurs : aucun effet sur l'attracteur SjD (concordant avec résultats cliniques mitigés).
+- **3 prédictions fortes :** p38-inhibitor, AP1-inhibitor, PKR-inhibitor éliminent l'attracteur SjD.
+- ASSESS : BTK_phosphorylated actif uniquement en BCR-stimulé — profil lymphomateux cohérent.
+- GSE23117 : Hamming 0.891-0.964 (vs. PRECISESADS 0.849-0.912) — modèle plus proche des B-cells sanguines.
 
 ### Objectif
 Vérifier que les prédictions du modèle sont cohérentes avec les résultats cliniques connus et avec des données externes (cohorte ASSESS).

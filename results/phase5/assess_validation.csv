@@ -1,0 +1,7 @@
+condition,attractor,assess_hamming,n_mapped,BTK_phosphorylated,TNFSF13B_Secreted,n_active_phenos
+Naive,FP1,0.5246,61,0,0,7
+Naive,FP2,0.4918,61,0,0,2
+IFN-stimulated,FP1,0.4918,61,0,0,7
+IFN-stimulated,FP2,0.459,61,0,0,6
+BCR-stimulated,FP1,0.5246,61,1,0,7
+BCR-stimulated,FP2,0.4918,61,1,0,7
