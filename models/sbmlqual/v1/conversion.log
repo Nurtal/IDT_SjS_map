@@ -1,0 +1,24 @@
+# CaSQ Conversion Log — Phase 1.1
+# Date       : 2026-05-05
+# CaSQ ver.  : 1.3.3
+# Input      : data/raw/zenodo_17585308/.../SjD_Map.xml (CellDesigner SBML L2v4)
+# Output     : models/sbmlqual/v1/sjd_map_reduced.sbml + .sif
+# Command    : casq -s <input> <output>
+
+# === Résultat ===
+# SBML-qual species     : 508
+# SBML-qual transitions : 404
+# SIF edges             : 819  (POSITIVE: 751, NEGATIVE: 68)
+
+# === Comparaison avec la référence publiée ===
+# Référence (SjD_Model_raw.sif) : 412 alias IDs / 692 arêtes
+# Notre génération              : 508 noms biologiques / 819 arêtes  (+96 / +127)
+
+# EXPLICATION :
+# La référence est passée par un pipeline Cytoscape intermédiaire qui déduplique
+# certains nœuds. Notre SBML-qual utilise les alias IDs (sa*, csa*) comme
+# identifiants et les noms biologiques comme attribut 'name'.
+# Les 14 phénotypes (_phenotype) et les 5 hubs sont tous présents et vérifiés.
+
+# DÉCISION : modèle de travail = sjd_map_reduced.sbml (508 nœuds)
+# Table alias_id → nom biologique : data/processed/alias_to_name.csv

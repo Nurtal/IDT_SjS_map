@@ -20,14 +20,17 @@ data/raw/*
 !data/raw/CHECKSUMS.txt
 !data/raw/.gitkeep
 
-# Données intermédiaires lourdes
+# Données intermédiaires lourdes (sauf tables légères versionnées)
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/alias_to_name.csv
+!data/processed/ref_sif_named.csv
 
-# Sorties de solveurs (résultats régénérables)
+# Sorties de solveurs (résultats régénérables, sauf rapports Markdown)
 results/**/*.json
 results/**/*.csv
 !results/**/.gitkeep
+!results/**/structural_diff.csv
 
 # Figures générées
 figures/**/*.png
@@ -35,13 +38,12 @@ figures/**/*.svg
 figures/**/*.pdf
 !figures/**/.gitkeep
 
-# Modèles versionnés via tags Git uniquement pour les SBML « release »
-models/sbmlqual/**/conversion.log
+# Logs de conversion (versionnés explicitement)
+# (pas d'exclusion globale *.log pour garder conversion.log)
 
 # Fichiers volumineux (> 50 Mo) à éviter
 *.bak
 *.tmp
-*.log
 
 # OS
 .DS_Store
