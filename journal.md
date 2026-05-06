@@ -414,3 +414,85 @@ Dry-run validé : DAG correct, toutes cibles présentes et à jour.
 **Statut Phase 6 :** structure manuscrit + pipeline reproductible livrés. Prochaines étapes : remplir les références BibTeX, compléter affiliations ORCID, révision co-auteurs, soumission.
 
 ---
+
+## 2026-05-06 — Simulation de relecture par les pairs (préliminaire à la Phase 7)
+
+### Action menée
+Production de quatre rapports de relecteurs simulés sur `docs/manuscript.md`, archivés dans `docs/reviewing/` :
+
+- `00_synthese_editoriale.md` — verdict éditorial consensuel
+- `01_reviewer_modelisation_booleenne.md` — méthodologie booléenne (sémantique MP, crible, sanitisation)
+- `02_reviewer_immuno_clinicien.md` — pertinence biologique SjD (signature IFN, lymphome, BAFF)
+- `03_reviewer_bioinfo_transcriptomique.md` — statistique Hamming, mapping gènes, null model
+- `04_reviewer_pharmaco_drug_discovery.md` — druggabilité, combinaisons, cibles absentes
+- `README.md` — sommaire et points de convergence inter-relecteurs
+
+### Verdict consensuel
+**Major Revision.** Cinq points critiques convergents :
+
+| # | Point critique | Soulevé par |
+|---|---|---|
+| C1 | Encodage IFN-I cassé (`STAT1 = HDAC3`, HDAC3 input=0) → ISGs inactivables | R1, R2, R3 |
+| C2 | Distance Hamming sans null model ni test statistique | R1, R3 |
+| C3 | Module AP1/p38 possiblement artefact topologique (chaîne linéaire) | R1, R2, R4 |
+| C4 | « 8/10 concordance clinique » trompeur : modèle ne prédit que des échecs | R2, R4 |
+| C5 | Combinaison JAK + p38 revendiquée mais jamais simulée | R1, R2, R4 |
+
+### Rationale de la Phase 7
+Ces points ne sont pas tous corrigeables par retouches éditoriales : C1 demande une re-exécution des Phases 3–5 sur un modèle corrigé ; C2 demande l'écriture de nouveaux scripts ; C3 demande un audit topologique ; C5 demande une extension du crible. Une **Phase 7 dédiée à la révision majeure** est ouverte dans la ROADMAP.
+
+---
+
+## 2026-05-06 — Ouverture de la Phase 7 (révision majeure post-relecture)
+
+### Mise à jour ROADMAP.md
+
+Ajouts dans `ROADMAP.md` :
+
+1. **Vue d'ensemble** : ligne Phase 7 ajoutée (S27–S33, statut « En cours »).
+2. **Journal des décisions architecturales** : entrée 2026-05-06 documentant l'ouverture de la phase.
+3. **Section Phase 7 complète** structurée en 5 sous-phases avec dépendances explicites :
+
+| Sous-phase | Intitulé | Adresse |
+|---|---|---|
+| 7.1 | Corrections du modèle (S27–S28) | C1, C3 partiel + R1.5, R1.7, R2.1, R2.3 |
+| 7.2 | Robustesse statistique (S28–S29) | C2 + R1.7, R3.1–R3.8, R4.5 |
+| 7.3 | Extensions analytiques (S29–S31) | C3, C5 + R1.1, R1.3, R1.4, R4.1 |
+| 7.4 | Révision du manuscrit (S31–S32) | C4 + R2.2, R2.4–R2.7, R3.6, R4.2–R4.4, R4.6–R4.8 |
+| 7.5 | Re-soumission (S33) | tests d'intégration, Zenodo v2, lettre de réponse |
+
+4. **Tableau de suivi des recommandations** : une ligne par reco R1.1 → R4.8 avec sous-phase et statut.
+5. **Critères Go/No-Go pour la resoumission** explicités.
+6. **Risques spécifiques** de la Phase 7 (5 risques listés, mitigation pour chaque).
+
+### Décisions de design ROADMAP
+
+**Pourquoi 5 sous-phases plutôt que 4 ou 6 ?**
+- 7.1 (modèle) bloque 7.2 et 7.3 → ne peuvent pas être fusionnées.
+- 7.2 et 7.3 sont parallélisables → garder distinctes pour clarifier le parallélisme.
+- 7.4 nécessite que 7.1–7.3 soient terminés → distincte.
+- 7.5 (resoumission) est administrative → distincte pour clôturer le cycle.
+
+**Pourquoi conserver les Phases 0–6 telles quelles ?**
+- Elles documentent l'historique de découverte du projet (audit-trail demandé par les bonnes pratiques scientifiques).
+- La Phase 7 *ré-exécute* certaines analyses, elle ne les *remplace* pas — la traçabilité v1 → v2 est préservée.
+
+**Pourquoi un tableau de mapping reco → sous-phase ?**
+- Les relecteurs comptent sur une réponse traçable point-par-point dans la lettre de réponse (`docs/response_to_reviewers.md`, à produire en 7.4.4).
+- Un tableau évite que des recos soient oubliées et facilite le suivi visuel.
+
+### Fichiers modifiés
+- `ROADMAP.md` : Phase 7 ajoutée (~250 lignes nouvelles, intégrées sans toucher aux Phases 0–6).
+- `journal.md` : cette entrée.
+
+### Fichiers créés (rappel)
+- `docs/reviewing/{00..04}_*.md` + `README.md` (relectures simulées, ~50 ko texte au total).
+
+### Prochaines étapes (Phase 7.1)
+1. Identifier la(les) règle(s) `STAT1 = HDAC3` exactement dans le BNET courant pour décider de la stratégie de correction (édition règle vs. forçage HDAC3=1 par défaut).
+2. Auditer la voie TAK1 / MAP3K7 → p38 dans la SjD Map source (CellDesigner XML) pour vérifier la complétude topologique du module AP1/p38.
+3. Modifier `sanitize_bnet.py` pour reporter les collisions de déduplication.
+
+**Statut Phase 7 :** ouverte, sous-phase 7.1 prête à démarrer.
+
+---

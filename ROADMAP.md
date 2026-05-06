@@ -19,8 +19,9 @@ Ce document décompose chaque phase du projet en tâches élémentaires, livrabl
 | 4 | Analyse de contrôle | S14–S17 | ✅ Terminée (2026-05-05) |
 | 5 | Validation et étude de cas thérapeutique | S18–S21 | ✅ Terminée (2026-05-05) |
 | 6 | Rédaction et soumission | S22–S26 | ✅ Structure livrée (2026-05-05) |
+| **7** | **Révision majeure post-relecture** | **S27–S33** | 🔄 **En cours (2026-05-06)** |
 
-**Chemin critique** : Phase 1 → Phase 2 → Phase 3 → Phase 4. Les phases 5 et 6 dépendent toutes des résultats consolidés des phases 2–4.
+**Chemin critique** : Phase 1 → Phase 2 → Phase 3 → Phase 4. Les phases 5 et 6 dépendent toutes des résultats consolidés des phases 2–4. **La Phase 7 ré-exécute partiellement les phases 2–5 après corrections du modèle et de la statistique.**
 
 > **Découverte Phase 0 (impact sur Phase 1) :** CaSQ v1.3.3 a déjà été appliqué par les auteurs originaux.
 > Le fichier `SjD_Model_raw.sif` (412 nœuds / 692 arêtes) est disponible dans l'archive Zenodo.
@@ -410,6 +411,277 @@ Produire un manuscrit publiable et un dépôt code/données pleinement reproduct
 | 2026-05-05 | SIF existant (CaSQ v1.3.3) utilisé comme référence de validation, pas comme entrée des solveurs | Les solveurs (bioLQM, PyBoolNet, MaBoSS) requièrent le SBML-qual, pas le SIF |
 | 2026-05-05 | Labels SBML avec underscores (`MHC_Class_1_Activation`) documentés dès Phase 0 | Évite les faux négatifs dans les scripts d'annotation des phases suivantes |
 | 2026-05-05 | GSE23117 (tissu salivaire) confirmé disponible → validation 5.3 non optionnelle | Fichier présent dans l'archive Zenodo, pas de téléchargement supplémentaire requis |
+| 2026-05-06 | Ouverture d'une **Phase 7** dédiée à la révision majeure post-relecture | Quatre rapports de relecteurs convergents dans `docs/reviewing/` ont identifié des limites bloquantes (encodage IFN cassé, absence de null model, sur-revendication clinique, AP1/p38 potentiellement artefactuel) qui requièrent une re-exécution partielle des Phases 2–5 avant resoumission. |
+
+---
+
+## Phase 7 — Révision majeure post-relecture (semaines 27–33) 🔄 EN COURS
+
+**Ouverte le 2026-05-06** suite à la simulation d'une relecture par les pairs (4 rapports indépendants archivés dans `docs/reviewing/`). Verdict consensuel : *Major Revision*.
+
+### Objectif
+Lever les limites identifiées par les relecteurs sans toucher au scope du papier. Les corrections sont organisées en 5 sous-phases (7.1 → 7.5) ordonnées par dépendance de calcul : on corrige d'abord le modèle (7.1), puis on robustifie la statistique (7.2), puis on étend les analyses (7.3), puis on réécrit le manuscrit (7.4), puis on re-soumet (7.5).
+
+### Convergences inter-relecteurs (synthèse `docs/reviewing/00_synthese_editoriale.md`)
+
+| # | Point critique | Soulevé par |
+|---|---|---|
+| C1 | Encodage IFN-I cassé (règle CaSQ `STAT1 = HDAC3`, HDAC3 input=0) → ISGs inactivables | R1, R2, R3 |
+| C2 | Distance Hamming sans null model ni test statistique | R1, R3 |
+| C3 | Module AP1/p38 possiblement artefact topologique (chaîne linéaire sans redondance) | R1, R2, R4 |
+| C4 | « 8/10 concordance clinique » trompeur : modèle ne prédit que des échecs | R2, R4 |
+| C5 | Combinaison JAK + p38 revendiquée mais jamais simulée | R1, R2, R4 |
+
+### Sous-phases
+
+#### 7.1 Corrections du modèle (S27–S28)
+
+> Adresse C1, C3 partiellement, et les recommandations R1.5, R1.7, R2.1, R2.3.
+
+**7.1.1 Correction de l'encodage IFN-I (HDAC3/KPNB1)**
+- Identifier dans `models/sbmlqual/v1/sjd_map_reduced_clean.bnet` les règles `STAT1 = HDAC3` et toutes celles dépendant de KPNB1 comme input.
+- Décider de la stratégie (à choisir, à documenter) :
+  - (a) **Variante v2 du BNET** : HDAC3 et KPNB1 forcés à 1 par défaut (les deux sont biologiquement constitutifs dans les cellules immunitaires).
+  - (b) **Édition de la règle** : remplacer `STAT1 = HDAC3` par `STAT1 = STAT1` (input) ou par la logique CellDesigner originale auditée manuellement.
+- Sauvegarder le modèle corrigé sous `models/sbmlqual/v2/sjd_map_v2.bnet` avec tag Git `model-v2.0`.
+- Vérifier *a posteriori* que sous IFN-stim, les ISGs (MX1, OAS1-3, ISG15) deviennent actifs au moins dans un attracteur.
+
+**7.1.2 Audit topologique du module AP1/p38**
+- Écrire `src/validation/audit_ap1_p38.py` qui :
+  - Identifie tous les régulateurs amont de MAPK11_12_13_14 dans le BNET (et dans la SjD Map source).
+  - Vérifie l'absence/présence de la voie TAK1/MAP3K7 → p38 — voie biologiquement réelle qui pourrait constituer une redondance manquante.
+  - Calcule les centralités (in-degree, betweenness, in-component) du module AP1/p38 vs. reste du réseau.
+- Si la voie TAK1 est absente, soit l'ajouter manuellement à la v2, soit documenter la conclusion comme conditionnelle.
+
+**7.1.3 Audit de la déduplication par sanitisation**
+- Modifier `src/conversion/sanitize_bnet.py` pour reporter combien de règles ont été écartées par la déduplication (`if san_target not in deduped or len(san_formula) > len(deduped[san_target])`).
+- Lister les paires raw_target collisives dans `data/processed/sanitize_collisions.csv`.
+- Documenter dans `docs/audit_logique.md` l'impact biologique éventuel.
+
+**Livrables 7.1**
+- `models/sbmlqual/v2/sjd_map_v2.bnet` (tag `model-v2.0`)
+- `docs/audit_logique_v2.md` — différences v1 vs v2
+- `results/phase7/topology_ap1_p38.csv` — analyse de redondance
+- `data/processed/sanitize_collisions.csv`
+
+**Critères de validation 7.1**
+- Au moins un attracteur sous IFN-stim avec ≥ 3 ISGs canoniques actifs (MX1, OAS1, ISG15).
+- Module AP1/p38 audité : redondances présentes ou absence documentée.
+- Nombre de règles perdues lors de la sanitisation chiffré (idéalement = 0, sinon listé).
+
+---
+
+#### 7.2 Robustesse statistique (S28–S29)
+
+> Adresse C2 et les recommandations R1.7, R3.1–R3.8, R4.5.
+
+**7.2.1 Mapping HGNC propre**
+- Remplacer le mapping substring (`annotate_attractors.py:147-152`) par un mapping basé sur HGNC officiel.
+- Construire `data/processed/hgnc_to_bnet.csv` à la main pour les complexes (`AP1_complex`, `IFNAR_complex`, `MHC_class_2_complex`) et les formes phosphorylées.
+- Distinguer protéine vs ARNm : le mapping nœud → DEG doit privilégier `*_rna` pour la transcriptomique.
+- Reporter le gain de couverture (cible : > 30 % vs. 14–22 % actuel).
+
+**7.2.2 Null model statistique pour Hamming**
+- Implémenter `src/validation/null_model_hamming.py` :
+  - Pour chaque cohorte, permuter aléatoirement les directions des DEG mappés (10 000 itérations).
+  - Calculer la distance Hamming attendue sous H0.
+  - Reporter une p-value empirique pour chaque attracteur testé.
+- Reporter dans une table mise à jour de `results/phase3/attractor_cohort_distance_v2.csv`.
+
+**7.2.3 Décomposition sensibilité / spécificité / AUROC**
+- Décomposer chaque distance Hamming en :
+  - True positives (DEG up + nœud=1)
+  - True negatives (DEG down + nœud=0)
+  - False positives (DEG down + nœud=1)
+  - False negatives (DEG up + nœud=0)
+- Calculer sensibilité, spécificité, AUROC sur le ranking des nœuds (fréquence d'activation à travers les attracteurs).
+
+**7.2.4 Test d'enrichissement KEGG/Reactome**
+- Pour chaque attracteur, exporter la liste des nœuds actifs (mappés HGNC).
+- Lancer un test hypergéométrique avec `gseapy` ou `enrichR` sur KEGG / Reactome.
+- Comparer aux pathways enrichis dans les DEG up des cohortes.
+- Reporter top-10 pathways concordants par attracteur.
+
+**7.2.5 Re-cadrage GSE23117**
+- À partir de la couverture corrigée (7.2.1), recalculer Hamming GSE23117.
+- Si la couverture reste < 10 %, retirer la section ou la marquer explicitement « insuffisamment puissante ».
+- Si la couverture s'améliore, comparer GSE23117 vs cohortes blood avec test statistique propre (Wilcoxon paired sur les Hamming par attracteur).
+
+**Livrables 7.2**
+- `data/processed/hgnc_to_bnet.csv`
+- `results/phase7/attractor_cohort_distance_v2.csv` (avec p-values)
+- `results/phase7/sensitivity_specificity_auroc.csv`
+- `results/phase7/enrichment_kegg_reactome.csv`
+- `figures/phase7/null_model_distribution.png`
+
+**Critères de validation 7.2**
+- p-value empirique reportée pour chaque distance Hamming reportée dans le manuscrit.
+- AUROC > 0.6 pour au moins une cohorte (sinon, à discuter en limitation explicite).
+- Au moins 3 pathways canoniques SjD (IFN-I, BCR, JAK-STAT) confirmés enrichis dans FP1 IFN-stim.
+
+---
+
+#### 7.3 Extensions analytiques (S29–S31)
+
+> Adresse C3, C5 et les recommandations R1.1, R1.3, R1.4, R4.1.
+
+**7.3.1 Analyse de stable motifs / minimum intervention sets**
+- Réessayer `pystablemotifs` sur la v2 du BNET. Si le calcul est intractable :
+  - Découper le réseau en modules (B-cell, T-cell, IFN, BCR, AP1) via partitionnement modulaire.
+  - Appliquer pystablemotifs par module, recombiner les MIS.
+- Comparer les MIS aux 7 hits du crible mono-nœud (Phase 4).
+- Confronter aux hubs topologiques identifiés par l'article SjD Map original.
+
+**7.3.2 Perturbations combinatoires (paires)**
+- Étendre `control_analysis.py` aux paires de nœuds, en commençant par les paires d'intérêt :
+  - { JAK1_phosphorylated, MAPK11_12_13_14_phosphorylated } — test direct de la prédiction JAK + p38.
+  - { JAK1_phosphorylated, AP1_complex }
+  - { BTK_phosphorylated, AP1_complex } — pertinent en condition BCR-stim (lymphome).
+  - { BTK_phosphorylated, MAPK11_12_13_14_phosphorylated }
+  - + 10–20 paires supplémentaires couvrant les hits Phase 4.
+- Si le crible exhaustif paires (~3 000 paires) est tractable, le faire ; sinon limiter à un crible ciblé (~50 paires).
+- Reporter dans `results/phase7/combinatorial_perturbations.csv`.
+
+**7.3.3 Comparaison de sémantiques (MP vs asynchrone)**
+- Recompute les attracteurs avec bioLQM (asynchrone classique) ou BoolNet (R) sur la v2.
+- Rapporter les divergences éventuelles (attracteurs cycliques manqués par MP, etc.).
+- Tableau comparatif `results/phase7/semantic_comparison.csv`.
+
+**7.3.4 Analyse de sensibilité au seuil « disease attractor »**
+- Re-exécuter le crible Phase 4 pour seuils ∈ {5, 6, 7} phénotypes pathologiques.
+- Vérifier que le module AP1/p38 reste un hit pour tous les seuils.
+- Reporter le tableau de stabilité des hits.
+
+**Livrables 7.3**
+- `results/phase7/stable_motifs.csv` ou `results/phase7/MIS.csv`
+- `results/phase7/combinatorial_perturbations.csv`
+- `results/phase7/semantic_comparison.csv`
+- `results/phase7/threshold_sensitivity.csv`
+- `figures/phase7/combinatorial_heatmap.png`
+
+**Critères de validation 7.3**
+- Au moins une paire combinatoire éliminant FP1 quand aucun des deux nœuds seul ne le fait → soutient la prédiction de synergie.
+- Concordance MP vs asynchrone documentée (idéalement : pas d'attracteurs cycliques manqués).
+- Module AP1/p38 stable à travers ≥ 2 seuils sur 3.
+
+---
+
+#### 7.4 Révision du manuscrit (S31–S32)
+
+> Adresse C4 et les recommandations R2.2, R2.4, R2.5, R2.6, R2.7, R3.6, R4.2, R4.3, R4.4, R4.6, R4.7, R4.8.
+
+**7.4.1 Reformulation de l'abstract**
+- Retirer la métrique « 8/10 concordance ».
+- Préciser : *« 3/9 modellable clinical drugs gave testable predictions, all concordant with reported failures; 5 drugs were not modellable due to input-node encoding; 1 was discordant. »*
+- Tempérer le titre : *« Identifies AP1/p38 MAPK as a candidate control module »* (au lieu de *« central »*).
+
+**7.4.2 Ajouts au manuscrit**
+- **§ Méthodes** : décrire null model permutation, mapping HGNC, décomposition AUROC, perturbations combinatoires.
+- **§ Résultats** : ajouter sous-sections 3.5bis (combinaisons), 3.8 (stable motifs), 3.9 (sémantique alternative).
+- **§ Discussion** : ajouter sous-section dédiée *« Limitations of the SjD Map for SjD drug repurposing »* discutant les 25/39 cibles cliniques absentes du BNET — point salué par R4.8.
+- **§ Discussion** : discuter l'historique défavorable des inhibiteurs p38 (RA, BPCO, cardio) en s'appuyant sur ≥ 3 références d'échec, pas seulement Damjanov 2018.
+- **§ Discussion** : reconnaître la non-modélisabilité de BAFF/CD40/IFNAR comme limite structurelle du modèle.
+- **§ Discussion** : ajouter explicitement la limitation cell-type agnostique (mélange B/T/épithélial/stromal).
+
+**7.4.3 Mise à jour des figures et tableaux**
+- Tableau 2 : ajouter colonnes p-value (null model) et AUROC.
+- Tableau 4 : reformuler en distinguant (predicted | not modellable | not testable yet).
+- Figure 5 : ajouter un panneau combinatoire (heatmap des paires).
+
+**7.4.4 Lettre de réponse aux relecteurs**
+- Rédiger `docs/response_to_reviewers.md` listant point par point R1.1 → R4.8 et la réponse apportée (avec pointeur vers le résultat ou le paragraphe modifié).
+
+**Livrables 7.4**
+- `docs/manuscript_v2.md` — version révisée
+- `docs/response_to_reviewers.md`
+- Figures et tableaux mis à jour
+
+**Critères de validation 7.4**
+- Toutes les recommandations R1.1–R4.8 ont reçu une réponse argumentée (point traité, ou justification de refus).
+- Aucune affirmation non-soutenue par les données restantes.
+
+---
+
+#### 7.5 Re-soumission (S33)
+
+**7.5.1 Tests d'intégration finaux**
+- Lancer `make all` end-to-end depuis le SBML brut sur machine vierge.
+- Re-vérifier les SHA-256 des données, les seeds (si pertinent).
+- Ajouter ≥ 3 tests de non-régression dans `tests/` (objet de R1.6).
+
+**7.5.2 Mise à jour Zenodo et CITATION.cff**
+- Nouvelle archive Zenodo avec DOI permanent v2.
+- Mise à jour `CITATION.cff` (version 2.0).
+
+**7.5.3 Soumission**
+- Resoumission à *npj Systems Biology and Applications* avec lettre couvrant les changements depuis v1.
+- Plan B : *Bioinformatics* si l'angle outil est plus accepté ; *PLOS Computational Biology* sinon.
+
+**Livrables 7.5**
+- Nouvelle archive Zenodo (DOI v2)
+- Manuscrit v2 soumis
+
+---
+
+### Suivi des recommandations relecteurs
+
+| Reco | Source | Sous-phase | Statut |
+|---|---|---|---|
+| R1.1 | Stable motifs / MIS | 7.3.1 | À faire |
+| R1.2 | Conditions inputs biologiquement plausibles | 7.1.1 | À faire |
+| R1.3 | Crible combinatoire | 7.3.2 | À faire |
+| R1.4 | Comparaison sémantiques | 7.3.3 | À faire |
+| R1.5 | Audit déduplication sanitisation | 7.1.3 | À faire |
+| R1.6 | Tests de non-régression | 7.5.1 | À faire |
+| R1.7 | Audit topologique AP1/p38 | 7.1.2 | À faire |
+| R2.1 | Correction HDAC3 / IFN-I | 7.1.1 | À faire (CRITIQUE) |
+| R2.2 | Reformulation abstract | 7.4.1 | À faire |
+| R2.3 | Simulation JAK + p38 effective | 7.3.2 | À faire |
+| R2.4 | Échecs historiques p38 | 7.4.2 | À faire |
+| R2.5 | Discussion non-modélisabilité BAFF/CD40 | 7.4.2 | À faire |
+| R2.6 | Limitation cell-type agnostique | 7.4.2 | À faire |
+| R2.7 | Tempérer le titre | 7.4.1 | À faire |
+| R3.1 | Null model Hamming | 7.2.2 | À faire (CRITIQUE) |
+| R3.2 | Mapping HGNC officiel | 7.2.1 | À faire |
+| R3.3 | Sensibilité / spécificité / AUROC | 7.2.3 | À faire |
+| R3.4 | Sensibilité aux seuils DEG | 7.2.1 | À faire |
+| R3.5 | Distinction protéine / ARNm | 7.2.1 | À faire |
+| R3.6 | Re-cadrage GSE23117 | 7.2.5 | À faire |
+| R3.7 | Enrichissement KEGG/Reactome | 7.2.4 | À faire |
+| R3.8 | Discussion asymétrie up/down | 7.4.2 | À faire |
+| R4.1 | Simulation combinaisons | 7.3.2 | À faire |
+| R4.2 | Sélectivité JAK inhibiteurs | 7.4.2 | À faire |
+| R4.3 | Reformulation prédictions p38/AP1/PKR | 7.4.2 | À faire |
+| R4.4 | Section cibles non modélisables | 7.4.2 | À faire |
+| R4.5 | Sensibilité au seuil disease attractor | 7.3.4 | À faire |
+| R4.6 | Échecs historiques p38 (3+ refs) | 7.4.2 | À faire |
+| R4.7 | Retirer « 8/10 concordance » | 7.4.1 | À faire |
+| R4.8 | Section 25/39 cibles absentes | 7.4.2 | À faire |
+
+### Dépendances internes
+
+- 7.1 (modèle v2) bloque 7.2 et 7.3 (ces analyses doivent tourner sur le modèle corrigé).
+- 7.2 et 7.3 peuvent être menés en parallèle après 7.1.
+- 7.4 nécessite que 7.1, 7.2, 7.3 soient achevés.
+- 7.5 dépend de 7.4.
+
+### Risques spécifiques de la Phase 7
+
+| Risque | Probabilité | Mitigation |
+|---|---|---|
+| HDAC3 = 1 ne suffit pas à activer les ISGs (autres blocages dans la cascade) | Moyenne | Audit complet de la chaîne IFN-I → ISGF3 ; édition manuelle des règles si nécessaire |
+| pystablemotifs reste intractable même sur v2 | Moyenne | Découpage modulaire ; à défaut, utiliser une analyse de Hasse (succession diagram) sur sous-réseaux |
+| Le mapping HGNC ne double pas la couverture | Faible-moyenne | Documenter honnêtement ; enrichir manuellement les complexes |
+| Une paire combinatoire JAK + p38 n'est PAS synergique dans le modèle v2 | Faible | Si confirmé, retirer la prédiction de synergie du manuscrit (résultat négatif honnête) |
+| Le module AP1/p38 disparaît après ajout TAK1 → la conclusion centrale du papier s'effondre | Faible-moyenne | Si confirmé, repositionner le papier comme une *évaluation critique* de la SjD Map plutôt qu'un papier de prédiction thérapeutique |
+
+### Critères de Go/No-Go pour la resoumission (fin Phase 7)
+
+- ✅ Le modèle v2 produit au moins un attracteur avec signature IFN-high authentique (≥ 3 ISGs actifs).
+- ✅ Toutes les distances Hamming dans le manuscrit ont une p-value associée.
+- ✅ Au moins une perturbation combinatoire synergique testée et reportée (positive ou négative).
+- ✅ Le module AP1/p38 reste un hit après audit topologique (ou sa fragilité est documentée).
+- ✅ Toutes les recommandations R1.1–R4.8 ont une réponse argumentée dans `response_to_reviewers.md`.
 
 ---
 
