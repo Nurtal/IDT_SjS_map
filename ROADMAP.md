@@ -19,7 +19,8 @@ Ce document décompose chaque phase du projet en tâches élémentaires, livrabl
 | 4 | Analyse de contrôle | S14–S17 | ✅ Terminée (2026-05-05) |
 | 5 | Validation et étude de cas thérapeutique | S18–S21 | ✅ Terminée (2026-05-05) |
 | 6 | Rédaction et soumission | S22–S26 | ✅ Structure livrée (2026-05-05) |
-| **7** | **Révision majeure post-relecture** | **S27–S33** | ✅ **Livrée (2026-05-07)** — manuscrit v2 + réponse R1.1–R4.8 + tests |
+| 7 | Révision majeure post-relecture | S27–S33 | ✅ Livrée (2026-05-07) — manuscrit v2 + réponse R1.1–R4.8 + tests |
+| **8** | **Révisions mineures post-round 2** | **S34–S35** | 🔄 **En cours (2026-05-07)** |
 
 **Chemin critique** : Phase 1 → Phase 2 → Phase 3 → Phase 4. Les phases 5 et 6 dépendent toutes des résultats consolidés des phases 2–4. **La Phase 7 ré-exécute partiellement les phases 2–5 après corrections du modèle et de la statistique.**
 
@@ -412,10 +413,11 @@ Produire un manuscrit publiable et un dépôt code/données pleinement reproduct
 | 2026-05-05 | Labels SBML avec underscores (`MHC_Class_1_Activation`) documentés dès Phase 0 | Évite les faux négatifs dans les scripts d'annotation des phases suivantes |
 | 2026-05-05 | GSE23117 (tissu salivaire) confirmé disponible → validation 5.3 non optionnelle | Fichier présent dans l'archive Zenodo, pas de téléchargement supplémentaire requis |
 | 2026-05-06 | Ouverture d'une **Phase 7** dédiée à la révision majeure post-relecture | Quatre rapports de relecteurs convergents dans `docs/reviewing/` ont identifié des limites bloquantes (encodage IFN cassé, absence de null model, sur-revendication clinique, AP1/p38 potentiellement artefactuel) qui requièrent une re-exécution partielle des Phases 2–5 avant resoumission. |
+| 2026-05-07 | Ouverture d'une **Phase 8** post-round 2 (révisions mineures) | Le second tour de relecture (`docs/reviewing/reviewing_v2/`) a remonté un verdict consensuel *Accept after minor revisions*. Cinq points convergents (C1'–C5') restent à clarifier par des analyses ciblées et des additions éditoriales — sans ré-exécution de Phase 7. |
 
 ---
 
-## Phase 7 — Révision majeure post-relecture (semaines 27–33) 🔄 EN COURS
+## Phase 7 — Révision majeure post-relecture (semaines 27–33) ✅ TERMINÉE
 
 **Ouverte le 2026-05-06** suite à la simulation d'une relecture par les pairs (4 rapports indépendants archivés dans `docs/reviewing/`). Verdict consensuel : *Major Revision*.
 
@@ -686,3 +688,208 @@ Lever les limites identifiées par les relecteurs sans toucher au scope du papie
 ---
 
 *Document maintenu en parallèle du README.md et du journal.md. Mettre à jour les statuts de phase et les indicateurs au fur et à mesure de l'avancement.*
+
+---
+
+## Phase 8 — Révisions mineures post-round 2 (semaines 34–35) 🔄 EN COURS
+
+**Ouverte le 2026-05-07** suite au second tour de relecture (`docs/reviewing/reviewing_v2/`). Verdict consensuel : *Accept after minor revisions* (R1 Minor, R2/R3/R4 Accept after minor — tous les relecteurs ont upgradé leur recommandation).
+
+### Objectif
+
+Adresser les 5 points convergents C1'–C5' et les demandes individuelles des 4 relecteurs sans nouvelle exécution lourde de pipeline. Estimation 1–2 semaines de travail réparti entre analyses additionnelles ciblées (8.1) et révisions éditoriales (8.2). Re-soumettre à *npj Systems Biology and Applications* (8.3).
+
+### Convergences round 2 (synthèse `docs/reviewing/reviewing_v2/00_synthese_editoriale.md`)
+
+| # | Point critique | Soulevé par |
+|---|---|---|
+| C1' | IFN-stim n'a plus de point fixe sous v2 — discuter biologiquement les nœuds oscillants | R1, R2 |
+| C2' | Enrichissement KEGG/Reactome — différentiel v1 vs v2 attendu (sinon tautologique) | R3 |
+| C3' | Translational feasibility de SYK + p38 / PKR — paragraphe dédié | R2, R4 |
+| C4' | Asymétrie maturité translationnelle p38 (Phase 2) vs PKR (preclinical only) | R4 |
+| C5' | Comparaison MP vs asynchrone — au moins sur un sous-réseau (R1.4 toujours non traité) | R1 |
+
+### Sous-phases
+
+#### 8.1 Analyses additionnelles ciblées (S34, ≈ 5 jours)
+
+> Adresse C1', C2', C5' et les demandes statistiques de R3.
+
+**8.1.1 Identification des nœuds oscillants du trap space IFN-stim (C1', R1+R2)**
+- Re-utiliser `compute_attractors_v2.py` pour exporter la liste exacte des nœuds à `*` dans le trap space IFN-stim A1.
+- Classer par module fonctionnel (feedback IFN-STAT-SOCS, NFkB-NFKBIA, MAPK-DUSP, ISG output, autres).
+- Output : `results/phase8/oscillating_nodes_ifn_stim.csv`.
+- Critère de validation : ≥ 1 mécanisme de feedback biologiquement plausible identifié comme cause de l'oscillation.
+
+**8.1.2 Enrichissement différentiel v1 vs v2 (C2', R3)**
+- Lancer `enrichment_kegg_reactome.py` sur le set d'actifs *v1* IFN-stim FP1 (sans HDAC3/KPNB1 forcés).
+- Comparer aux résultats v2 (déjà calculés).
+- Output : `results/phase8/enrichment_v1_vs_v2_diff.csv`.
+- Critère : reporter explicitement combien des 4 voies canoniques étaient déjà enrichies dans v1 vs combien sont nouvelles dans v2.
+
+**8.1.3 Comparaison sémantique sur sous-réseau (C5', R1.4)**
+- Sélectionner le sous-module *IFN-I cascade* (~30-40 nœuds : IFNAR, JAK1/2, TYK2, STAT1/2, IRF7/9, ISGs principaux, HDAC3, KPNB1).
+- Lancer pyboolnet (asynchrone classique) ou BoolNet R sur ce sous-réseau extrait.
+- Comparer les attracteurs MP (mpbn) vs asynchrone et reporter divergences.
+- Output : `results/phase8/semantic_comparison_ifn_module.csv`, `docs/audit_semantique_ifn.md`.
+- Critère : concordance ≥ 80 % des hits monogéniques entre les deux sémantiques sur le sous-réseau, ou divergence documentée.
+
+**8.1.4 Bootstrap CI sur les Hamming observées (R3.4)**
+- Étendre `null_model_hamming.py` pour calculer un IC 95 % bootstrap sur la Hamming observée (resampling avec remplacement des paires `(gene, node)`, 1 000 itérations).
+- Output : colonne `hamming_95CI` ajoutée à `results/phase7/attractor_cohort_distance_v2.csv` (ou nouveau `results/phase8/attractor_cohort_distance_v3.csv`).
+
+**8.1.5 Baselines triviaux + PPV/NPV (R3.3)**
+- Calculer la balanced accuracy d'un modèle "tout actif" et "tout inactif" pour chaque cohorte.
+- Reporter PPV à côté de la spécificité dans Table 3.
+- Output : `results/phase8/baselines_trivial.csv`.
+
+**8.1.6 Simulation anifrolumab in silico (R2.4 optionnel, mais simple)**
+- Forcer `IFNAR_complex = 0` sous chaque condition.
+- Recompute attracteurs et phénotypes.
+- Output : ligne ajoutée à `results/phase5/drug_simulation.csv` ou nouveau `results/phase8/drug_simulation_anifrolumab.csv`.
+
+**8.1.7 Sensibilité à la convention `*` (R1.4.3)**
+- Refaire le décompte de phénotypes par attracteur avec `* → 0` au lieu de `* → 1`.
+- Reporter delta sur Table 1 et Table 2 du manuscrit.
+- Output : `results/phase8/star_convention_sensitivity.csv`.
+
+**Critères de validation 8.1**
+- Tous les outputs CSV/MD listés sont produits et tracés.
+- Pour 8.1.2, l'analyse différentielle distingue clairement signal v2-spécifique vs signal pré-existant en v1.
+- Pour 8.1.3, BoolNet/pyboolnet termine sur le sous-réseau IFN (< 30 min).
+
+#### 8.2 Révisions éditoriales du manuscrit (S34–S35, ≈ 5 jours)
+
+> Adresse C3', C4' et les demandes éditoriales de R2/R4.
+
+**8.2.1 Section nouvelle "Translational feasibility of SYK + p38 / PKR predictions" (C3', R4.1)**
+- 1 page environ, à insérer en Section 4.x (Discussion).
+- Couvrir : modèles précliniques pertinents (NOD.B10.H2b, lignées DLBCL TMD8/OCI-Ly10), compound availability (fostamatinib, entospletinib, losmapimod, doramapimod, C16, imoxin), précédents en autres pathologies BCR-driven (CLL, MCL, ABC-DLBCL si données existantes).
+- Citer Friedberg 2010 (fostamatinib DLBCL), Davis 2010 (chronic active BCR), Quartuccio 2014 (BAFF/APRIL lymphome SjD).
+
+**8.2.2 Colonne "Compound availability" dans Table 5 (C4', R4.2)**
+- Ajouter une colonne distinguant : approuvé / Phase 2-3 / Phase 1 / preclinical only.
+- Reflet de l'asymétrie p38 (Phase 2 dispo) vs PKR (preclinical only) vs SYK (fostamatinib approuvé ITP).
+
+**8.2.3 Discussion biologique perte de point fixe IFN-stim (C1', Section 3.2 / 4.x)**
+- Demi-page à 1 page citant les nœuds oscillants identifiés en 8.1.1.
+- Discuter plausibilité biologique (feedback STAT-SOCS, NFkB-NFKBIA) vs artefact d'encodage CaSQ.
+- Renvoyer au sensibilité convention `*` (8.1.7) pour montrer robustesse de la conclusion.
+
+**8.2.4 Section nouvelle "Compatibilité avec biologie ABC vs GCB DLBCL" (R2.3.1)**
+- Court paragraphe en Section 4 reliant la prédiction SYK + p38 à la biologie connue du SjD-DLBCL (Duret 2023 — données ASSESS).
+
+**8.2.5 Actualisation références cliniques 2024-2026 (R4.4.4)**
+- Ianalumab Phase 3 NCT05349214 (Bowman 2024, ESSDAI 13.8 vs 10.0).
+- Telitacicept (TACI-Fc, approbation Chine 2025 SjD).
+- Dazukibart (anti-IFN-β Phase 2 SjD 2024) si pertinent.
+- Mettre à jour Table 5 et Section 4.
+
+**8.2.6 Simplification de la cellule Table 5 / tirabrutinib (R4.3.3)**
+- Remplacer "Insufficient (Naive/IFN); — (BCR baseline = AP1 active)" par "No effect on attractor (3 conditions)".
+
+**8.2.7 Tableau récapitulatif "drugs by mechanism of action" (R4.3.5, optionnel)**
+- En SI ou Section 4.x : tableau croisant (mécanisme × compound × statut clinique × prédiction modèle).
+
+**8.2.8 Note explicite HCQ (R2.4.2)**
+- Encadré ou note de bas-de-page : "the model cannot predict HCQ effects because TLR7/9 are encoded as input nodes; this is a structural limitation of the SjD Map, not a falsification of HCQ's clinical efficacy."
+
+**8.2.9 Discussion enrichissement v1 vs v2 (C2', basé sur 8.1.2)**
+- Section 3.3 ou 4.6 : intégrer les résultats du différentiel d'enrichissement.
+- Préciser quelles voies sont *nouvelles* en v2 (probable : tous les ISGs effectors) et quelles étaient déjà présentes (probable : JAK-STAT haut-niveau).
+
+**8.2.10 Discordance p-value / AUROC GSE51092 (R3.1)**
+- Note dans Section 3.3 ou Table 2 : reporter le ratio up/down par cohorte ; mentionner le biais directionnel des DEGs comme explication probable.
+
+**8.2.11 Restructuration Section 5 (Conclusions) (R4.4.3)**
+- Découper l'unique paragraphe actuel en 3-4 alinéas distincts : (i) résultat principal v2, (ii) re-cadrage AP1/p38, (iii) prédictions actionnables avec next steps, (iv) limites.
+
+**8.2.12 Lettre de réponse round 2 (`docs/response_to_reviewers_v2.md`)**
+- Réponse point-par-point aux ~25 demandes individuelles des 4 relecteurs round 2.
+- Référencement systématique aux nouveaux outputs `results/phase8/*` et aux sections révisées du manuscrit.
+
+**Livrables 8.2**
+- `docs/manuscript_v3.md` (manuscrit révisé pour le round 2)
+- `docs/response_to_reviewers_v2.md`
+- Table 5 mise à jour avec colonne "Compound availability"
+
+#### 8.3 Re-soumission round 2 (S35)
+
+**8.3.1 Tests de non-régression (sanity)**
+- Vérifier que les 3 tests pytest existants (`tests/test_*.py`) passent toujours sur `manuscript_v3` / `model-v2.0`.
+- Pas de nouveau test requis ; la stabilité du modèle v2 est l'invariant.
+
+**8.3.2 Mise à jour Zenodo et CITATION.cff**
+- Bump version 2.0.0 → 2.1.0.
+- Nouvelle archive Zenodo (DOI permanent v2.1).
+- Mise à jour `CITATION.cff` (version 2.1.0, date-released).
+
+**8.3.3 Resoumission**
+- Resoumettre à *npj Systems Biology and Applications* avec lettre couvrant les changements depuis v2 (`docs/cover_letter_v2.md`).
+- Plan B inchangé (*Bioinformatics*, *PLOS Comput Biol*).
+
+### Suivi des recommandations round 2
+
+| Reco round 2 | Source | Sous-phase | Statut |
+|---|---|---|---|
+| C1' / R1.3.2 / R2.3.2 | Discussion oscillation IFN-stim | 8.1.1 + 8.2.3 | À faire |
+| C2' / R3.3.2 | Enrichissement v1 vs v2 différentiel | 8.1.2 + 8.2.9 | À faire |
+| C3' / R2.3.1 / R4.3.1 | Translational feasibility SYK + p38 | 8.2.1 + 8.2.4 | À faire |
+| C4' / R4.3.2 | Compound availability column | 8.2.2 | À faire |
+| C5' / R1.3.1 / R1.4 | Comparaison sémantiques sur sous-réseau | 8.1.3 | À faire |
+| R1.3.3 | Correction multiple (Bonferroni / FDR) | 8.1.4 + note Section 3.3 | À faire |
+| R1.4.1 | Paramètres pystablemotifs | Note dans `stable_motifs_status.md` | À faire |
+| R1.4.3 | Sensibilité convention `*` | 8.1.7 | À faire |
+| R2.3.3 | Framing translationnel | 8.2.1 + 8.2.11 | À faire |
+| R2.3.4 | Référence ianalumab Phase 3 | 8.2.5 | À faire |
+| R2.4.1 | Simulation anifrolumab | 8.1.6 | À faire |
+| R2.4.2 | Note HCQ | 8.2.8 | À faire |
+| R3.3.1 | Discordance p/AUROC GSE51092 | 8.2.10 | À faire |
+| R3.3.3 | Baselines triviaux + PPV | 8.1.5 | À faire |
+| R3.3.4 | IC bootstrap Hamming | 8.1.4 | À faire |
+| R3.3.5 | Sensibilité aux seuils logFC | Discussion uniquement (overlays catégoriques) | À faire |
+| R4.3.3 | Simplifier cellule tirabrutinib | 8.2.6 | À faire |
+| R4.3.4 | Actualisation refs 2024-2026 | 8.2.5 | À faire |
+| R4.3.5 | Tableau MoA récap | 8.2.7 | Optionnel |
+
+### Dépendances internes
+
+- 8.1.1 → 8.2.3 (la discussion biologique nécessite la liste des nœuds oscillants).
+- 8.1.2 → 8.2.9 (la discussion enrichissement nécessite le différentiel calculé).
+- 8.1.4 → 8.2.10 (l'IC bootstrap fournit le contexte de la discordance p/AUROC).
+- Toutes les analyses 8.1 alimentent la rédaction 8.2 et la lettre de réponse 8.2.12.
+- 8.3 dépend de 8.2 entièrement.
+
+### Risques spécifiques de la Phase 8
+
+| Risque | Probabilité | Mitigation |
+|---|---|---|
+| BoolNet/pyboolnet n'aboutissent pas même sur le sous-réseau IFN | Faible | Réduire le sous-réseau (ne garder que la chaîne IFNAR → ISGs canoniques, ~15 nœuds) |
+| L'enrichissement différentiel v1 vs v2 montre que v1 enrichissait *déjà* IFN | Moyenne | Si confirmé, recadrer comme contrôle de cohérence interne plutôt que validation indépendante (R3 l'a anticipé) |
+| Anifrolumab simulation donne un résultat peu interprétable (cyclic trap space inchangé) | Moyenne | Reporter le résultat tel quel ; documenter comme limite de la sémantique MP sur cette condition |
+| Les nœuds oscillants identifiés en 8.1.1 ne forment pas un feedback biologique reconnaissable | Faible | Documenter honnêtement comme artefact d'encodage CaSQ ; ne pas inventer de mécanisme |
+
+### Critères de Go/No-Go pour la resoumission round 2 (fin Phase 8)
+
+- ✅ Les 5 points convergents C1'–C5' ont une réponse traçable dans le manuscrit v3 et `response_to_reviewers_v2.md`.
+- ✅ L'enrichissement différentiel v1 vs v2 est calculé et discuté.
+- ✅ Au moins un sous-réseau a été testé sous sémantique alternative et le résultat est reporté.
+- ✅ La perte du point fixe IFN-stim sous v2 est expliquée biologiquement ou méthodologiquement (pas seulement constatée).
+- ✅ Toutes les ~25 demandes individuelles round 2 ont une réponse argumentée.
+
+### Estimation de charge
+
+| Sous-phase | Charge (jours) | Note |
+|---|---|---|
+| 8.1.1 — Nœuds oscillants | 0.5 | Trivial à partir des outputs Phase 7 |
+| 8.1.2 — Enrichissement différentiel | 0.5 | Re-run script existant sur set v1 |
+| 8.1.3 — Comparaison sémantique | 1–2 | BoolNet/pyboolnet setup + extraction sous-réseau |
+| 8.1.4 — Bootstrap CI | 0.5 | Extension simple de `null_model_hamming.py` |
+| 8.1.5 — Baselines | 0.5 | Quelques lignes dans `sensitivity_specificity.py` |
+| 8.1.6 — Anifrolumab | 0.5 | Une simulation supplémentaire |
+| 8.1.7 — Convention `*` | 0.5 | Recompte avec convention alternative |
+| 8.2.x — Édition manuscrit | 3 | Manuscrit v3 + lettre réponse |
+| 8.3 — Resoumission | 0.5 | Tests, Zenodo, soumission |
+| **Total** | **~7-9 jours** | Faisable en 1.5-2 semaines calendaires |
+
+---
