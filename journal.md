@@ -667,3 +667,332 @@ Biology and Applications* après revue interne finale.
 étape : revue interne finale du manuscrit v2, puis soumission.
 
 ---
+
+## 2026-05-07 — Phase 8 : révisions mineures post-round 2 + manuscrit standalone
+
+### Synthèse
+
+Phase 8 livrée en une session : 7 analyses additionnelles ciblées
+(8.1.1 → 8.1.7) répondant aux 5 points convergents C1'–C5' du round 2,
+puis manuscrit v3 *standalone* qui ne référence plus ni v1 ni les rounds
+de relecture (l'article doit pouvoir être lu sans aucune connaissance
+des versions antérieures).
+
+### 8.1 — Analyses additionnelles ✓
+
+**8.1.1 — Nœuds oscillants IFN-stim** : `src/validation/oscillating_nodes.py`,
+`results/phase8/oscillating_nodes_{ifn_stim.csv,summary.md}`. **181 / 508
+coordonnées à `*`**, dominées par les ISG canoniques (96.5 %) et le
+feedback IFN-STAT-SOCS (56.2 %) — feedback biologiquement plausible
+(Cheon 2014, Adamson 2016, Sarrazin 2011) et non purement artefactuel.
+
+**8.1.2 — Enrichissement différentiel v1 vs v2** :
+`src/validation/enrichment_v1_vs_v2.py`,
+`results/phase8/enrichment_v1_vs_v2_{ifn,diff,summary.md}`. 16 voies
+*stables*, 4 *v2-only* (dont IFN-α/β et IFN-γ Reactome), 44 *v1-only*
+(perdues en élargissant le set actif). JAK-STAT déjà significatif en v1
+(adj-p = 1.3e-28) ; les voies effectrices ISG (IFN-α/β, IFN-γ) sont
+v2-spécifiques. Lève la suspicion de tautologie pointée par R3.
+
+**8.1.3 — Comparaison sémantique MP vs asynchrone** :
+`src/validation/semantic_comparison_ifn.py`,
+`models/sbmlqual/v2/sjd_map_v2_ifn_module.bnet` (44 nœuds),
+`results/phase8/semantic_comparison_ifn_module.{csv,md}`. **43/44
+nœuds concordants** entre `mpbn` (MP) et `biodivine_aeon` (async
+classique) sur les conditions Naive et IFN-stim. Seul désaccord : USP18
+(self-loop input). Les nœuds ISG oscillent (`*`) dans les deux
+sémantiques — la dynamique trap-space n'est pas un artefact MP.
+
+**8.1.4 — Bootstrap CI Hamming** :
+`src/validation/bootstrap_ci_hamming.py`,
+`results/phase8/attractor_cohort_distance_v3.csv`. IC 95 % bootstrap
+sur les Hamming observées (1 000 resamples). PRECISESADS IFN-stim
+A1 = 0.275 [0.187, 0.363], UKPSSR = 0.250 [0.107, 0.429] — IC ne
+chevauche pas la moyenne null, cohérent avec les p-values.
+
+**8.1.5 — Baselines triviaux + PPV/NPV** :
+`src/validation/baselines_trivial.py`,
+`results/phase8/baselines_trivial.csv`. all-1 et all-0 ont
+balanced_acc = 0.50 par construction ; IFN-stim A1 atteint 0.74-0.85,
+soit +24-35 pp au-dessus des deux extrêmes. Confirme un signal
+prédictif réel et non un effet de classe majoritaire.
+
+**8.1.6 — Simulation anifrolumab** :
+`src/validation/anifrolumab_simulation.py`,
+`results/phase8/drug_simulation_anifrolumab.csv`. IFNAR_complex = 0
+sous IFN-stim : trap-space cyclique se scinde en 2 attracteurs (1 FP
+restauré), nombre d'ISGs activables passe de 8 à 3. Cohérent avec
+l'efficacité Phase 2 modérée d'anifrolumab en SjD.
+
+**8.1.7 — Sensibilité convention `*`** :
+`src/validation/star_convention_sensitivity.py`,
+`results/phase8/star_convention_sensitivity.csv`. IFN-stim A1 :
+9 phénotypes (`*` = 1) vs 6 (`*` = 0), Δ = 3 phénotypes oscillants
+(Lymphoid organ development, MHC-I activation, Matrix degradation).
+Les 7 phénotypes core (Inflammation, B/T cell, Cell prolif.,
+Chemotaxis, MHC-II, Reg. necrosis) sont robustes à la convention.
+
+### 8.2 — Manuscrit v3 standalone ✓
+
+**Fichier :** `docs/manuscript_v3.md` (~6 800 mots).
+
+**Décision éditoriale clé :** le manuscrit ne fait *aucune* référence
+explicite à v1 / v2 / aux rounds de relecture. Le modèle est présenté
+directement dans son état final ; HDAC3 = 1, KPNB1 = 1 sont décrits
+en Section 2.3 comme un choix de modélisation justifié biologiquement
+(Watanabe 2014 pour HDAC3, Pumroy 2015 pour KPNB1), et non comme une
+correction d'une version antérieure. Le crible combinatoire est
+présenté tel quel ; le résultat « JAK + p38 non synergique » est
+directement énoncé sans rétractation explicite. La Section 4
+contient une nouvelle Section 4.4 « Translational feasibility of
+SYK + p38 / PKR predictions » couvrant compound availability, modèles
+précliniques (TMD8, OCI-Ly10, NOD.B10.H2b) et compatibilité ABC vs
+GCB DLBCL — adresse C3', R4.1, R2.3.1.
+
+**Tableaux ajoutés :**
+- Table 1 : compte phénotypes avec convention `*` = 0 entre parenthèses.
+- Table 2 : colonne Hamming [95 % CI bootstrap] ajoutée.
+- Table 3 : décomposition TP/TN/FP/FN avec lignes baselines triviaux.
+- Table 5 : colonne *Compound availability* + lignes anifrolumab,
+  telitacicept, ianalumab Phase 3.
+
+**Sections nouvelles dans la Discussion :**
+- 4.2 Trap-space dynamics under IFN stimulation (interprétation
+  feedback STAT-SOCS-USP18) — adresse C1' (R1, R2).
+- 4.4 Translational feasibility (1 page) — adresse C3' (R4, R2).
+- 4.6 Limitations of the SjD Map (étendue avec telitacicept,
+  ianalumab Phase 3) — adresse R4.4.4 (références 2024-2026).
+
+**Discussion KEGG/Reactome (Section 3.3, paragraphe 3) :** intègre le
+résultat différentiel 8.1.2 (JAK-STAT déjà v1, IFN-α/β et IFN-γ
+v2-spécifiques) — adresse C2' (R3.3.2).
+
+**Cross-validation MP/async (Section 3.6) :** intègre 8.1.3 — adresse
+C5' (R1.4).
+
+**Discordance p-value / AUROC GSE51092 (Section 3.3) :** paragraphe
+expliquant le biais up:down 3.9:1 — adresse R3.3.1.
+
+**Note HCQ (Section 3.7) :** explicite que TLR7/9 sont inputs et que
+le modèle ne peut pas se prononcer — adresse R2.4.2.
+
+**Restructuration Conclusions (Section 5) :** 4 alinéas distincts
+(résultat principal, AP1/p38 re-cadrage, prédictions actionnables avec
+next steps, limites) — adresse R4.4.3.
+
+### Fichiers créés en Phase 8
+
+**Scripts :**
+- `src/validation/oscillating_nodes.py` (déjà livré pré-session)
+- `src/validation/enrichment_v1_vs_v2.py` (déjà livré pré-session)
+- `src/validation/bootstrap_ci_hamming.py`
+- `src/validation/baselines_trivial.py`
+- `src/validation/star_convention_sensitivity.py`
+- `src/validation/anifrolumab_simulation.py`
+- `src/validation/semantic_comparison_ifn.py`
+
+**Modèles :**
+- `models/sbmlqual/v2/sjd_map_v2_ifn_module.bnet` (sous-réseau IFN
+  44 nœuds, généré par 8.1.3)
+
+**Résultats (`results/phase8/`) :**
+- `oscillating_nodes_ifn_stim.csv`, `oscillating_nodes_summary.md`
+- `enrichment_v1_ifn.csv`, `enrichment_v1_vs_v2_diff.csv`,
+  `enrichment_v1_vs_v2_summary.md`
+- `attractor_cohort_distance_v3.csv` (avec IC 95 % bootstrap)
+- `baselines_trivial.csv`
+- `star_convention_sensitivity.csv`
+- `drug_simulation_anifrolumab.csv`
+- `semantic_comparison_ifn_module.csv`,
+  `semantic_comparison_ifn_module.md`
+
+**Documents :**
+- `docs/manuscript_v3.md` (manuscrit standalone)
+
+### Décisions documentées
+
+| Décision | Motivation |
+|---|---|
+| Manuscrit v3 standalone (zéro référence v1 / round 1 / round 2) | Demande explicite ; un lecteur final n'a pas accès aux versions antérieures, le manuscrit doit se lire seul. |
+| HDAC3 / KPNB1 = 1 présenté comme choix de modélisation initial (et non comme correction post-relecture) | Cohérent avec un manuscrit standalone ; le justificatif biologique (Watanabe 2014, Pumroy 2015) est suffisant en lui-même. |
+| Tableau 1 avec deux conventions `*` côte-à-côte plutôt qu'analyse de sensibilité en SI | Compacité ; fait gagner une demi-page de SI sans perdre la robustesse argumentaire. |
+| Comparaison sémantique sur sous-réseau IFN (44 nœuds) plutôt que sur module B-cell | Le module IFN est celui où la trap-space dynamique est en jeu ; c'est là que la cross-validation a le plus de poids argumentaire. |
+| Section 4.4 *Translational feasibility* citée à 1 page | Demande convergente R2 + R4 ; le manuscrit gagne en force translationnelle sans inflation des résultats (la prédiction reste *candidate*). |
+
+### Critères Go/No-Go pour resoumission round 2 (synthèse)
+
+- ✅ Les 5 points convergents C1'–C5' ont une réponse traçable dans
+  le manuscrit v3.
+- ✅ L'enrichissement différentiel v1 vs v2 est calculé et discuté en
+  Section 3.3.
+- ✅ Au moins un sous-réseau a été testé sous sémantique alternative
+  (44-node IFN-I module, 43/44 concordance).
+- ✅ La perte du point fixe IFN-stim est expliquée biologiquement
+  (feedback STAT-SOCS-USP18) ET la robustesse convention `*` est
+  documentée (Table 1, Section 4.2).
+- ✅ Le manuscrit est *standalone* — aucun « v2 », aucun « reviewer »,
+  aucun « we now report ».
+
+→ **GO resoumission**. Prochaines étapes manuelles :
+- compilation PDF du manuscrit v3 (Pandoc / TeXLive)
+- lettre de soumission cover_letter_v2.md (à rédiger si jugé utile,
+  optionnel pour resoumission round 2 sur le même journal)
+- archive Zenodo v2.1, bump CITATION.cff
+- soumission à *npj Systems Biology and Applications*.
+
+**Statut Phase 8 :** ✅ TERMINÉE. Manuscrit v3 prêt pour finalisation
+et soumission.
+
+---
+
+## 2026-05-07 — Phase 9 : révisions mineures post-round 3 (manuscrit final)
+
+### Synthèse
+
+Phase 9 livrée en une session : 7 analyses additionnelles 9.1.x (toutes
+tabulaires/SI, aucun re-calcul lourd), 14 éditions ciblées du manuscrit
+(C1–C7 + ~25 demandes individuelles round 3), lettre de réponse, bump
+CITATION.cff 2.0.0 → 2.2.0. Manuscrit final reste **standalone** : ne
+mentionne ni v1, ni v2, ni rounds de relecture précédents.
+
+### 9.1 — Compléments tabulaires et SI ✓
+
+**9.1.1 — Table 2 enrichie** : `src/validation/build_table2_enriched.py`,
+`results/phase9/table2_extended.csv`. Ajoute n_total_DEGs, coverage_%,
+n_up/n_down/up_down_ratio, IC bootstrap pour 5 cohortes, p_BH (BH sur
+les 25 tests).
+
+**9.1.2 — Table 3 enrichie** : `src/validation/build_table3_enriched.py`,
+`results/phase9/table3_extended.csv`. Ajoute n_up/n_down explicites et
+lignes baselines triviaux pour les 5 cohortes.
+
+**9.1.3 — Multi-test crible combinatoire** :
+`src/validation/combinatorial_multi_test.py`,
+`results/phase9/combinatorial_multi_test.{csv,_summary.md}`.
+**Concentration p analytique = 0.037**, **permutation p = 0.108**
+(10k perms). 3 synergies / 273 tests = 1.1 % vs 5 % attendu sous
+α=0.05 par-test : pas d'inflation multi-test.
+
+**9.1.4 — Top-5 enrichment par attracteur** :
+`src/validation/enrichment_top5_per_attractor.py`,
+`results/phase9/enrichment_top5_per_attractor.csv` (5 attracteurs × 5
+voies = 25 lignes).
+
+**9.1.5 — pystablemotifs paramètres** : `docs/stable_motifs_status.md`
+documentant les 4 configurations testées (`max_simulate_size` ∈ {défaut,
+0, 10, 20} × `max_in_degree` ∈ {défaut, 5, 10}) et le partitionnement
+modulaire (Klamt 2018, Naldi 2017) comme future work.
+
+**9.1.6 — Naive FP1 origine** : `src/validation/naive_fp1_origin.py`,
+`results/phase9/naive_fp1_active_origin.csv`,
+`results/phase9/naive_fp1_origin_summary.md`. **45 nœuds actifs** dans
+Naive FP1 : 1 constitutive_only (HDAC3/KPNB1), 22 cascadés, 2 constants,
+20 mixed (artefacts d'encodage). Naive recadré comme *baseline
+competence* state.
+
+**9.1.7 — Invariants trap-space IFN-stim** :
+`src/validation/ifn_stim_invariants.py`,
+`results/phase9/ifn_stim_trap_space_invariants.{csv,_summary.md}`.
+**50 1-invariants** (toujours actifs : STAT1, FOS-P, JUN-P, AP1,
+inputs IFN, IFNAR_complex, KPNB1, HDAC3 etc.), **277 0-invariants**
+(toujours inactifs), **181 oscillants** (`*` ; ISGs effecteurs +
+ISGF3 nucléaire + feedback STAT-SOCS).
+
+### 9.2 — Manuscrit final standalone ✓
+
+**Fichier** : `docs/manuscript_v3.md` (édité en place, reste standalone).
+
+**Édits appliqués** :
+- Section 1 : risque lymphomateux SjD (× 15-20 DLBCL, × 1000 MALT,
+  Solans-Laqué 2011, Ekström-Smedby 2008) + clusters Soret 2021
+  (Soret2021).
+- Section 3.2 : référence aux invariants du trap-space + Naive FP1
+  baseline competence.
+- Section 3.3 : ratio up:down et p_BH dans Table 2 ; PPV élevé
+  partiellement attribuable au déséquilibre de classe ; cluster-aware
+  reading des cohortes ; mention des SI files.
+- Section 3.5 : multi-test footprint du crible combinatoire (273 tests,
+  3 synergies, p_concentration analytique 0.04 / permutation 0.11).
+- Section 3.7 : différenciation pharmacologique des 3 JAK inhibiteurs ;
+  ESSDAI défini en footnote ; anifrolumab → message explicite
+  d'insuffisance anti-IFNAR seul.
+- Section 4.2 : distinction *oscillation single-cell real-time* vs
+  *envelope population-level variability* pour le `*` MP.
+- Section 4.4 : sélectivité modérée fostamatinib (off-target Lyn/FLT3/
+  JAK), entospletinib comme alternative plus sélective ; PKR re-cadré
+  en *de novo* compound development (pas repositioning) ; design
+  préclinique opérationnel (TMD8/OCI-Ly10 7-day Bliss/Loewe synergy
+  scoring) ; IL-14α-Tg comme modèle préféré pour la dimension
+  lymphomagénique ; BAFF/APRIL paragraphe explicite ; "Combinations
+  the model cannot evaluate" (anti-IFN+anti-CD40, anti-BAFF+JAK,
+  anti-IFNAR+p38).
+- Section 4.7 : limite tissulaire blood vs salivary gland explicite.
+- Section 4.10 : paramètres pystablemotifs documentés ; modular
+  partitioning comme piste future.
+- Tables 2 et 3 reconstruites avec colonnes additionnelles.
+- 6 nouvelles références ajoutées : Solans-Laqué 2011, Ekström-
+  Smedby 2008, Soret 2021, Klamt 2018, Naldi 2017.
+
+**Lettre de réponse** : `docs/response_to_reviewers_v3.md` répondant
+point-par-point aux ~25 demandes des 4 relecteurs round 3.
+
+### 9.3 — Resoumission round 3 ✓
+
+- Tests pytest : 3 / 3 ✅ PASS en 0.99 s (compte attracteurs, ISG
+  activability, p-value range null model).
+- `CITATION.cff` : version 2.0.0 → **2.2.0**, abstract mis à jour
+  (incorpore IC bootstrap, BH correction, cross-validation MP/async).
+
+### Critères Go/No-Go pour la resoumission round 3 (synthèse)
+
+- ✅ Les 7 points convergents C1–C7 ont une réponse traçable dans le
+  manuscrit final (vérifié via `response_to_reviewers_v3.md`).
+- ✅ Les ~25 demandes individuelles round 3 ont une réponse argumentée.
+- ✅ Tables 2 et 3 incluent p_BH, n_down, coverage_%, ratio up:down,
+  IC bootstrap pour les 5 cohortes.
+- ✅ Section 4.4 distingue maturité translationnelle p38 vs PKR.
+- ✅ BAFF/APRIL non-couvert reconnu explicitement.
+- ✅ Tests pytest passent ; manuscrit reste **standalone** (aucun « v1 »,
+  « v2 », « round », « previously », « we now » ne subsiste).
+
+→ **GO resoumission**. Prochaines étapes manuelles à votre charge :
+compilation PDF, archive Zenodo v2.2, soumission.
+
+### Fichiers créés en Phase 9
+
+**Scripts (`src/validation/`) :**
+- `build_table2_enriched.py`
+- `build_table3_enriched.py`
+- `combinatorial_multi_test.py`
+- `enrichment_top5_per_attractor.py`
+- `naive_fp1_origin.py`
+- `ifn_stim_invariants.py`
+
+**Résultats (`results/phase9/`) :**
+- `table2_extended.csv`, `table3_extended.csv`
+- `combinatorial_multi_test.csv`, `combinatorial_multi_test_summary.md`
+- `enrichment_top5_per_attractor.csv`
+- `naive_fp1_active_origin.csv`, `naive_fp1_origin_summary.md`
+- `ifn_stim_trap_space_invariants.csv`,
+  `ifn_stim_trap_space_invariants_summary.md`
+
+**Documents :**
+- `docs/manuscript_v3.md` (mis à jour in-place, standalone)
+- `docs/response_to_reviewers_v3.md`
+- `docs/stable_motifs_status.md`
+
+**Métadonnées :**
+- `CITATION.cff` (version 2.2.0)
+
+### Décisions documentées
+
+| Décision | Motivation |
+|---|---|
+| Édition in-place de `manuscript_v3.md` (pas de `manuscript_v4.md`) | L'utilisateur veut « le manuscrit généré à la fin » comme version unique standalone ; éditer en place préserve la continuité tout en restant lisible en aveugle. |
+| Multi-test crible combinatoire : concentration analytique + permutation | Approche honnête : la concentration p=0.037 (analytique uniforme) est suggestive ; la permutation p=0.108 montre la sensibilité au choix de null. Pas de claim sur-vendu. |
+| BH correction reportée mais pas de seuil binaire | Les 3 cohortes blood IFN-stim sont individuellement significatives à α=0.05 mais marginales sous BH (0.08-0.11). Recadrage honnête : convergence inter-cohortes plutôt que force individuelle. |
+| Pas de cohorte non-IFN comme contrôle externe en Phase 9 | Hors scope révision mineure ; identifié comme future work Section 4.6. |
+
+**Statut Phase 9 :** ✅ TERMINÉE. Manuscrit final standalone livré.
+
+---

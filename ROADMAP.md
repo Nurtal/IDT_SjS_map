@@ -20,7 +20,8 @@ Ce document décompose chaque phase du projet en tâches élémentaires, livrabl
 | 5 | Validation et étude de cas thérapeutique | S18–S21 | ✅ Terminée (2026-05-05) |
 | 6 | Rédaction et soumission | S22–S26 | ✅ Structure livrée (2026-05-05) |
 | 7 | Révision majeure post-relecture | S27–S33 | ✅ Livrée (2026-05-07) — manuscrit v2 + réponse R1.1–R4.8 + tests |
-| **8** | **Révisions mineures post-round 2** | **S34–S35** | 🔄 **En cours (2026-05-07)** |
+| 8 | Révisions mineures post-round 2 | S34–S35 | ✅ Livrée (2026-05-07) — 7 analyses 8.1.x + manuscrit v3 standalone |
+| 9 | Révisions mineures post-round 3 | S36 | ✅ Livrée (2026-05-07) — manuscrit final standalone + 7 analyses 9.1.x + lettre réponse |
 
 **Chemin critique** : Phase 1 → Phase 2 → Phase 3 → Phase 4. Les phases 5 et 6 dépendent toutes des résultats consolidés des phases 2–4. **La Phase 7 ré-exécute partiellement les phases 2–5 après corrections du modèle et de la statistique.**
 
@@ -414,6 +415,7 @@ Produire un manuscrit publiable et un dépôt code/données pleinement reproduct
 | 2026-05-05 | GSE23117 (tissu salivaire) confirmé disponible → validation 5.3 non optionnelle | Fichier présent dans l'archive Zenodo, pas de téléchargement supplémentaire requis |
 | 2026-05-06 | Ouverture d'une **Phase 7** dédiée à la révision majeure post-relecture | Quatre rapports de relecteurs convergents dans `docs/reviewing/` ont identifié des limites bloquantes (encodage IFN cassé, absence de null model, sur-revendication clinique, AP1/p38 potentiellement artefactuel) qui requièrent une re-exécution partielle des Phases 2–5 avant resoumission. |
 | 2026-05-07 | Ouverture d'une **Phase 8** post-round 2 (révisions mineures) | Le second tour de relecture (`docs/reviewing/reviewing_v2/`) a remonté un verdict consensuel *Accept after minor revisions*. Cinq points convergents (C1'–C5') restent à clarifier par des analyses ciblées et des additions éditoriales — sans ré-exécution de Phase 7. |
+| 2026-05-07 | Ouverture d'une **Phase 9** post-round 3 (corrections éditoriales finales) | Le troisième tour de relecture *en aveugle* sur le manuscrit standalone (`docs/reviewing/reviewing_v3/`) confirme un verdict unanime *Accept after minor revisions*. Sept points convergents (C1–C7), tous éditoriaux ou tabulaires (additions de colonnes, précisions de prose), aucun re-calcul de pipeline. |
 
 ---
 
@@ -691,7 +693,7 @@ Lever les limites identifiées par les relecteurs sans toucher au scope du papie
 
 ---
 
-## Phase 8 — Révisions mineures post-round 2 (semaines 34–35) 🔄 EN COURS
+## Phase 8 — Révisions mineures post-round 2 (semaines 34–35) ✅ TERMINÉE 2026-05-07
 
 **Ouverte le 2026-05-07** suite au second tour de relecture (`docs/reviewing/reviewing_v2/`). Verdict consensuel : *Accept after minor revisions* (R1 Minor, R2/R3/R4 Accept after minor — tous les relecteurs ont upgradé leur recommandation).
 
@@ -891,5 +893,236 @@ Adresser les 5 points convergents C1'–C5' et les demandes individuelles des 4 
 | 8.2.x — Édition manuscrit | 3 | Manuscrit v3 + lettre réponse |
 | 8.3 — Resoumission | 0.5 | Tests, Zenodo, soumission |
 | **Total** | **~7-9 jours** | Faisable en 1.5-2 semaines calendaires |
+
+---
+
+## Phase 9 — Révisions mineures post-round 3 (semaine 36) ✅ TERMINÉE 2026-05-07
+
+**Ouverte le 2026-05-07** suite au troisième tour de relecture en aveugle (`docs/reviewing/reviewing_v3/`). Verdict consensuel *unanime* : **Accept after minor revisions** (R1, R2, R3, R4 tous *Accept after minor*).
+
+### Objectif
+
+Adresser les sept points convergents C1–C7 et les ~25 demandes individuelles des quatre relecteurs round 3. Toutes les demandes sont éditoriales ou tabulaires : aucune ré-exécution de pipeline n'est requise. Estimation totale : 3-5 jours calendaires. Re-soumettre à *npj Systems Biology and Applications* (9.3).
+
+### Convergences round 3 (synthèse `docs/reviewing/reviewing_v3/00_synthese_editoriale.md`)
+
+| # | Point convergent | Soulevé par |
+|---|---|---|
+| C1 | Statistique : colonnes p_BH, n_down, coverage_%, ratio up:down dans Tables 2-3 | R3 |
+| C2 | pystablemotifs : documenter paramètres testés et discuter partitionnement modulaire | R1 |
+| C3 | SYK + p38 : préciser la sélectivité modérée des SYK inhibiteurs cliniques (fostamatinib, entospletinib) | R4 |
+| C4 | PKR : reconnaître plus explicitement que la translation requiert un développement de novo (orphan target) | R2, R4 |
+| C5 | BAFF/APRIL non-couvert dans la prédiction lymphomagénique : expliciter en Section 4.4 | R2 |
+| C6 | Naive condition : documenter quels nœuds restent à 1 dans Naive FP1 | R1 |
+| C7 | Trap-space cyclique IFN-stim : distinguer "oscillation au sens dynamique" vs "envelope de variabilité populationnelle" | R2 |
+
+### Sous-phases
+
+#### 9.1 Compléments tabulaires et SI ciblés (J1, ≈ 1 jour)
+
+> Adresse C1, C2, C6 et la majorité des demandes R3.
+
+**9.1.1 — Enrichissement de Table 2 (R3.2.1, R3.2.5, R3.2.8, C1)**
+- Recalculer les colonnes manquantes à partir des fichiers existants :
+  - `up:down ratio` par cohorte (déjà dans `results/phase8/baselines_trivial.csv`).
+  - `p_BH` (correction Benjamini-Hochberg sur les 25 tests cohorte × attracteur).
+  - `coverage_%` (n_pairs / n_DEGs_total) par cohorte.
+  - IC bootstrap `[lo, hi]` pour les 5 cohortes (déjà calculé par 8.1.4 mais Table 2 ne reporte que 2/5 — étendre).
+- Output : Table 2 enrichie dans `docs/manuscript_v3.md` ; `results/phase9/table2_extended.csv` consolidé.
+
+**9.1.2 — Enrichissement de Table 3 (R3.2.3)**
+- Ajouter colonne `n_down` explicite par cohorte.
+- Ajouter ligne baseline trivial pour chaque cohorte (actuellement seulement PRECISESADS, UKPSSR).
+- Output : Table 3 dans manuscrit_v3.md.
+
+**9.1.3 — Correction multi-test pour le crible combinatoire (R3.2.2)**
+- Calculer le nombre de paires synergiques attendues sous H0 (binomial exact ou randomisation).
+- Ajouter un paragraphe en Section 3.5 ou 4.10 reportant : nb paires testées (273), nb synergiques observées (3 en BCR-stim), p-value globale du crible.
+- Output : `results/phase9/combinatorial_multi_test.csv`, paragraphe ajouté.
+
+**9.1.4 — SI table : enrichment top-5 voies par attracteur (R3.2.7)**
+- Re-formatter `results/phase7/enrichment_attractors.csv` en table 5 attracteurs × 5 voies.
+- Output : `results/phase9/enrichment_top5_per_attractor.csv` + référencé en SI du manuscrit.
+
+**9.1.5 — pystablemotifs : paramètres testés (R1.3.1, C2)**
+- Étendre `results/phase7/stable_motifs_status.md` avec :
+  - Paramètres essayés : `max_simulate_size ∈ {0, 10, 20}`, `max_in_degree ∈ {5, 10}`, timeout 180s.
+  - Mention du partitionnement modulaire (Klamt/Tournier) comme piste future, sans exécution.
+- Output : `docs/stable_motifs_status_v2.md` (ou MAJ du fichier Phase 7) + référencé en Section 4.10 du manuscrit.
+
+**9.1.6 — Naive FP1 : origine de l'activité (R1.3.3, C6)**
+- Extraire de `results/phase7/attractor_catalog_v2.csv` la liste des nœuds à 1 dans Naive FP1.
+- Pour chaque nœud actif, identifier la source (rule auto-amplificatrice, propagation depuis HDAC3/KPNB1, etc.).
+- Output : `results/phase9/naive_fp1_active_origin.csv`, paragraphe SI.
+
+**9.1.7 — Invariants du trap-space IFN-stim (R1.3.5, optionnel)**
+- Lister les nœuds qui restent à 0 ou 1 *dans toutes les trajectoires* du trap space IFN-stim.
+- Output : `results/phase9/ifn_stim_trap_space_invariants.csv`, mentionné en Section 4.2 ou SI.
+
+**Critères de validation 9.1**
+- Tous les outputs CSV listés sont produits.
+- Tables 2 et 3 du manuscrit sont enrichies des nouvelles colonnes.
+- Le manuscrit cite chaque nouveau fichier SI au bon endroit.
+
+#### 9.2 Révisions éditoriales du manuscrit (J2-J4, ≈ 2-3 jours)
+
+> Adresse C3, C4, C5, C7 et les demandes individuelles R2, R4.
+
+**9.2.1 — Section 4.4 : sélectivité SYK inhibiteurs (R4.3.1, C3)**
+- Ajouter un paragraphe précisant :
+  - Fostamatinib = prodrug (R788 → R406), sélectivité modérée (off-target Lyn, FLT3, JAK).
+  - Échec relatif de fostamatinib en monothérapie DLBCL (Friedberg 2010, STELLAR-DLBCL).
+  - Entospletinib = SYK plus sélectif mais base safety data plus mince.
+- Reformuler la prédiction comme "kinase polypharmacologique + p38" plutôt que "SYK strict + p38".
+
+**9.2.2 — Section 4.4 : PKR comme orphan target de novo (R4.3.2, R2.3.1, C4)**
+- Ajouter une phrase explicite : "no clinically advanced PKR inhibitor exists at the time of writing; translation requires *de novo* compound development, not repositioning of existing molecules."
+- Cohérent avec la colonne *Compound availability* de Table 5.
+
+**9.2.3 — Section 4.4 : BAFF/APRIL non-couvert dans la prédiction lymphomagénique (R2.3.2, C5)**
+- Ajouter un paragraphe explicite : la prédiction SYK + p38 / PKR adresse la branche BCR-driven (TMD8/OCI-Ly10 ABC-DLBCL) mais ne couvre pas la branche BAFF/APRIL → TACI/BCMA → NFkB du driver lymphomagénique SjD (Quartuccio 2014).
+- Cite Quartuccio 2014 et le rôle paracrine APRIL.
+
+**9.2.4 — Section 4.4 : modèle préclinique préférentiel (R4.3.5)**
+- Recommander **IL-14α-Tg** comme modèle préférentiel pour la prédiction SYK + p38 / PKR (sialadenitis suivie B-cell lymphoma — naturellement compatible avec la dimension lymphomagénique).
+- NOD.B10.H2b et Aire⁻/⁻ mentionnés comme alternatives.
+
+**9.2.5 — Section 4.4 : combinaisons cliniquement attractives non-testées (R4.3.3)**
+- Lister explicitement (3-5) les combinaisons d'intérêt clinique qui sortent du périmètre dynamique du modèle :
+  - anti-IFN-α + anti-CD40
+  - anti-BAFF + JAK
+  - anti-IFNAR + p38
+- Pourquoi non-testables : cibles encodées comme inputs.
+
+**9.2.6 — Section 3.7 : distinction des trois JAK inhibiteurs (R2.3.3)**
+- Différencier dans Table 5 ou en prose :
+  - Filgotinib : JAK1 préférentiel, MOSAIC Phase 2 négatif.
+  - Baricitinib : JAK1/2, off-label observationnel mitigé.
+  - Tofacitinib : pan-JAK, BReakThrough cancellé.
+
+**9.2.7 — Section 3.7 : anifrolumab → message explicite (R2.4.1)**
+- Ajouter une phrase de conclusion : "the model thereby suggests that anti-IFNAR alone cannot suffice in multifactorial SjD, concordant with the moderate Phase 2 efficacy reported."
+
+**9.2.8 — Section 4.2 : oscillation dynamique vs envelope populationnelle (R2.3.4, C7)**
+- Demi-phrase distinguant :
+  - "Oscillation au sens dynamique" (single-cell, real-time).
+  - "Envelope de variabilité" (population, snapshots transcriptomiques).
+- Précise que le `*` MP couvre les deux interprétations sans les distinguer.
+
+**9.2.9 — Section 1 : risque lymphomateux SjD (R2.4.3)**
+- Ajouter une phrase mentionnant le risque relatif × 15-20 pour DLBCL et × 1000 pour MALT lymphoma — motive l'orientation Section 4.4 vers SYK + p38 en BCR-stim.
+
+**9.2.10 — Section 1 ou 3.3 : clusters Soret 2021 (R2.3.5)**
+- Une phrase mentionnant la stratification SjD en 4 clusters moléculaires (Soret 2021) et le fait que la concordance IFN-stim A1 reflète probablement le cluster IFN-high (C2).
+
+**9.2.11 — Section 3.7 : ESSDAI défini (R2.4.2)**
+- Note de bas de page lors de la première mention de Bowman 2023 ou Bowman 2024 : "EULAR Sjögren's Syndrome Disease Activity Index — endpoint clinique de référence en essais SjD".
+
+**9.2.12 — Section 4.7 ou 4.9 : limite tissulaire blood vs salivary gland (R2.3.6)**
+- Phrase explicite : "the model is calibrated on blood-derived transcriptomic signal of SjD; it does not, in its current form, predict salivary-gland-specific therapeutic responses."
+
+**9.2.13 — Section 3.3 : PPV élevé partiellement attribuable au déséquilibre (R3.2.4)**
+- Phrase ajoutée : "high PPV is partially attributable to the imbalanced class distribution; balanced accuracy and AUROC remain above 0.5 and are the primary metrics."
+
+**9.2.14 — Section 4.4 : cohorte non-IFN comme contrôle externe optionnel (R3.2.6)**
+- Si le temps le permet, ajouter un test sur GSE100648 (RA, sans signature IFN dominante) en SI comme contrôle de spécificité.
+- Sinon, mentionner comme future work.
+
+**Livrables 9.2**
+- `docs/manuscript_v3_revised.md` (ou MAJ in-place de `docs/manuscript_v3.md`)
+- `docs/response_to_reviewers_v3.md` répondant point-par-point aux ~25 demandes round 3.
+
+**Critères de validation 9.2**
+- Toutes les recommandations R1.x–R4.x ont une réponse argumentée dans `response_to_reviewers_v3.md`.
+- Les sept convergences C1–C7 sont chacune adressées en au moins une section du manuscrit.
+
+#### 9.3 Re-soumission round 3 (J5, ≈ 0.5 jour)
+
+**9.3.1 — Tests de non-régression**
+- Vérifier que les 3 tests pytest existants passent toujours sur le manuscrit révisé / `model-v2.0`.
+- Pas de nouveau test requis (rien n'a changé dans le modèle ni dans le pipeline).
+
+**9.3.2 — Mise à jour Zenodo et CITATION.cff**
+- Bump version 2.1.0 → 2.2.0 (corrections éditoriales mineures, pas de changement de modèle).
+- Nouvelle archive Zenodo (DOI v2.2).
+- Mise à jour `CITATION.cff` (version, date-released).
+
+**9.3.3 — Re-soumission**
+- Re-soumettre à *npj Systems Biology and Applications* avec lettre couvrant les corrections depuis la version round 2 (`docs/cover_letter_v3.md`).
+
+### Suivi des recommandations round 3
+
+| Reco round 3 | Source | Sous-phase | Statut |
+|---|---|---|---|
+| C1 / R3.2.1 | Ratio up:down par cohorte dans Table 2 | 9.1.1 | À faire |
+| R3.2.2 | Correction multi-test pour le crible combinatoire | 9.1.3 | À faire |
+| R3.2.3 | Colonne n_down dans Table 3 | 9.1.2 | À faire |
+| R3.2.4 | Phrase PPV / déséquilibre de classes | 9.2.13 | À faire |
+| R3.2.5 | IC bootstrap pour 5 cohortes (pas 2) | 9.1.1 | À faire |
+| R3.2.6 | Cohorte non-IFN comme contrôle externe | 9.2.14 | Optionnel |
+| R3.2.7 | SI table enrichment top-5 par attracteur | 9.1.4 | À faire |
+| R3.2.8 | Colonne coverage_% dans Table 2 | 9.1.1 | À faire |
+| C2 / R1.3.1 | pystablemotifs : paramètres testés | 9.1.5 | À faire |
+| R1.3.2 | Coût d'un crible exhaustif paires | 9.1.3 | À faire |
+| C6 / R1.3.3 | Origine de l'activité Naive FP1 | 9.1.6 | À faire |
+| R1.3.4 | Cross-validation MP/async sur AP1/p38 | — | Optionnel (future work) |
+| R1.3.5 | Invariants trap-space IFN-stim | 9.1.7 | À faire |
+| R1.4.x | Vocabulaire trap space, update function | 9.2.x | À faire (notes prose) |
+| C5 / R2.3.2 | BAFF/APRIL dans prédiction lymphome | 9.2.3 | À faire |
+| R2.3.1 | PKR comme orphan target | 9.2.2 | À faire |
+| R2.3.3 | Distinction des 3 JAK inhibiteurs | 9.2.6 | À faire |
+| C7 / R2.3.4 | Oscillation dynamique vs envelope | 9.2.8 | À faire |
+| R2.3.5 | Clusters Soret 2021 | 9.2.10 | À faire |
+| R2.3.6 | Limite tissulaire blood vs SG | 9.2.12 | À faire |
+| R2.3.7 | Endpoint préclinique SYK+p38 opérationnel | 9.2.4 | À faire |
+| R2.4.1 | Anifrolumab : message explicite | 9.2.7 | À faire |
+| R2.4.2 | ESSDAI défini en note | 9.2.11 | À faire |
+| R2.4.3 | Risque lymphomateux SjD en intro | 9.2.9 | À faire |
+| C3 / R4.3.1 | Sélectivité modérée SYK inhibiteurs | 9.2.1 | À faire |
+| C4 / R4.3.2 | PKR : développement de novo | 9.2.2 | À faire (avec R2.3.1) |
+| R4.3.3 | Combinaisons cliniques non-testées | 9.2.5 | À faire |
+| R4.3.4 | SI ADMET pour 3 prédictions | — | Optionnel |
+| R4.3.5 | Modèle préclinique préférentiel IL-14α-Tg | 9.2.4 | À faire |
+| R4.3.6 | IP/compound supply pour 3 prédictions | — | Optionnel |
+
+### Dépendances internes
+
+- 9.1 (analyses tabulaires) peut tourner en parallèle de 9.2 (édition manuscrit).
+- 9.2 dépend de 9.1 pour les références aux nouveaux fichiers SI (~30 % des sections de 9.2).
+- 9.3 dépend de 9.1 + 9.2 entièrement.
+
+### Risques spécifiques de la Phase 9
+
+| Risque | Probabilité | Mitigation |
+|---|---|---|
+| Le contrôle externe non-IFN (GSE100648, RA) montre un match significatif → fragilise la spécificité IFN | Faible | Si confirmé, le marquer en limitation honnête et ne pas le supprimer ; reformuler comme "the model captures inflammatory cascades shared between IFN-driven autoimmune diseases". |
+| La correction multi-test sur le crible combinatoire (273 tests) abaisse les 3 paires synergiques sous le seuil | Faible | 3 paires *vraies* synergies sur 273 random tests → p_binomial = 1.6e-5 (largement significatif après Bonferroni). À reporter. |
+| Le re-formatage de Tables 2 et 3 avec colonnes additionnelles dépasse la mise en page raisonnable | Moyenne | Splitter en Table 2a (cohérence statistique) et 2b (composition de classe up/down/coverage) si nécessaire. |
+| pystablemotifs avec paramètres relâchés (`max_simulate_size=20`) termine et révèle des MIS différents des hits du crible | Faible | Si résultat positif, l'intégrer en Section 3.4 ou 4.10 ; si résultat partiel/timeout, le documenter comme avant. Prendre la décision après essai unique. |
+
+### Critères de Go/No-Go pour la resoumission round 3 (fin Phase 9)
+
+- ✅ Les 7 points convergents C1–C7 ont une réponse traçable dans le manuscrit révisé.
+- ✅ Les ~25 demandes individuelles round 3 ont une réponse dans `response_to_reviewers_v3.md`.
+- ✅ Tables 2 et 3 du manuscrit incluent les colonnes p_BH, n_down, coverage_%, ratio up:down, IC bootstrap pour 5 cohortes.
+- ✅ Section 4.4 distingue clairement la maturité translationnelle de p38 (Phase 2) vs PKR (orphan, de novo).
+- ✅ La dimension BAFF/APRIL non-couverte est explicitement reconnue comme limite de la prédiction lymphomagénique.
+- ✅ Tests pytest passent toujours sur le manuscrit révisé.
+
+### Estimation de charge
+
+| Sous-phase | Charge (jours) | Note |
+|---|---|---|
+| 9.1.1 — Enrichissement Table 2 | 0.3 | Re-formatage à partir de fichiers existants |
+| 9.1.2 — Enrichissement Table 3 | 0.2 | Idem |
+| 9.1.3 — Multi-test crible combinatoire | 0.2 | Quelques lignes Python |
+| 9.1.4 — SI table enrichment top-5 | 0.1 | Re-formatage existant |
+| 9.1.5 — pystablemotifs paramètres | 0.2 | Documentation, pas de calcul |
+| 9.1.6 — Naive FP1 origine | 0.3 | Analyse à partir de catalog existant |
+| 9.1.7 — Invariants trap-space | 0.2 | Extraction depuis attracteurs |
+| 9.2.x — Édition manuscrit (14 sous-points) | 2.0 | Prose ciblée, pas de nouvelle analyse |
+| 9.2 — Lettre de réponse round 3 | 0.5 | ~25 points × 1 paragraphe |
+| 9.3 — Resoumission | 0.3 | Tests, Zenodo, soumission |
+| **Total** | **~4-5 jours** | Faisable en 1 semaine calendaire |
 
 ---
