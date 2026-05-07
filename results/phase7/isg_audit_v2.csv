@@ -1,0 +1,6 @@
+condition,attractor,kind,n_active_isgs,MX1,MX2,OAS1,OAS2,OAS3,OASL,ISG15_Cell,ISG20,IFIT1_rna,IFIT2_rna,IFIT3_rna,IFIT5_rna,IFITM1_rna,IFITM2_rna,IFITM3_rna,IRF7_Cell,IRF9,STAT1,STAT1_phosphorylated,STAT1_homodimer_phosphorylated,STAT1_STAT2_IRF9_complex_Cell,STAT1_STAT2_IRF9_complex_nucleus
+Naive (homeostatic),A1,fixed_point,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
+Naive (homeostatic),A2,fixed_point,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
+IFN-stimulated,A1,trap_space,17,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,1,*,*,*,*
+BCR-stimulated,A1,fixed_point,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
+BCR-stimulated,A2,fixed_point,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0

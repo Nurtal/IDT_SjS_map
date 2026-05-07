@@ -25,6 +25,10 @@ data/processed/*
 !data/processed/.gitkeep
 !data/processed/alias_to_name.csv
 !data/processed/ref_sif_named.csv
+!data/processed/hgnc_to_bnet.csv
+!data/processed/hgnc_unmapped_nodes.csv
+!data/processed/hgnc_mapping_summary.md
+!data/processed/sanitize_collisions.csv
 
 # Sorties de solveurs (résultats régénérables, sauf rapports Markdown)
 results/**/*.json
@@ -35,6 +39,7 @@ results/**/*.csv
 !results/phase3/*.csv
 !results/phase4/*.csv
 !results/phase5/*.csv
+!results/phase7/*.csv
 
 # Figures générées
 figures/**/*.png

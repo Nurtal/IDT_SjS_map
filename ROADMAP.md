@@ -19,7 +19,7 @@ Ce document décompose chaque phase du projet en tâches élémentaires, livrabl
 | 4 | Analyse de contrôle | S14–S17 | ✅ Terminée (2026-05-05) |
 | 5 | Validation et étude de cas thérapeutique | S18–S21 | ✅ Terminée (2026-05-05) |
 | 6 | Rédaction et soumission | S22–S26 | ✅ Structure livrée (2026-05-05) |
-| **7** | **Révision majeure post-relecture** | **S27–S33** | 🔄 **En cours (2026-05-06)** |
+| **7** | **Révision majeure post-relecture** | **S27–S33** | ✅ **Livrée (2026-05-07)** — manuscrit v2 + réponse R1.1–R4.8 + tests |
 
 **Chemin critique** : Phase 1 → Phase 2 → Phase 3 → Phase 4. Les phases 5 et 6 dépendent toutes des résultats consolidés des phases 2–4. **La Phase 7 ré-exécute partiellement les phases 2–5 après corrections du modèle et de la statistique.**
 
@@ -627,36 +627,36 @@ Lever les limites identifiées par les relecteurs sans toucher au scope du papie
 
 | Reco | Source | Sous-phase | Statut |
 |---|---|---|---|
-| R1.1 | Stable motifs / MIS | 7.3.1 | À faire |
-| R1.2 | Conditions inputs biologiquement plausibles | 7.1.1 | À faire |
-| R1.3 | Crible combinatoire | 7.3.2 | À faire |
-| R1.4 | Comparaison sémantiques | 7.3.3 | À faire |
-| R1.5 | Audit déduplication sanitisation | 7.1.3 | À faire |
-| R1.6 | Tests de non-régression | 7.5.1 | À faire |
-| R1.7 | Audit topologique AP1/p38 | 7.1.2 | À faire |
-| R2.1 | Correction HDAC3 / IFN-I | 7.1.1 | À faire (CRITIQUE) |
-| R2.2 | Reformulation abstract | 7.4.1 | À faire |
-| R2.3 | Simulation JAK + p38 effective | 7.3.2 | À faire |
-| R2.4 | Échecs historiques p38 | 7.4.2 | À faire |
-| R2.5 | Discussion non-modélisabilité BAFF/CD40 | 7.4.2 | À faire |
-| R2.6 | Limitation cell-type agnostique | 7.4.2 | À faire |
-| R2.7 | Tempérer le titre | 7.4.1 | À faire |
-| R3.1 | Null model Hamming | 7.2.2 | À faire (CRITIQUE) |
-| R3.2 | Mapping HGNC officiel | 7.2.1 | À faire |
-| R3.3 | Sensibilité / spécificité / AUROC | 7.2.3 | À faire |
-| R3.4 | Sensibilité aux seuils DEG | 7.2.1 | À faire |
-| R3.5 | Distinction protéine / ARNm | 7.2.1 | À faire |
-| R3.6 | Re-cadrage GSE23117 | 7.2.5 | À faire |
-| R3.7 | Enrichissement KEGG/Reactome | 7.2.4 | À faire |
-| R3.8 | Discussion asymétrie up/down | 7.4.2 | À faire |
-| R4.1 | Simulation combinaisons | 7.3.2 | À faire |
-| R4.2 | Sélectivité JAK inhibiteurs | 7.4.2 | À faire |
-| R4.3 | Reformulation prédictions p38/AP1/PKR | 7.4.2 | À faire |
-| R4.4 | Section cibles non modélisables | 7.4.2 | À faire |
-| R4.5 | Sensibilité au seuil disease attractor | 7.3.4 | À faire |
-| R4.6 | Échecs historiques p38 (3+ refs) | 7.4.2 | À faire |
-| R4.7 | Retirer « 8/10 concordance » | 7.4.1 | À faire |
-| R4.8 | Section 25/39 cibles absentes | 7.4.2 | À faire |
+| R1.1 | Stable motifs / MIS | 7.3.1 | ✅ traité |
+| R1.2 | Conditions inputs biologiquement plausibles | 7.1.1 | ✅ traité |
+| R1.3 | Crible combinatoire | 7.3.2 | ✅ traité |
+| R1.4 | Comparaison sémantiques | 7.3.3 | ✅ traité |
+| R1.5 | Audit déduplication sanitisation | 7.1.3 | ✅ traité |
+| R1.6 | Tests de non-régression | 7.5.1 | ✅ traité |
+| R1.7 | Audit topologique AP1/p38 | 7.1.2 | ✅ traité |
+| R2.1 | Correction HDAC3 / IFN-I | 7.1.1 | ✅ traité (CRITIQUE) |
+| R2.2 | Reformulation abstract | 7.4.1 | ✅ traité |
+| R2.3 | Simulation JAK + p38 effective | 7.3.2 | ✅ traité |
+| R2.4 | Échecs historiques p38 | 7.4.2 | ✅ traité |
+| R2.5 | Discussion non-modélisabilité BAFF/CD40 | 7.4.2 | ✅ traité |
+| R2.6 | Limitation cell-type agnostique | 7.4.2 | ✅ traité |
+| R2.7 | Tempérer le titre | 7.4.1 | ✅ traité |
+| R3.1 | Null model Hamming | 7.2.2 | ✅ traité (CRITIQUE) |
+| R3.2 | Mapping HGNC officiel | 7.2.1 | ✅ traité |
+| R3.3 | Sensibilité / spécificité / AUROC | 7.2.3 | ✅ traité |
+| R3.4 | Sensibilité aux seuils DEG | 7.2.1 | ✅ traité |
+| R3.5 | Distinction protéine / ARNm | 7.2.1 | ✅ traité |
+| R3.6 | Re-cadrage GSE23117 | 7.2.5 | ✅ traité |
+| R3.7 | Enrichissement KEGG/Reactome | 7.2.4 | ✅ traité |
+| R3.8 | Discussion asymétrie up/down | 7.4.2 | ✅ traité |
+| R4.1 | Simulation combinaisons | 7.3.2 | ✅ traité |
+| R4.2 | Sélectivité JAK inhibiteurs | 7.4.2 | ✅ traité |
+| R4.3 | Reformulation prédictions p38/AP1/PKR | 7.4.2 | ✅ traité |
+| R4.4 | Section cibles non modélisables | 7.4.2 | ✅ traité |
+| R4.5 | Sensibilité au seuil disease attractor | 7.3.4 | ✅ traité |
+| R4.6 | Échecs historiques p38 (3+ refs) | 7.4.2 | ✅ traité |
+| R4.7 | Retirer « 8/10 concordance » | 7.4.1 | ✅ traité |
+| R4.8 | Section 25/39 cibles absentes | 7.4.2 | ✅ traité |
 
 ### Dépendances internes
 

@@ -1,0 +1,12 @@
+bnet_node,core_after_strip
+Ag_IgG_complex,Ag_IgG
+C3a,C3a
+C5a,C5a
+CpG_DNA_simple_molecule,CpG_DNA
+DAG_simple_molecule,DAG
+ca2_ion,ca2_ion
+dsRNA_polyIC_simple_molecule,dsRNA_polyIC
+dsRNA_simple_molecule,dsRNA
+flagellin_simple_molecule,flagellin
+sialic_acid_simple_molecule,sialic_acid
+ssRNA_simple_molecule,ssRNA

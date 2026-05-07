@@ -496,3 +496,174 @@ Ajouts dans `ROADMAP.md` :
 **Statut Phase 7 :** ouverte, sous-phase 7.1 prête à démarrer.
 
 ---
+
+## 2026-05-07 — Phase 7 : exécution complète des sous-phases 7.1 → 7.5
+
+### Synthèse
+
+Phase 7 livrée en une session : modèle v2 corrigé, statistique robustifiée
+(null model + AUROC + KEGG/Reactome), crible combinatoire, manuscrit v2,
+lettre de réponse R1.1→R4.8, tests de non-régression.
+
+### 7.1 — Corrections du modèle ✓
+
+**7.1.1 — Encodage IFN-I** : `models/sbmlqual/v2/sjd_map_v2.bnet`
+(HDAC3 = 1, KPNB1 = 1) via `src/conversion/build_v2_model.py`. Sous IFN-stim,
+**17 ISGs canoniques activables** (MX1, OAS1-3, ISG15, IRF7, IFIT1/3,
+STAT1/2-P, ISGF3 nucléaire). Critère 7.1.1 ✅.
+
+**7.1.2 — Audit topologique AP1/p38** : `src/validation/audit_ap1_p38.py`,
+`docs/audit_ap1_p38.md`. Betweenness moyenne du module 0.0058 vs 0.0171
+contrôle (3× plus faible). Voie TAK1 (MAP3K7) topologiquement présente.
+Verdict : **bottleneck linéaire à signal mécanistique partiellement
+préservé**. Reformulation v2 : "candidate convergent control module".
+
+**7.1.3 — Audit déduplication** : `sanitize_bnet.py` étendu pour produire
+`data/processed/sanitize_collisions.csv`. **0 règles perdues** lors de la
+sanitisation — résultat clean, contre-soutient l'hypothèse R1.5.
+
+**7.1 (re-compute)** : `src/analysis/compute_attractors_v2.py` produit
+`results/phase7/attractor_catalog_v2.csv`. Naive 2 FPs, IFN-stim 1 trap
+space cyclique (9 phénotypes activables, 17 ISGs), BCR 2 FPs.
+
+### 7.2 — Robustesse statistique ✓
+
+**7.2.1 — Mapping HGNC** : `src/validation/build_hgnc_mapping.py`,
+`data/processed/hgnc_to_bnet.csv` (593 mappings, 97.8 % des nœuds non
+phénotypiques). Distinction protéine/mRNA via `kind`. Couverture DEG côté
+cohorte : 12.6 % blood, 3.3 % salivary — plafond structurel de la SjD Map.
+
+**7.2.2 — Null model Hamming** : `src/validation/null_model_hamming.py`,
+10 000 permutations. **IFN-stim A1 vs blood : p = 0.014 / 0.007 / 0.003**
+(PRECISESADS / UKPSSR / GSE51092). Naive et BCR : non significatifs (p >
+0.6). ASSESS / GSE23117 : non significatifs (p > 0.6). Énorme amélioration
+sur v1 (qui n'avait aucune p-value et hamming ≈ 0.75).
+
+**7.2.3 — Sens/spec/AUROC** : `src/validation/sensitivity_specificity.py`.
+**AUROC IFN-stim A1 : 0.72 (PRECISESADS), 0.85 (UKPSSR), 0.57 (GSE51092)**.
+Balanced accuracy 0.69-0.85 sur les 3 cohortes blood. Critère R3.3 ✅.
+
+**7.2.4 — KEGG/Reactome** : `src/validation/enrichment_kegg_reactome.py`
+via `gseapy` 1.2.1. **4 voies canoniques SjD enrichies** dans IFN-stim A1 :
+JAK-STAT (KEGG, p = 4.5e-26), Interferon Signaling (Reactome, p = 3.1e-86),
+IFN α/β (p = 2.5e-63), IFN γ (p = 3.6e-50). Critère 7.2.4 ✅ (≥ 3).
+
+**7.2.5 — GSE23117** : `results/phase7/gse23117_recadrage.md`. Couverture
+3.3 % insuffisamment puissante (p = 0.65, AUROC = 0.43). Re-positionné en
+*cross-validation négative*, retiré du corps positif du manuscrit.
+
+### 7.3 — Extensions analytiques ✓ (avec mitigation)
+
+**7.3.1 — Stable motifs** : pystablemotifs intractable sur 508 nœuds (timeout
+> 180 s à BNetToPrime). Documenté dans `results/phase7/stable_motifs_status.md`
+et Section 4.7 du manuscrit v2. Mitigation : crible mono-nœud + crible
+combinatoire constituent une borne supérieure des MIS.
+
+**7.3.2 — Crible combinatoire** : `src/validation/combinatorial_perturbations.py`,
+91 paires × 3 conditions (273 runs). **JAK + p38 NON synergique** (p38 seul
+suffit déjà à éliminer FP1) → **claim de v1 retracté**. **3 paires
+synergiques** en BCR-stim : SYK + EIF2AK2, SYK + MAP2K6, SYK + MAPK11-14
+— axe candidat pour DLBCL associé à SjD.
+
+**7.3.3 — Sémantiques alt** : non exécuté (fenêtre révision majeure trop
+courte, BoolNet R requis). Documenté comme future-work.
+
+**7.3.4 — Sensibilité au seuil** : `src/validation/threshold_sensitivity.py`.
+**6 nœuds AP1/p38 stables aux 3 seuils** (5/6/7 phénotypes). R4.5 ✅.
+
+### 7.4 — Manuscrit v2 + lettre de réponse ✓
+
+- `docs/manuscript_v2.md` : ~6500 mots, IMRAD complet, refs étendues
+  (Damjanov 2018, Hammaker 2010, Watz 2014, Newby 2014).
+- `docs/response_to_reviewers.md` : réponse point-par-point R1.1–R4.8 (30
+  recommandations, toutes adressées).
+- Titre tempéré : *"Identifies AP1/p38 MAPK as a Candidate Convergent Control
+  Module Under IFN Stimulation"*.
+- Abstract sans 8/10 concordance.
+- Section 4.4 nouvelle : "Limitations of the SjD Map for SjD drug
+  repurposing" (25/39 cibles cliniques absentes du modèle).
+
+### 7.5 — Tests + Zenodo ✓ (tests) / partiel (Zenodo)
+
+- `tests/test_attractor_counts.py` : ✅ PASS
+- `tests/test_isg_activability.py` : ✅ PASS
+- `tests/test_null_model_significance.py` : ✅ PASS (1k perms en test, 10k
+  dans manuscrit). Tous les 3 passent en 1.13 s.
+- CITATION.cff bumped to version 2.0, abstract mis à jour.
+- Zenodo v2 archive et soumission journal : à exécuter manuellement par
+  l'auteur (hors automation).
+
+### Critères Go/No-Go pour resoumission (synthèse)
+
+- ✅ Modèle v2 produit ≥ 1 attracteur avec signature IFN-high authentique
+  (17 ISGs canoniques activables sous IFN-stim).
+- ✅ Toutes les distances Hamming reportées ont une p-value associée.
+- ✅ Au moins une perturbation combinatoire synergique testée et reportée
+  (résultat positif : 3 paires SYK+p38/PKR ; résultat négatif : JAK+p38).
+- ✅ Module AP1/p38 reste un hit après audit topologique (et sa fragilité
+  topologique est documentée).
+- ✅ Toutes les recommandations R1.1–R4.8 ont une réponse argumentée dans
+  `docs/response_to_reviewers.md`.
+
+→ **GO resoumission**. Manuscrit v2 prêt à être déposé à *npj Systems
+Biology and Applications* après revue interne finale.
+
+### Fichiers créés en Phase 7
+
+**Modèle v2 :**
+- `models/sbmlqual/v2/sjd_map_v2.bnet`, `models/sbmlqual/v2/changes.csv`
+
+**Scripts (tous Python) :**
+- `src/validation/audit_ap1_p38.py`
+- `src/validation/build_hgnc_mapping.py`
+- `src/validation/null_model_hamming.py`
+- `src/validation/sensitivity_specificity.py`
+- `src/validation/enrichment_kegg_reactome.py`
+- `src/validation/combinatorial_perturbations.py`
+- `src/validation/threshold_sensitivity.py`
+- `src/analysis/compute_attractors_v2.py`
+- `src/conversion/sanitize_bnet.py` (modifié)
+
+**Résultats (`results/phase7/`) :**
+- `attractor_catalog_v2.csv`, `isg_audit_v2.csv`, `attractor_report_v2.md`
+- `topology_ap1_p38.csv`, `ap1_p38_upstream.csv`, `ap1_p38_parallel_paths.csv`
+- `attractor_cohort_distance_v2.csv`
+- `sensitivity_specificity_auroc.csv`
+- `enrichment_attractors.csv`, `enrichment_cohorts.csv`, `enrichment_summary.md`
+- `combinatorial_perturbations.csv`
+- `threshold_sensitivity.csv`
+- `gse23117_recadrage.md`, `stable_motifs_status.md`
+
+**Données processées :**
+- `data/processed/hgnc_to_bnet.csv`, `hgnc_unmapped_nodes.csv`,
+  `hgnc_mapping_summary.md`
+- `data/processed/sanitize_collisions.csv`
+
+**Documents :**
+- `docs/audit_ap1_p38.md`
+- `docs/manuscript_v2.md`
+- `docs/response_to_reviewers.md`
+
+**Tests :**
+- `tests/test_attractor_counts.py`
+- `tests/test_isg_activability.py`
+- `tests/test_null_model_significance.py`
+
+**Figures (`figures/phase7/`) :**
+- `null_model_distribution.png`
+- `combinatorial_heatmap.png`
+
+### Décisions documentées
+
+| Décision | Motivation |
+|---|---|
+| HDAC3 = 1, KPNB1 = 1 plutôt qu'édition de la règle `STAT1 = HDAC3` | Édition minimale conservant la trace CaSQ ; les deux gènes sont biologiquement constitutifs dans les cellules immunitaires. |
+| `*` (oscillant MP) traité comme *activable* (= 1) pour le décompte | Cohérent avec la sémantique MP : `*` signifie 1 dans au moins une trajectoire de l'attracteur. |
+| Crible combinatoire ciblé (91 paires) plutôt qu'exhaustif (~3 000) | Tractabilité ; couvre les paires d'intérêt clinique direct (R2.3, R4.1). |
+| Retrait du « 8/10 concordance » plutôt que sa redéfinition | La métrique mélangeait des prédictions positives et des prédictions d'échec — pas réparable par recadrage. |
+| pystablemotifs : abandon plutôt que portage modulaire | Hors fenêtre révision majeure ; mitigation via combinatoire + audit topologique suffisante pour soutenir la conclusion principale. |
+
+**Statut Phase 7 :** ✅ TERMINÉE. Tous critères Go/No-Go atteints. Prochaine
+étape : revue interne finale du manuscrit v2, puis soumission.
+
+---

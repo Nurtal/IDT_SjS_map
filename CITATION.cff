@@ -11,19 +11,26 @@ url: "https://github.com/Nurtal/SjD-BoolAttractors"
 abstract: >-
   Conversion of the Sjögren's Disease Map (Silva-Saffar et al., 2026) into an
   executable Boolean network (508 nodes) and systematic characterisation of its
-  attractor landscape. Identifies the AP1/p38 MAPK module as a central control
-  node and predicts p38, AP1, and PKR inhibitors as novel therapeutic targets
-  for Sjögren's disease. Built on CaSQ, mpbn (Most Permissive Boolean Networks),
-  and a Snakemake reproducibility pipeline.
+  attractor landscape. v2 corrects the IFN-I cascade encoding (HDAC3 = 1,
+  KPNB1 = 1) so canonical interferon-stimulated genes are activable; reports
+  10 000-permutation null-model p-values, AUROC, and KEGG/Reactome
+  over-representation; identifies the AP1/p38 MAPK module as a candidate
+  convergent control point under IFN stimulation; and runs a targeted
+  combinatorial perturbation screen that retracts a JAK + p38 synergy claim
+  while supporting SYK + p38/PKR synergy in BCR-stimulated conditions
+  (relevant for SjD-associated lymphoma).
 keywords:
   - Sjögren's disease
   - Boolean network
   - attractors
   - systems biology
   - molecular interaction map
+  - null model
+  - control analysis
+  - drug repurposing
 license: MIT
-version: 0.1.0
-date-released: "2026-05-05"
+version: 2.0.0
+date-released: "2026-05-07"
 references:
   - type: article
     authors:

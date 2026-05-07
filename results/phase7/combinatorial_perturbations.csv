@@ -1,0 +1,274 @@
+condition,node_a,node_b,baseline_max_disease,mono_a_max_disease,mono_b_max_disease,pair_n_fp,pair_max_disease,pair_eliminates,synergy
+Naive (homeostatic),AP1_complex,BTK_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),AP1_complex,EIF2AK2_homodimer,7,2,2,1,2,1,0
+Naive (homeostatic),AP1_complex,FOS_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),AP1_complex,JAK1_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),AP1_complex,JAK2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),AP1_complex,JAK3_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),AP1_complex,JUN_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),AP1_complex,MAP2K6_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),AP1_complex,MAPK11_12_13_14_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),AP1_complex,STAT2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),AP1_complex,SYK_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),AP1_complex,TNFRSF13C,7,2,7,2,2,1,0
+Naive (homeostatic),AP1_complex,TYK2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),BTK_phosphorylated,EIF2AK2_homodimer,7,7,2,1,2,1,0
+Naive (homeostatic),BTK_phosphorylated,FOS_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),BTK_phosphorylated,JAK1_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),BTK_phosphorylated,JAK2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),BTK_phosphorylated,JAK3_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),BTK_phosphorylated,JUN_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),BTK_phosphorylated,MAP2K6_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),BTK_phosphorylated,MAPK11_12_13_14_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),BTK_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),BTK_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),BTK_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+Naive (homeostatic),BTK_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),EIF2AK2_homodimer,FOS_phosphorylated,7,2,2,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,JAK1_phosphorylated,7,2,7,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,JAK2_phosphorylated,7,2,7,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,JAK3_phosphorylated,7,2,7,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,JUN_phosphorylated,7,2,2,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,MAP2K6_phosphorylated,7,2,2,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,MAPK11_12_13_14_phosphorylated,7,2,2,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,STAT2_phosphorylated,7,2,7,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,SYK_phosphorylated,7,2,7,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,TNFRSF13C,7,2,7,1,2,1,0
+Naive (homeostatic),EIF2AK2_homodimer,TYK2_phosphorylated,7,2,7,1,2,1,0
+Naive (homeostatic),FOS_phosphorylated,JAK1_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),FOS_phosphorylated,JAK2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),FOS_phosphorylated,JAK3_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),FOS_phosphorylated,JUN_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),FOS_phosphorylated,MAP2K6_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),FOS_phosphorylated,MAPK11_12_13_14_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),FOS_phosphorylated,STAT2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),FOS_phosphorylated,SYK_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),FOS_phosphorylated,TNFRSF13C,7,2,7,2,2,1,0
+Naive (homeostatic),FOS_phosphorylated,TYK2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),JAK1_phosphorylated,JAK2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK1_phosphorylated,JAK3_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK1_phosphorylated,JUN_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),JAK1_phosphorylated,MAP2K6_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),JAK1_phosphorylated,MAPK11_12_13_14_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),JAK1_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK1_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK1_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+Naive (homeostatic),JAK1_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK2_phosphorylated,JAK3_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK2_phosphorylated,JUN_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),JAK2_phosphorylated,MAP2K6_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),JAK2_phosphorylated,MAPK11_12_13_14_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),JAK2_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK2_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK2_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+Naive (homeostatic),JAK2_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK3_phosphorylated,JUN_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),JAK3_phosphorylated,MAP2K6_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),JAK3_phosphorylated,MAPK11_12_13_14_phosphorylated,7,7,2,2,2,1,0
+Naive (homeostatic),JAK3_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK3_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JAK3_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+Naive (homeostatic),JAK3_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),JUN_phosphorylated,MAP2K6_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),JUN_phosphorylated,MAPK11_12_13_14_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),JUN_phosphorylated,STAT2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),JUN_phosphorylated,SYK_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),JUN_phosphorylated,TNFRSF13C,7,2,7,2,2,1,0
+Naive (homeostatic),JUN_phosphorylated,TYK2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),MAP2K6_phosphorylated,MAPK11_12_13_14_phosphorylated,7,2,2,2,2,1,0
+Naive (homeostatic),MAP2K6_phosphorylated,STAT2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),MAP2K6_phosphorylated,SYK_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),MAP2K6_phosphorylated,TNFRSF13C,7,2,7,2,2,1,0
+Naive (homeostatic),MAP2K6_phosphorylated,TYK2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),MAPK11_12_13_14_phosphorylated,STAT2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),MAPK11_12_13_14_phosphorylated,SYK_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),MAPK11_12_13_14_phosphorylated,TNFRSF13C,7,2,7,2,2,1,0
+Naive (homeostatic),MAPK11_12_13_14_phosphorylated,TYK2_phosphorylated,7,2,7,2,2,1,0
+Naive (homeostatic),STAT2_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),STAT2_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+Naive (homeostatic),STAT2_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),SYK_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+Naive (homeostatic),SYK_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+Naive (homeostatic),TNFRSF13C,TYK2_phosphorylated,7,7,7,2,7,0,0
+IFN-stimulated,AP1_complex,BTK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,EIF2AK2_homodimer,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,FOS_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,JAK1_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,JAK2_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,JAK3_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,JUN_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,MAP2K6_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,MAPK11_12_13_14_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,STAT2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,AP1_complex,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,AP1_complex,TYK2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,BTK_phosphorylated,EIF2AK2_homodimer,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,FOS_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,JAK1_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,JAK2_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,JAK3_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,JUN_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,MAP2K6_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,MAPK11_12_13_14_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,STAT2_phosphorylated,0,0,7,1,7,0,0
+IFN-stimulated,BTK_phosphorylated,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,BTK_phosphorylated,TYK2_phosphorylated,0,0,7,1,7,0,0
+IFN-stimulated,EIF2AK2_homodimer,FOS_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,JAK1_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,JAK2_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,JAK3_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,JUN_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,MAP2K6_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,MAPK11_12_13_14_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,STAT2_phosphorylated,0,0,7,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,EIF2AK2_homodimer,TYK2_phosphorylated,0,0,7,0,0,1,0
+IFN-stimulated,FOS_phosphorylated,JAK1_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,FOS_phosphorylated,JAK2_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,FOS_phosphorylated,JAK3_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,FOS_phosphorylated,JUN_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,FOS_phosphorylated,MAP2K6_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,FOS_phosphorylated,MAPK11_12_13_14_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,FOS_phosphorylated,STAT2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,FOS_phosphorylated,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,FOS_phosphorylated,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,FOS_phosphorylated,TYK2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,JAK1_phosphorylated,JAK2_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK1_phosphorylated,JAK3_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK1_phosphorylated,JUN_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK1_phosphorylated,MAP2K6_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK1_phosphorylated,MAPK11_12_13_14_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK1_phosphorylated,STAT2_phosphorylated,0,0,7,1,7,0,0
+IFN-stimulated,JAK1_phosphorylated,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK1_phosphorylated,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,JAK1_phosphorylated,TYK2_phosphorylated,0,0,7,2,7,0,0
+IFN-stimulated,JAK2_phosphorylated,JAK3_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK2_phosphorylated,JUN_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK2_phosphorylated,MAP2K6_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK2_phosphorylated,MAPK11_12_13_14_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK2_phosphorylated,STAT2_phosphorylated,0,0,7,1,7,0,0
+IFN-stimulated,JAK2_phosphorylated,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK2_phosphorylated,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,JAK2_phosphorylated,TYK2_phosphorylated,0,0,7,1,7,0,0
+IFN-stimulated,JAK3_phosphorylated,JUN_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK3_phosphorylated,MAP2K6_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK3_phosphorylated,MAPK11_12_13_14_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK3_phosphorylated,STAT2_phosphorylated,0,0,7,1,7,0,0
+IFN-stimulated,JAK3_phosphorylated,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JAK3_phosphorylated,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,JAK3_phosphorylated,TYK2_phosphorylated,0,0,7,1,7,0,0
+IFN-stimulated,JUN_phosphorylated,MAP2K6_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JUN_phosphorylated,MAPK11_12_13_14_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JUN_phosphorylated,STAT2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,JUN_phosphorylated,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,JUN_phosphorylated,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,JUN_phosphorylated,TYK2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,MAP2K6_phosphorylated,MAPK11_12_13_14_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,MAP2K6_phosphorylated,STAT2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,MAP2K6_phosphorylated,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,MAP2K6_phosphorylated,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,MAP2K6_phosphorylated,TYK2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,MAPK11_12_13_14_phosphorylated,STAT2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,MAPK11_12_13_14_phosphorylated,SYK_phosphorylated,0,0,0,0,0,1,0
+IFN-stimulated,MAPK11_12_13_14_phosphorylated,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,MAPK11_12_13_14_phosphorylated,TYK2_phosphorylated,0,0,7,1,6,0,0
+IFN-stimulated,STAT2_phosphorylated,SYK_phosphorylated,0,7,0,1,7,0,0
+IFN-stimulated,STAT2_phosphorylated,TNFRSF13C,0,7,0,1,7,0,0
+IFN-stimulated,STAT2_phosphorylated,TYK2_phosphorylated,0,7,7,1,7,0,0
+IFN-stimulated,SYK_phosphorylated,TNFRSF13C,0,0,0,0,0,1,0
+IFN-stimulated,SYK_phosphorylated,TYK2_phosphorylated,0,0,7,1,7,0,0
+IFN-stimulated,TNFRSF13C,TYK2_phosphorylated,0,0,7,1,7,0,0
+BCR-stimulated,AP1_complex,BTK_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,AP1_complex,EIF2AK2_homodimer,7,2,7,1,2,1,0
+BCR-stimulated,AP1_complex,FOS_phosphorylated,7,2,2,2,2,1,0
+BCR-stimulated,AP1_complex,JAK1_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,AP1_complex,JAK2_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,AP1_complex,JAK3_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,AP1_complex,JUN_phosphorylated,7,2,2,2,2,1,0
+BCR-stimulated,AP1_complex,MAP2K6_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,AP1_complex,MAPK11_12_13_14_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,AP1_complex,STAT2_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,AP1_complex,SYK_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,AP1_complex,TNFRSF13C,7,2,7,2,2,1,0
+BCR-stimulated,AP1_complex,TYK2_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,BTK_phosphorylated,EIF2AK2_homodimer,7,7,7,1,7,0,0
+BCR-stimulated,BTK_phosphorylated,FOS_phosphorylated,7,7,2,2,2,1,0
+BCR-stimulated,BTK_phosphorylated,JAK1_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,BTK_phosphorylated,JAK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,BTK_phosphorylated,JAK3_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,BTK_phosphorylated,JUN_phosphorylated,7,7,2,2,2,1,0
+BCR-stimulated,BTK_phosphorylated,MAP2K6_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,BTK_phosphorylated,MAPK11_12_13_14_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,BTK_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,BTK_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,BTK_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+BCR-stimulated,BTK_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,EIF2AK2_homodimer,FOS_phosphorylated,7,7,2,1,2,1,0
+BCR-stimulated,EIF2AK2_homodimer,JAK1_phosphorylated,7,7,7,1,7,0,0
+BCR-stimulated,EIF2AK2_homodimer,JAK2_phosphorylated,7,7,7,1,7,0,0
+BCR-stimulated,EIF2AK2_homodimer,JAK3_phosphorylated,7,7,7,1,7,0,0
+BCR-stimulated,EIF2AK2_homodimer,JUN_phosphorylated,7,7,2,1,2,1,0
+BCR-stimulated,EIF2AK2_homodimer,MAP2K6_phosphorylated,7,7,7,1,7,0,0
+BCR-stimulated,EIF2AK2_homodimer,MAPK11_12_13_14_phosphorylated,7,7,7,1,7,0,0
+BCR-stimulated,EIF2AK2_homodimer,STAT2_phosphorylated,7,7,7,1,7,0,0
+BCR-stimulated,EIF2AK2_homodimer,SYK_phosphorylated,7,7,7,1,2,1,1
+BCR-stimulated,EIF2AK2_homodimer,TNFRSF13C,7,7,7,1,7,0,0
+BCR-stimulated,EIF2AK2_homodimer,TYK2_phosphorylated,7,7,7,1,7,0,0
+BCR-stimulated,FOS_phosphorylated,JAK1_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,FOS_phosphorylated,JAK2_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,FOS_phosphorylated,JAK3_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,FOS_phosphorylated,JUN_phosphorylated,7,2,2,2,2,1,0
+BCR-stimulated,FOS_phosphorylated,MAP2K6_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,FOS_phosphorylated,MAPK11_12_13_14_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,FOS_phosphorylated,STAT2_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,FOS_phosphorylated,SYK_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,FOS_phosphorylated,TNFRSF13C,7,2,7,2,2,1,0
+BCR-stimulated,FOS_phosphorylated,TYK2_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,JAK1_phosphorylated,JAK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK1_phosphorylated,JAK3_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK1_phosphorylated,JUN_phosphorylated,7,7,2,2,2,1,0
+BCR-stimulated,JAK1_phosphorylated,MAP2K6_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK1_phosphorylated,MAPK11_12_13_14_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK1_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK1_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK1_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+BCR-stimulated,JAK1_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK2_phosphorylated,JAK3_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK2_phosphorylated,JUN_phosphorylated,7,7,2,2,2,1,0
+BCR-stimulated,JAK2_phosphorylated,MAP2K6_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK2_phosphorylated,MAPK11_12_13_14_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK2_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK2_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK2_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+BCR-stimulated,JAK2_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK3_phosphorylated,JUN_phosphorylated,7,7,2,2,2,1,0
+BCR-stimulated,JAK3_phosphorylated,MAP2K6_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK3_phosphorylated,MAPK11_12_13_14_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK3_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK3_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JAK3_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+BCR-stimulated,JAK3_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,JUN_phosphorylated,MAP2K6_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,JUN_phosphorylated,MAPK11_12_13_14_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,JUN_phosphorylated,STAT2_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,JUN_phosphorylated,SYK_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,JUN_phosphorylated,TNFRSF13C,7,2,7,2,2,1,0
+BCR-stimulated,JUN_phosphorylated,TYK2_phosphorylated,7,2,7,2,2,1,0
+BCR-stimulated,MAP2K6_phosphorylated,MAPK11_12_13_14_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,MAP2K6_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,MAP2K6_phosphorylated,SYK_phosphorylated,7,7,7,2,2,1,1
+BCR-stimulated,MAP2K6_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+BCR-stimulated,MAP2K6_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,MAPK11_12_13_14_phosphorylated,STAT2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,MAPK11_12_13_14_phosphorylated,SYK_phosphorylated,7,7,7,2,2,1,1
+BCR-stimulated,MAPK11_12_13_14_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+BCR-stimulated,MAPK11_12_13_14_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,STAT2_phosphorylated,SYK_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,STAT2_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+BCR-stimulated,STAT2_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,SYK_phosphorylated,TNFRSF13C,7,7,7,2,7,0,0
+BCR-stimulated,SYK_phosphorylated,TYK2_phosphorylated,7,7,7,2,7,0,0
+BCR-stimulated,TNFRSF13C,TYK2_phosphorylated,7,7,7,2,7,0,0

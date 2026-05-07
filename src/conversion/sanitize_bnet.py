@@ -90,6 +90,9 @@ def main() -> None:
     parser.add_argument("--input",  type=Path, default=Path("models/sbmlqual/v1/sjd_map_reduced.bnet"))
     parser.add_argument("--output", type=Path, default=Path("models/sbmlqual/v1/sjd_map_reduced_clean.bnet"))
     parser.add_argument("--map",    type=Path, default=Path("data/processed/bnet_name_map.csv"))
+    parser.add_argument("--collisions", type=Path, default=Path("data/processed/sanitize_collisions.csv"),
+                        help="CSV listing raw_target collisions resolved by deduplication "
+                             "(audit for Phase 7.1.3 / R1.5)")
     args = parser.parse_args()
 
     if not args.input.exists():
@@ -109,13 +112,33 @@ def main() -> None:
     # Build name map
     name_map = build_name_map(sorted(all_raw))
 
-    # Deduplicate: keep one rule per sanitized target (prefer longer formula)
+    # Deduplicate: keep one rule per sanitized target (prefer longer formula).
+    # Track every collision so the audit report can quantify how many raw rules
+    # were dropped by sanitisation (R1.5).
     deduped: dict[str, str] = {}
+    raw_targets_per_san: dict[str, list[str]] = {}
+    formulas_per_san: dict[str, list[tuple[str, str]]] = {}
     for raw_target, raw_formula in rules:
         san_target = name_map[raw_target]
         san_formula = replace_tokens(raw_formula, name_map)
+        raw_targets_per_san.setdefault(san_target, []).append(raw_target)
+        formulas_per_san.setdefault(san_target, []).append((raw_target, san_formula))
         if san_target not in deduped or len(san_formula) > len(deduped[san_target]):
             deduped[san_target] = san_formula
+
+    collisions_rows: list[dict[str, str]] = []
+    for san_target, entries in formulas_per_san.items():
+        if len(entries) <= 1:
+            continue
+        kept_formula = deduped[san_target]
+        for raw_target, san_formula in entries:
+            collisions_rows.append({
+                "sanitized_target": san_target,
+                "raw_target":       raw_target,
+                "formula":          san_formula,
+                "kept":             "1" if san_formula == kept_formula else "0",
+                "n_raw_targets":    str(len(entries)),
+            })
 
     # Write output
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -132,12 +155,25 @@ def main() -> None:
         for raw, san in sorted(name_map.items()):
             w.writerow([raw, san])
 
+    # Write collisions CSV
+    args.collisions.parent.mkdir(parents=True, exist_ok=True)
+    with open(args.collisions, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["sanitized_target", "raw_target",
+                                          "formula", "kept", "n_raw_targets"])
+        w.writeheader()
+        w.writerows(collisions_rows)
+
     # Summary
     phenotypes = [t for t in deduped if "phenotype" in t.lower()]
     collisions = sum(1 for r, s in name_map.items() if r != s)
-    print(f"Rules:      {len(deduped)}")
-    print(f"Name maps:  {len(name_map)}  ({collisions} renamed)")
-    print(f"Phenotypes: {len(phenotypes)}")
+    n_dropped = sum(1 for r in collisions_rows if r["kept"] == "0")
+    n_collided = len({r["sanitized_target"] for r in collisions_rows})
+    print(f"Rules:        {len(deduped)}")
+    print(f"Name maps:    {len(name_map)}  ({collisions} renamed)")
+    print(f"Phenotypes:   {len(phenotypes)}")
+    print(f"Collisions:   {n_collided} sanitized targets received >1 raw rule")
+    print(f"Rules lost:   {n_dropped} raw rules discarded by deduplication")
+    print(f"Audit CSV:    {args.collisions}")
     for p in sorted(phenotypes):
         print(f"  {p}")
 

@@ -1,0 +1,15 @@
+ancestor,depth,child,in_degree,out_degree
+CpG_DNA_TLR9_complex,1,MAPK11_12_13_14_phosphorylated,1,11
+MAP2K3_phosphorylated,1,MAPK11_12_13_14_phosphorylated,2,1
+MAP2K6_phosphorylated,1,MAPK11_12_13_14_phosphorylated,3,1
+CpG_DNA_simple_molecule,2,CpG_DNA_TLR9_complex,1,2
+MAP3K7_phosphorylated,2,MAP2K3_phosphorylated,1,5
+MAP3K5_phosphorylated,2,MAP2K3_phosphorylated,1,2
+EIF2AK2_homodimer,2,MAP2K6_phosphorylated,6,5
+TAB1_TAB2_TAB3_complex,3,MAP3K7_phosphorylated,2,1
+DAXX,3,MAP3K5_phosphorylated,2,1
+LPS_CD14_TL4_LY96_complex,3,EIF2AK2_homodimer,2,11
+ISG15_Cell_active,3,EIF2AK2_homodimer,4,1
+EIF2AK2,3,EIF2AK2_homodimer,1,1
+TARBP2_phosphorylated,3,EIF2AK2_homodimer,1,2
+ADAR1_homodimer,3,EIF2AK2_homodimer,1,1
